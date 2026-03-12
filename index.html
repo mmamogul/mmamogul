@@ -1264,7 +1264,7 @@ function sim(f1,f2){
   const moraleBoost=((f1.morale||70)+(f2.morale||70))/2;
   const ent=Math.min(100,Math.max(15,Math.round(
     (f1.s.cha+f2.s.cha)/2*.35+(Math.abs(s1-s2)<5?18:0)+(method==='KO/TKO'||method==='Submission'?16:0)+ri(-10,18)+(moraleBoost>75?3:moraleBoost<45?-5:0))));
-  return{wId:win.id,lId:lose.id,wName:win.name,lName:lose.name,method,round,ent,wOvr:Math.round(s1>s2?s1:s2),lOvr:Math.round(s1>s2?s2:s1)};
+  return{wId:win.id,lId:lose.id,wName:win.name,lName:lose.name,f1Id:f1.id,method,round,ent,wOvr:Math.round(s1>s2?s1:s2),lOvr:Math.round(s1>s2?s2:s1)};
 }
 
 // -- STATE -------------------------------------------------
@@ -1957,6 +1957,7 @@ function runEvent(ev){
 
   const rec={id:Date.now(),name:ev.name||(G.promo.name+' '+ev.tier[0].toUpperCase()+ev.tier.slice(1)),
     tier:ev.tier,venue:venue.name,venueCap:venue.cap,fillRate,
+    locationId:ev.locationId||'usa_east',locationName:evLoc.name,
     totalRev,gateRev,tvRev,merchRev,sponsorRev,venueCost,totalPurses,totalBonuses,profit,
     bonuses,bonusAmt,results,avgEnt,stars,wk:G.wk,mo:G.mo,yr:G.yr,
     date:MON[G.mo-1]+' '+G.yr,fights:results,numFights:ev.fights.length,mktSpend};
@@ -2902,7 +2903,7 @@ function vEvents(){
         style:{padding:'12px',background:'var(--bg3)',border:'1px solid var(--bd)',borderRadius:'9px',cursor:'pointer'},
         onClick:()=>{
           const tierVenue={weekly:'v1',fightnight:'v2',premium:'v4',supercard:'v5'};
-          UI.evB={tier:k,name:'',fights:[],venueId:tierVenue[k]||VENUES[0].id,selWC:null,selF1:null,ticketMode:'auto',scheduled:false};render();
+          UI.evB={tier:k,name:'',fights:[],venueId:tierVenue[k]||VENUES[0].id,locationId:'usa_east',selWC:null,selF1:null,ticketMode:'auto',scheduled:false};render();
         },
       },[
         h('div',{style:{fontSize:'20px',marginBottom:'3px'}},[ti.icon]),
@@ -3178,21 +3179,50 @@ function vEventBuilder(){
     ]:[h('div',{style:{color:'var(--tx3)',fontSize:'13px',padding:'10px',textAlign:'center'}},'Select a weight class above')]),
   ]);
 
+  const totalFights=ev.fights.length;
   const cardPreview=D('card',[
-    D('ct',['Card ('+ev.fights.length+'/'+maxF+' fights · min '+minF+' required)']),
-    ...(!canRun&&ev.fights.length>0?[D('al al-w',['Need at least '+minF+' fights for a '+tLabel[ev.tier]])]:[]),
-    ...(ev.fights.length===0?[h('div',{style:{color:'var(--tx3)',fontSize:'12px',textAlign:'center',padding:'14px 0'}},'Use auto-fill or add fights manually')]
-    :ev.fights.map((fi,idx2)=>{
+    D('ct',['Card ('+totalFights+'/'+maxF+' fights · min '+minF+' required)']),
+    ...(!canRun&&totalFights>0?[D('al al-w',['Need at least '+minF+' fights for a '+tLabel[ev.tier]])]:[]),
+    // Purse summary
+    ...(totalFights>0?(()=>{
+      const totalShow=ev.fights.reduce((s,fi)=>{
+        const f1=G.roster.find(f=>f.id===fi.f1Id),f2=G.roster.find(f=>f.id===fi.f2Id);
+        return s+(f1?.contract?.show||0)+(f2?.contract?.show||0);
+      },0);
+      const totalWinBonus=ev.fights.reduce((s,fi)=>{
+        const f1=G.roster.find(f=>f.id===fi.f1Id),f2=G.roster.find(f=>f.id===fi.f2Id);
+        // Both might win; estimate one win bonus per fight (the likely winner gets it)
+        return s+Math.max(f1?.contract?.win||0,f2?.contract?.win||0);
+      },0);
+      const bonusPool=(ev.bonusAmt!==undefined?ev.bonusAmt:{weekly:10000,fightnight:30000,premium:75000,supercard:100000}[ev.tier]||50000)*3;
+      const loTotal=totalShow;
+      const hiTotal=totalShow+totalWinBonus+bonusPool;
+      return [h('div',{style:{display:'flex',gap:'8px',marginBottom:'10px',padding:'9px 10px',background:'rgba(192,57,43,.06)',border:'1px solid rgba(192,57,43,.2)',borderRadius:'8px',fontSize:'12px',flexWrap:'wrap'}},[
+        h('span',{style:{color:'var(--tx2)'}},'💸 Estimated purses:'),
+        h('span',{style:{fontWeight:'800',color:'var(--red)'}},[fm(loTotal)+' – '+fm(hiTotal)]),
+        h('span',{style:{color:'var(--tx3)'}},'(show money + win bonuses + up to 3 night bonuses)'),
+      ])];
+    })():[]),
+    ...(totalFights===0?[h('div',{style:{color:'var(--tx3)',fontSize:'12px',textAlign:'center',padding:'14px 0'}},'Use auto-fill or add fights manually')]
+    // Show fights in reverse so main event (index 0) is at TOP, fight 1 is at BOTTOM
+    :[...ev.fights].map((fi,realIdx)=>({fi,realIdx})).reverse().map(({fi,realIdx})=>{
+      const displayNum=totalFights-realIdx; // fight 1 = bottom prelim, fight N = main event
+      const isMain=realIdx===0;
       const f1=G.roster.find(f=>f.id===fi.f1Id),f2=G.roster.find(f=>f.id===fi.f2Id);
+      const f1Show=f1?.contract?.show||0, f1Win=f1?.contract?.win||0;
+      const f2Show=f2?.contract?.show||0, f2Win=f2?.contract?.win||0;
+      const purseFloor=f1Show+f2Show;
+      const purgeCeil=f1Show+f1Win+f2Show+f2Win;
       return h('div',{
         draggable:true,
-        style:{padding:'8px',borderBottom:'1px solid var(--bd)',position:'relative',cursor:'grab',userSelect:'none'},
-        onDragstart:e=>{e.dataTransfer.setData('text/plain',idx2+'');UI._dragIdx=idx2;},
+        style:{padding:'8px',borderBottom:'1px solid var(--bd)',position:'relative',cursor:'grab',userSelect:'none',
+          background:isMain?'rgba(212,172,13,.04)':''},
+        onDragstart:e=>{e.dataTransfer.setData('text/plain',realIdx+'');UI._dragIdx=realIdx;},
         onDragover:e=>{e.preventDefault();e.currentTarget.style.background='var(--bg3)';},
-        onDragleave:e=>{e.currentTarget.style.background='';},
+        onDragleave:e=>{e.currentTarget.style.background=isMain?'rgba(212,172,13,.04)':'';},
         onDrop:e=>{
           e.preventDefault();e.currentTarget.style.background='';
-          const from=UI._dragIdx;const to=idx2;
+          const from=UI._dragIdx;const to=realIdx;
           if(from!==undefined&&from!==to){
             const arr=[...ev.fights];arr.splice(to,0,arr.splice(from,1)[0]);
             ev.fights=arr;UI._dragIdx=undefined;render();
@@ -3202,11 +3232,21 @@ function vEventBuilder(){
         h('div',{style:{display:'flex',alignItems:'center',gap:'6px'}},[
           h('span',{style:{color:'var(--tx3)',fontSize:'16px',lineHeight:'1',cursor:'grab',flexShrink:'0'}},'⠿'),
           h('div',{style:{flex:'1'}},[
-            h('div',{style:{fontSize:'10px',color:'var(--tx3)',marginBottom:'2px'}},[(idx2===0?'MAIN EVENT':'Fight '+(idx2+1))+(fi.title?' · 🏆 TITLE':'')+' · '+(ALL_WCN[fi.wc]||fi.wc)]),
+            h('div',{style:{fontSize:'10px',fontWeight:'700',marginBottom:'2px',
+              color:isMain?'var(--gold)':'var(--tx3)'}},[
+              (isMain?'⭐ MAIN EVENT':'Fight '+displayNum)+(fi.title?' · 🏆 TITLE':'')+' · '+(ALL_WCN[fi.wc]||fi.wc),
+            ]),
             h('div',{style:{display:'flex',alignItems:'center',gap:'6px'}},[
               h('div',{style:{flex:'1',fontWeight:'700',textAlign:'right',fontSize:'12px'}},[f1?.name||'?']),
               h('div',{style:{color:'var(--red)',fontWeight:'900',padding:'0 5px',fontSize:'11px'}},'VS'),
               h('div',{style:{flex:'1',fontWeight:'700',fontSize:'12px'}},[f2?.name||'?']),
+            ]),
+            h('div',{style:{fontSize:'10px',color:'var(--tx3)',marginTop:'3px',display:'flex',gap:'4px',flexWrap:'wrap'}},[
+              h('span',{},[f1?.name?.split(' ').pop()||'?']+': '+fm(f1Show)+(f1Win?' + '+fm(f1Win)+' win':'')),
+              h('span',{style:{color:'var(--bd)'}},'·'),
+              h('span',{},[f2?.name?.split(' ').pop()||'?']+': '+fm(f2Show)+(f2Win?' + '+fm(f2Win)+' win':'')),
+              h('span',{style:{color:'var(--bd)'}},'·'),
+              h('span',{style:{color:purseFloor>50000?'var(--red)':'var(--tx3)'}},'Floor: '+fm(purseFloor)),
             ]),
           ]),
           Btn('✕',()=>{ev.fights=ev.fights.filter(f=>f.id!==fi.id);render();},'btn btn-s btn-sm'),
@@ -3260,7 +3300,7 @@ function vEventBuilder(){
       D('',[venueSection,
         // Location picker
         D('card',[
-          D('ct',['📍 Event Location']),
+          D('ct',['📍 Event Location ',h('span',{style:{fontSize:'10px',fontWeight:'700',color:'var(--red)',background:'rgba(192,57,43,.1)',borderRadius:'4px',padding:'1px 5px'}},'Required')]),
           h('select',{style:{width:'100%',padding:'7px',background:'var(--bg3)',color:'var(--tx)',border:'1px solid var(--bd)',borderRadius:'7px',marginBottom:'6px',fontSize:'13px'},
             onChange:e2=>{ev.locationId=e2.target.value;render();}},[
             ...(() => {
@@ -3427,6 +3467,10 @@ function vEventBuilder(){
         })(),
                 Btn('📅 Add to Schedule'+(ev.fights.length<minF?' (need '+minF+' fights)':''),()=>{
               if(ev.fights.length<minF){alert('Need at least '+minF+' fights!');return;}
+              if(!ev.locationId){alert('Please select an event location.');return;}
+              // Block same-week double-booking
+              const sameWk=(G.schedule||[]).find(e=>e.schedWk===ev.schedWk&&e.schedMo===ev.schedMo&&e.schedYr===ev.schedYr);
+              if(sameWk){alert('⚠️ '+sameWk.name+' is already scheduled that week. Choose a different week.');return;}
               G.schedule=G.schedule||[];
               const _sc=(G.schedule.filter(e=>e.tier===ev.tier).length)+(G.events.filter(e=>e.tier===ev.tier).length)+1;
               const _an=ev.name||(tLabel[ev.tier]+' '+_sc);
@@ -3878,7 +3922,7 @@ function vModal(){
       h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:'14px'}},[
         h('div',{},[
           h('div',{style:{fontSize:'18px',fontWeight:'900',marginBottom:'3px'}},[(mIcon[e.tier]||'🥊')+' '+e.name]),
-          h('div',{style:{fontSize:'12px',color:'var(--tx3)'}},[e.tier+' · '+(e.locationId||'Unknown location')+' · '+(e.numFights||e.fights?.length||0)+' fights']),
+          h('div',{style:{fontSize:'12px',color:'var(--tx3)'}},[e.tier+' · '+(e.locationName||(EVENT_LOCATIONS.find(l=>l.id===e.locationId)?.name)||'Unknown location')+' · '+(e.numFights||e.fights?.length||0)+' fights']),
         ]),
         h('div',{style:{textAlign:'right'}},[
           h('div',{style:{fontWeight:'900',fontSize:'18px',color:e.profit>=0?'var(--grn)':'var(--red)'}},[fm(e.profit)]),
@@ -3914,7 +3958,9 @@ function vModal(){
         h('div',{style:{display:'flex',gap:'6px',flexWrap:'wrap'}},[
           ...e.bonuses.map(b=>h('div',{style:{background:'rgba(184,134,11,.12)',border:'1px solid rgba(184,134,11,.3)',borderRadius:'7px',padding:'5px 10px',fontSize:'12px'}},[
             h('div',{style:{fontWeight:'700',color:'var(--gold)'}},[b.label]),
-            h('div',{style:{fontSize:'11px',color:'var(--tx2)'}},[b.fighter+' · '+fm(b.amt)]),
+            h('div',{style:{fontSize:'11px',color:'var(--tx2)'}},[
+              (b.fighter?.name||'')+(b.fighter2?' & '+b.fighter2.name:'')+' · '+fm(b.amt)
+            ]),
           ])),
         ]),
       ]:[]),
@@ -3979,15 +4025,26 @@ function vModal(){
             (i===0?'MAIN EVENT':'CO-MAIN '+(i+1))+(r.title?' · 🏆 TITLE FIGHT':'')+' · '+(ALL_WCN[r.wc]||r.wc||'')
           ]),
           h('div',{style:{display:'grid',gridTemplateColumns:'1fr auto 1fr',gap:'6px',alignItems:'center',marginBottom:'6px'}},[
-            h('div',{style:{textAlign:'right'}},[
-              h('div',{style:{fontWeight:'800',color:'var(--grn)',fontSize:'14px'}},[r.wName]),
-              h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},'WIN · '+fm((r.showW||0)+(r.winW||0))),
-            ]),
-            h('div',{style:{textAlign:'center',fontWeight:'900',color:'var(--tx3)',fontSize:'12px'}},'vs'),
-            h('div',{},[
-              h('div',{style:{fontWeight:'600',color:'var(--tx2)',fontSize:'14px'}},[r.lName]),
-              h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},'LOSS · '+fm(r.showL||0)),
-            ]),
+            (()=>{
+              // f1 always on left, f2 always on right; green = winner
+              const f1IsWin=r.f1Id===r.wId;
+              const leftName=f1IsWin?r.wName:r.lName;
+              const rightName=f1IsWin?r.lName:r.wName;
+              const leftPurse=f1IsWin?(r.showW||0)+(r.winW||0):(r.showL||0);
+              const rightPurse=f1IsWin?(r.showL||0):(r.showW||0)+(r.winW||0);
+              const leftWin=f1IsWin, rightWin=!f1IsWin;
+              return [
+                h('div',{style:{textAlign:'right'}},[
+                  h('div',{style:{fontWeight:'800',color:leftWin?'var(--grn)':'var(--tx2)',fontSize:'14px'}},[leftName]),
+                  h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},[leftWin?'WIN · '+fm(leftPurse):'LOSS · '+fm(leftPurse)]),
+                ]),
+                h('div',{style:{textAlign:'center',fontWeight:'900',color:'var(--tx3)',fontSize:'12px'}},'vs'),
+                h('div',{},[
+                  h('div',{style:{fontWeight:rightWin?'800':'600',color:rightWin?'var(--grn)':'var(--tx2)',fontSize:'14px'}},[rightName]),
+                  h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},[rightWin?'WIN · '+fm(rightPurse):'LOSS · '+fm(rightPurse)]),
+                ]),
+              ];
+            })(),
           ]),
           h('div',{style:{display:'flex',justifyContent:'space-between',fontSize:'11px',color:'var(--tx2)'}},[
             h('span',{},[r.method+' · Rd '+r.round]),
@@ -4017,7 +4074,7 @@ function vModal(){
         return h('div',{style:{marginBottom:'12px'}},[
           D('ct',['📰 Event Story']),
           h('div',{cls:'narrative-card'},[
-            ...lines.map((l,i)=>h('p',{style:{margin:i===0?'0 0 8px':'6px 0 0',fontWeight:i===0?'800':'400',color:i===0?'var(--tx)':'var(--tx2)'}},[l])),
+            ...lines.map((l,i)=>h('p',{style:{margin:'0 0 7px',fontSize:'12px',lineHeight:'1.65',fontWeight:i===0?'700':'400',color:i===0?'var(--tx)':'var(--tx2)'}},[l])),
           ]),
         ]);
       })(),
@@ -5230,34 +5287,110 @@ function calcPromoLegacy(promo, roster, hofList, events){
 // ── NARRATIVE ENGINE ─────────────────────────────────────────
 function generateNarrative(ev){
   if(!ev||!ev.results||!ev.results.length)return null;
-  const lines=[];
-  const mainEvent=ev.results[0];
-  const win=G.roster.find(f=>f.id===mainEvent.wId)||(G.retired||[]).find(f=>f.id===mainEvent.wId);
-  const lose=G.roster.find(f=>f.id===mainEvent.lId)||(G.retired||[]).find(f=>f.id===mainEvent.lId);
-  const evName=ev.name||(G.promo.name+' '+ev.tier);
 
-  lines.push(evName+' delivered '+(ev.avgEnt>=80?'fireworks':'an entertaining card')+'.');
-  if(win&&lose){
-    const method=mainEvent.method;
-    const rd=mainEvent.round;
-    if(mainEvent.title){
-      if(win.isChamp){
-        lines.push(win.name+' defended the '+(ALL_WCN[mainEvent.wc]||'')+' title'+(method==='KO/TKO'||method==='Submission'?' by '+method+' in round '+rd:'')+'.');
-        lines.push((win.name)+' now holds '+(win.titleDefs||1)+' title defense'+(( win.titleDefs||1)>1?'s':'')+' and is ranked #'+(win.goatRank||'?')+' on the all-time GOAT leaderboard.');
+  const findF=id=>G.roster.find(f=>f.id===id)||(G.retired||[]).find(f=>f.id===id);
+  const evName=ev.name||(G.promo.name+' '+ev.tier);
+  const lines=[];
+
+  // Overall card tone
+  const avgEnt=ev.avgEnt||50;
+  const stars=ev.stars||0;
+  const cardTone=avgEnt>=82?'delivered a spectacular night of violence':
+    avgEnt>=72?'put on a solid show for the fans':
+    avgEnt>=58?'was a mixed bag — some highs, plenty of lows':
+    avgEnt>=44?'struggled to hold the crowd\'s attention':
+    'was a disappointment from top to bottom';
+  lines.push(evName+' '+cardTone+'.');
+
+  // Write about each fight (results[0] = main event)
+  ev.results.forEach((r,i)=>{
+    const win=findF(r.wId);
+    const lose=findF(r.lId);
+    if(!win||!lose)return;
+    const isMain=i===0;
+    const isCoMain=i===1;
+    const label=isMain?'In the main event':isCoMain?'In the co-main event':'On the undercard';
+    const method=r.method;
+    const rd=r.round;
+    const ent=r.ent||50;
+
+    // Craft result sentence — no "stopped" for decisions
+    let resultLine='';
+    if(method==='KO/TKO'){
+      const koVerbs=['knocked out','stopped via TKO','finished','put away','hurt and stopped'];
+      resultLine=win.name+' '+koVerbs[Math.floor(Math.random()*koVerbs.length)]+' '+lose.name+' in round '+rd+'.';
+    } else if(method==='Submission'){
+      const subVerbs=['submitted','tapped out','forced a tap from','caught'];
+      resultLine=win.name+' '+subVerbs[Math.floor(Math.random()*subVerbs.length)]+' '+lose.name+' in round '+rd+'.';
+    } else {
+      // Decision variants
+      const decLabel=method==='Unanimous Decision'?'a unanimous decision':method==='Split Decision'?'a contentious split decision':'a majority decision';
+      resultLine=win.name+' outpointed '+lose.name+' over three rounds, taking '+decLabel+'.';
+    }
+
+    // Entertainment colour commentary
+    let entLine='';
+    if(ent>=88){
+      const adj=['breathtaking','instant classic','a candidate for fight of the year'];
+      entLine='It was '+adj[Math.floor(Math.random()*adj.length)]+' — both men left everything in the cage.';
+    } else if(ent>=76){
+      entLine='The fight delivered, with plenty of back-and-forth action that kept fans on their feet.';
+    } else if(ent>=62){
+      entLine='It was decent enough — not a classic, but a competitive scrap.';
+    } else if(ent>=48){
+      if(method.includes('Decision')){
+        entLine='The crowd grew restless as both fighters played it safe, content to work behind jabs and clinch work with little urgency.';
       } else {
-        lines.push(win.name+' is the NEW '+(ALL_WCN[mainEvent.wc]||'')+' champion, stopping '+lose.name+(method==='Decision'?' by decision':' by '+method+' in round '+rd)+'.');
-        if((win.goatScore||0)>50)lines.push(win.name+' moves to #'+(win.goatRank||'?')+' on the GOAT leaderboard with a score of '+Math.round(win.goatScore||0)+'.');
+        entLine='It was an ugly, scrappy affair that never found a rhythm.';
+      }
+    } else if(ent>=35){
+      if(method.includes('Decision')){
+        entLine='The bout was roundly booed by the end — a stalling, grinding decision that felt like it lasted twice as long as it did. Expect calls for both men to be cut if this continues.';
+      } else {
+        entLine='Even the finish couldn\'t save the fight\'s reputation — it was a chore to watch up to that point.';
       }
     } else {
-      lines.push(win.name+(method==='Decision'?' won a decision over ':' stopped ')+lose.name+(method!=='Decision'?' by '+method+' in round '+rd:'')+'.');
+      entLine='This was one of the worst fights seen in recent memory. Boos rained down, and it will not be forgotten for the wrong reasons. The matchmaker has questions to answer.';
     }
-  }
-  // Bonus highlights
+
+    // Title implications
+    let titleLine='';
+    if(r.title){
+      if(win.isChamp){
+        titleLine=win.name+' now has '+(win.titleDefs||1)+' title defense'+(( win.titleDefs||1)!==1?'s':'')+', sitting at #'+(win.goatRank||'?')+' on the all-time GOAT leaderboard.';
+      } else {
+        titleLine='A new champion is crowned. '+(lose.name)+' has lost the belt after '+(lose.titleDefs||0)+' defense'+(( lose.titleDefs||0)!==1?'s':'')+'.';
+      }
+    } else if(isMain||isCoMain){
+      // Contender implications for main/co-main non-title fights
+      if(ent<40&&method.includes('Decision')){
+        titleLine='A performance like that will do nothing for '+win.name+'\'s title case — a win is a win, but the fans aren\'t buying it.';
+      } else if((win.goatRank||999)<10){
+        titleLine=win.name+' strengthens a legitimate title claim with the victory.';
+      }
+    }
+
+    // Prospect callout on the undercard
+    let prospectLine='';
+    if(!isMain&&!isCoMain&&win?.tier==='prospect'&&(win.winStreak||0)>=2){
+      prospectLine=win.name+' improves to '+(win.rec.w)+'-'+(win.rec.l)+' — a name to watch.';
+    }
+
+    lines.push(label+', '+resultLine);
+    if(entLine)lines.push(entLine);
+    if(titleLine)lines.push(titleLine);
+    if(prospectLine)lines.push(prospectLine);
+  });
+
+  // Night bonuses
   const fotn=ev.bonuses?.find(b=>b.label.includes('Fight'));
-  if(fotn)lines.push('The '+( fotn.fighter?.name||'')+(fotn.fighter2?' & '+fotn.fighter2.name:'')+' bout earned Fight of the Night honours.');
-  // Rising prospect callout
-  const risingProspect=G.roster.filter(f=>f.tier==='prospect'&&(f.winStreak||0)>=3&&(f.winStreak||0)<7).sort((a,b)=>(b.goatScore||0)-(a.goatScore||0))[0];
-  if(risingProspect)lines.push('Rising prospect '+risingProspect.name+' improved to '+(risingProspect.rec.w)+'-'+(risingProspect.rec.l)+' and is #'+(risingProspect.goatRank||'?')+' in the GOAT rankings.');
+  if(fotn&&fotn.fighter&&fotn.fighter2){
+    lines.push(fotn.fighter.name+' vs '+fotn.fighter2.name+' took home Fight of the Night honours.');
+  }
+  const kotn=ev.bonuses?.find(b=>b.label.includes('KO'));
+  if(kotn&&kotn.fighter){
+    lines.push(kotn.fighter.name+' earned Performance of the Night for the finish.');
+  }
 
   return lines;
 }
