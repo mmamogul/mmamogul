@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MMA Mogul v16</title>
+<title>MMA Mogul v18</title>
 <style>
 /* ── Select Screen ───────────────────────────────── */
 .sel-wrap::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -110,6 +110,84 @@ input:focus,select:focus{border-color:var(--red)}
 .tog.on{background:var(--red);border-color:var(--red)}
 .tog::after{content:'';position:absolute;left:2px;top:2px;width:14px;height:14px;background:#fff;border-radius:50%;transition:left .15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
 .tog.on::after{left:18px}
+
+/* ── BUILD 1 ADDITIONS ───────────────────────────────────── */
+/* Morale badge */
+.morale-hi{color:#27ae60;font-weight:800}
+.morale-ok{color:#e67e22;font-weight:800}
+.morale-lo{color:#c0392b;font-weight:800}
+/* Negotiation modal */
+.neg-offer{background:var(--bg3);border:2px solid var(--bd);border-radius:9px;padding:12px;cursor:pointer;transition:all .15s;margin-bottom:6px}
+.neg-offer:hover{border-color:var(--red)}
+.neg-offer.selected{border-color:var(--grn);background:rgba(39,174,96,.07)}
+/* Contender badge */
+.tag-cnd{background:#fff0e6;color:#b8500a;border:1px solid #f5a05c}
+.dark .tag-cnd{background:#3d1800;color:#f5a05c;border-color:#6d2e00}
+/* Weight class move */
+.wc-move-row{display:flex;align-items:center;gap:8px;padding:8px;border-radius:8px;border:1px solid var(--bd);margin-bottom:5px;cursor:pointer;transition:background .12s}
+.wc-move-row:hover{background:var(--bg3)}
+/* Demand alert */
+.demand-card{border-left:3px solid var(--red);padding:10px 12px;background:rgba(192,57,43,.05);border-radius:0 8px 8px 0;margin-bottom:8px}
+
+/* ── LEGACY SYSTEMS (v18) ─────────────────────────────────── */
+/* GOAT tier badge colors */
+.lt-local{background:#f0f0f0;color:#666;border:1px solid #ddd}
+.lt-contender{background:#e8f4fc;color:#2471a3;border:1px solid #aed6f1}
+.lt-champion{background:#fef9e7;color:#b7950b;border:1px solid #f9e79f}
+.lt-legend{background:#fdf2f8;color:#884ea0;border:1px solid #d7bde2}
+.lt-great{background:#eafaf1;color:#1e8449;border:1px solid #a9dfbf}
+.lt-goatc{background:#fef5e7;color:#d35400;border:1px solid #f0b27a}
+.lt-goat{background:linear-gradient(135deg,#ffd700,#ff8c00);color:#fff;border:none;font-weight:900;box-shadow:0 1px 4px rgba(255,140,0,.4)}
+.dark .lt-local{background:#2a2a2a;color:#888;border-color:#333}
+.dark .lt-contender{background:#0d2137;color:#5dade2;border-color:#1a4a6e}
+.dark .lt-champion{background:#2d2500;color:#f1c40f;border-color:#6d5a00}
+.dark .lt-legend{background:#2d1b3d;color:#c39bd3;border-color:#5b2c6f}
+.dark .lt-great{background:#0d2b1a;color:#58d68d;border-color:#1e6b3c}
+.dark .lt-goatc{background:#3d1f00;color:#f0b27a;border-color:#7e4000}
+/* GOAT leaderboard */
+.goat-row{display:grid;grid-template-columns:36px 1fr auto auto auto;align-items:center;gap:8px;padding:9px 10px;border-radius:8px;margin-bottom:3px;cursor:pointer;transition:background .12s}
+.goat-row:hover{background:var(--bg3)}
+.goat-rank{font-size:13px;font-weight:900;text-align:center;color:var(--tx3)}
+.goat-rank.gold{color:#d4ac0d;font-size:15px}
+.goat-rank.silver{color:#909090;font-size:14px}
+.goat-rank.bronze{color:#c47a3a;font-size:14px}
+/* HoF */
+.hof-card{background:linear-gradient(135deg,rgba(212,172,13,.08),rgba(212,172,13,.02));border:1.5px solid rgba(212,172,13,.3);border-radius:10px;padding:12px 14px;margin-bottom:8px}
+.hof-name{font-size:15px;font-weight:900;color:var(--tx)}
+/* Era */
+.era-pill{background:var(--bg3);border:1px solid var(--bd);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;display:inline-block}
+/* Career timeline */
+.timeline-dot{width:10px;height:10px;border-radius:50%;background:var(--red);flex-shrink:0;margin-top:4px}
+.timeline-line{width:1px;background:var(--bd);flex:1;min-height:16px;margin-left:4px}
+/* Milestone badge */
+.milestone-badge{background:var(--bg3);border:1px solid var(--bd);border-radius:8px;padding:6px 10px;font-size:11px;display:flex;align-items:center;gap:6px}
+.milestone-badge.achieved{border-color:var(--gold);background:rgba(212,172,13,.07)}
+/* Narrative */
+.narrative-card{background:var(--bg2);border-left:3px solid var(--red);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--tx)}
+.narrative-hl{font-weight:800;color:var(--tx)}
+/* Prospect score bar */
+.prospect-bar{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-top:4px}
+.prospect-fill{height:100%;border-radius:2px}
+
+/* ── NAV DROPDOWNS ───────────────────────────────────────── */
+.ndrop{position:relative;display:inline-flex;}
+.ndrop-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;background:var(--bg2);border:1px solid var(--bd);border-radius:9px;box-shadow:0 8px 24px var(--sh);padding:5px;min-width:170px;z-index:200;}
+.ndrop.open .ndrop-menu{display:block;}
+.ndrop-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:6px;font-size:13px;font-weight:500;color:var(--tx2);cursor:pointer;white-space:nowrap;border:none;background:none;width:100%;text-align:left;font-family:inherit;}
+.ndrop-item:hover,.ndrop-item.on{background:var(--bg3);color:var(--tx);}
+.ndrop-item.on{font-weight:700;color:var(--red);}
+.ndrop-trigger{background:none;border:none;border-radius:6px;color:var(--tx2);font-size:13px;font-weight:500;padding:7px 10px;cursor:pointer;white-space:nowrap;display:flex;align-items:center;gap:4px;font-family:inherit;}
+.ndrop-trigger:hover{background:var(--bg3);}
+.ndrop-trigger.group-active{color:var(--red);font-weight:700;background:rgba(192,57,43,.07);}
+.ndrop-chevron{font-size:9px;opacity:.5;transition:transform .15s;line-height:1;}
+.ndrop.open .ndrop-chevron{transform:rotate(180deg);}
+.mob-section{font-size:10px;font-weight:700;color:var(--tx3);text-transform:uppercase;letter-spacing:.1em;padding:10px 16px 2px;}
+
+.game-footer{padding:20px 18px 28px;border-top:1px solid var(--bd);margin-top:8px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.game-footer-left{font-size:11px;color:var(--tx3);}
+.game-footer-right{display:flex;gap:14px;align-items:center;}
+.footer-link{background:none;border:none;font-size:11px;color:var(--blu);cursor:pointer;padding:0;text-decoration:underline;font-family:inherit;}
+.footer-link:hover{color:var(--red);}
 
 /* ── MOBILE NAV ─────────────────────────────────────── */
 .hambtn{display:none;background:none;border:none;color:var(--tx);font-size:22px;cursor:pointer;padding:4px 8px;line-height:1;flex-shrink:0;}
@@ -1043,7 +1121,7 @@ Object.keys(EXTRA_ROSTERS).forEach(pid=>{
 const PD={...R,ufc:{id:'ufc',name:'UFC',sn:'UFC',prestige:95,fanTrust:78,legit:95,media:92,pull:95,sponsor:92,cash:85e6,ovhd:12e6,col:'#c0392b',mr:{name:'Paramount+',mv:8e6,minEventsYr:42,minAvgEnt:62,penalty:2000000,desc:'Paramount+ deal. 42 events/year minimum. Keep avg entertainment above 62 or face $10M/yr penalty at contract renewal.'},diff:'Hard',dn:"You're market leader - fighter leverage is maximum, rivals poach your stars constantly, and every bad event makes headlines.",dc:'#c0392b'}}
 // -- SAVE / LOAD -------------------------------------------
 const SAVE_KEY='mmaempire2026_save';
-const SAVE_VER=4;
+const SAVE_VER=6;
 
 function saveGame(){
   try{
@@ -1157,6 +1235,8 @@ function pf(raw,pid){
     hidden:{inj:Math.random(),con:Math.random()*0.25},
     rankPts:raw.ch?1000:baseRankPts+Math.round((Math.random()-0.5)*80),
     rankPrev:null, // previous rank position (for movement arrows)
+    morale:raw.ch?85:({elite:75,contender:65,prospect:60}[raw.tier]||65)+ri(-5,5),
+    titleStripWarned:false,
   };
 }
 
@@ -1181,14 +1261,15 @@ function sim(f1,f2){
   const rv=Math.random();
   const method=rv<.28?'KO/TKO':rv<.44?'Submission':rv<.76?'Unanimous Decision':rv<.89?'Split Decision':'Majority Decision';
   const round=method.includes('Decision')?3:ri(1,3);
+  const moraleBoost=((f1.morale||70)+(f2.morale||70))/2;
   const ent=Math.min(100,Math.max(15,Math.round(
-    (f1.s.cha+f2.s.cha)/2*.35+(Math.abs(s1-s2)<5?18:0)+(method==='KO/TKO'||method==='Submission'?16:0)+ri(-10,18))));
+    (f1.s.cha+f2.s.cha)/2*.35+(Math.abs(s1-s2)<5?18:0)+(method==='KO/TKO'||method==='Submission'?16:0)+ri(-10,18)+(moraleBoost>75?3:moraleBoost<45?-5:0))));
   return{wId:win.id,lId:lose.id,wName:win.name,lName:lose.name,method,round,ent,wOvr:Math.round(s1>s2?s1:s2),lOvr:Math.round(s1>s2?s2:s1)};
 }
 
 // -- STATE -------------------------------------------------
 let G=null;
-let UI={view:'dash',dark:false,setOpen:false,rTab:'p4p',rWC:null,rFilter:'all',fDetail:null,evB:null,modal:null,faFilter:'all',compTab:'overview',infra:false,scout:false};
+let UI={view:'dash',dark:false,setOpen:false,openDrop:null,rTab:'p4p',rWC:null,rFilter:'all',fDetail:null,evB:null,modal:null,faFilter:'all',compTab:'overview',infra:false,scout:false};
 
 const EVENT_LOCATIONS=[
   {id:'usa_east',travelCost:0,name:'New York, USA',region:'north_america',country:'USA',pop:1.2,presBonus:{ufc:2,bellator:1}},
@@ -1435,6 +1516,10 @@ function initGame(cid){
     })(),
     activeScoutMissions:[],
     venueHistory:[],
+    retired:[],
+    hof:[],
+    eras:[],
+    pendingDemands:[],
     regionalPresence:(()=>{
       // Seed starting regional presence based on promotion
       if(cid==='ufc')return{north_america:3,latin_america:2,europe:2,middle_east:2,asia:1,russia_cis:1,pacific:1};
@@ -1448,6 +1533,106 @@ function initGame(cid){
     })(),
   };
   UI.view='dash';UI.evB=null;UI.fDetail=null;UI.modal=null;
+
+  // Seed real last-defense dates for existing champions.
+  // Dates are approximate real last bouts as of game start (Jan 2026).
+  // Format: [name, yr, mo, wk]  (wk 1-4 within month)
+  // If a real defense was >45 wks ago we use 45 wks ago to avoid instant strip.
+  const CHAMP_LAST_DEF={
+    // UFC champions
+    'Tom Aspinall':      [2025,11,2], // Nov 2025 vs Jones
+    'Alex Pereira':      [2025,10,4], // Oct 2025 vs Prochazka II
+    'Khamzat Chimaev':   [2025, 9,3], // Sep 2025 vs Du Plessis
+    'Islam Makhachev':   [2025,10,2], // Oct 2025 vs Tsarukyan II
+    'Ilia Topuria':      [2025,10,3], // Oct 2025 vs Holloway II
+    'Alexander Volkanovski':[2025,5,2],// May 2025 – capped 45wks
+    'Petr Yan':          [2025, 6,1], // Jun 2025 vs O'Malley II
+    'Joshua Van':        [2025,11,4], // Nov 2025 vs Royval
+    'Mackenzie Dern':    [2025, 9,2], // Sep 2025 vs Yan Xiaonan
+    'Kayla Harrison':    [2025,12,1], // Dec 2025 vs Pena
+    'Valentina Shevchenko':[2025,11,3],// Nov 2025 vs Grasso III
+    // ONE champions
+    'Oumar Kane':        [2025, 8,2],
+    'Anatoly Malykhin':  [2025,10,1],
+    'Christian Lee':     [2025, 9,1],
+    'Ok Rae-Yoon':       [2025, 7,3],
+    'Tang Kai':          [2025,11,1],
+    'Fabricio Andrade':  [2025,10,2],
+    'Joshua Pacio':      [2025, 9,4],
+    'Xiong Jing Nan':    [2025, 8,1],
+    'Denice Zamboanga':  [2025,11,2],
+    // Bellator/PFL champions
+    'Usman Nurmagomedov':[2025,10,3],
+    'Patchy Mix':        [2025, 9,2],
+    'Sergio Pettis':     [2025, 8,4],
+    'Cris Cyborg':       [2025,11,1],
+    // Others (reasonable estimates, capped at 45wks)
+    'Oleg Popov':        [2025, 7,2],
+    'Antonio Carlos Jr': [2025, 8,3],
+    'Fabian Edwards':    [2025, 9,1],
+    'Thad Jean':         [2025,10,2],
+    'Tofiq Musayev':     [2025, 8,1],
+  };
+
+  // Helper: clamp so no champ starts more than 44 weeks stale (one week of buffer)
+  const MAX_STALE=44;
+  const nowWks=2026*48+1*4+1; // Wk1 Mo1 Yr2026
+  G.roster.forEach(f=>{
+    if(!f.isChamp)return;
+    const d=CHAMP_LAST_DEF[f.name];
+    let fWks;
+    if(d){
+      fWks=d[0]*48+d[1]*4+(d[2]||1);
+    } else {
+      // Unknown champion: default to ~20 weeks ago
+      fWks=nowWks-20;
+    }
+    // Clamp: never more than MAX_STALE weeks ago
+    const stale=nowWks-fWks;
+    if(stale>MAX_STALE)fWks=nowWks-MAX_STALE;
+    // Convert back to yr/mo/wk
+    const totalWks=fWks;
+    f.lastFightYr=Math.floor(totalWks/48);
+    const rem=totalWks%48;
+    f.lastFightMo=Math.max(1,Math.floor(rem/4));
+    f.lastFightWk=Math.max(1,(rem%4)||4);
+  });
+
+  // ── Seed initial GOAT scores ──────────────────────────────
+  const SEED_GOAT={
+    'Tom Aspinall':220,'Alex Pereira':280,'Khamzat Chimaev':240,'Islam Makhachev':340,
+    'Ilia Topuria':260,'Alexander Volkanovski':390,'Petr Yan':180,'Joshua Van':140,
+    'Mackenzie Dern':130,'Kayla Harrison':220,'Valentina Shevchenko':480,
+    'Anatoly Malykhin':260,'Christian Lee':230,'Ok Rae-Yoon':160,'Tang Kai':170,
+    'Fabricio Andrade':190,'Joshua Pacio':200,'Xiong Jing Nan':190,'Denice Zamboanga':150,'Oumar Kane':140,
+    'Usman Nurmagomedov':220,'Patchy Mix':170,'Sergio Pettis':160,'Cris Cyborg':520,
+    'Oleg Popov':150,'Antonio Carlos Jr':140,'Fabian Edwards':130,'Thad Jean':120,'Tofiq Musayev':110,
+  };
+  const SEED_DEFS={
+    'Tom Aspinall':2,'Alex Pereira':4,'Khamzat Chimaev':1,'Islam Makhachev':5,
+    'Ilia Topuria':2,'Alexander Volkanovski':9,'Valentina Shevchenko':11,'Kayla Harrison':2,
+    'Usman Nurmagomedov':3,'Cris Cyborg':6,'Anatoly Malykhin':3,'Christian Lee':5,'Joshua Pacio':4,
+  };
+  [...G.roster,...G.rivals.flatMap(r=>r.roster||[])].forEach(f=>{
+    if(f.goatScore!==undefined)return;
+    const seed=SEED_GOAT[f.name];
+    f.goatScore=seed!==undefined?seed:Math.max(0,Math.round(f.rec.w*1.5-f.rec.l*0.5+(f.isChamp?60:0)));
+    f.titleDefs=SEED_DEFS[f.name]||0;
+    f.winStreak=f.isChamp?ri(1,4):0;
+    f.legacyTier=getLegacyTier(f.goatScore).id;
+    f.milestones=[];
+    if(f.isChamp)f.milestones.push('champ');
+    if(f.rec.w>=10)f.milestones.push('win10');
+    if(f.rec.w>=20)f.milestones.push('win20');
+    if(f.rec.w>=30)f.milestones.push('win30');
+    if(f.titleDefs>=3)f.milestones.push('def3');
+    if(f.titleDefs>=5)f.milestones.push('def5');
+    f.careerTimeline=[];
+    if(f.isChamp)f.careerTimeline.push({yr:G.yr-1,mo:ri(1,12),event:'Won '+(ALL_WCN[f.weightClass]||f.weightClass)+' Championship 🏆',big:true});
+    f.champDivs=f.isChamp?[f.weightClass]:[];
+  });
+  updateGoatRanks();
+
   render();
 }
 
@@ -1533,6 +1718,7 @@ function advWeek(){
 
     const prevMo=MON[G.mo-2<0?11:G.mo-2];
     G.log.push('📅 '+prevMo+' '+G.yr+': '+fm(mi)+' income | -'+fm(G.promo.ovhd+bc+tvPenalty)+' overhead | Net: '+fm(net));
+    tickLegacyMonthly();
   }
 
   // Injury check
@@ -1591,6 +1777,11 @@ function advWeek(){
   // Process pending scout jobs
   processScoutJobs();
 
+  // Build 1 systems
+  tickMorale();
+  checkRetirements();
+  checkTitleDefenses();
+
   updateRankings();
   render();
   const _mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -1618,15 +1809,8 @@ function signF(fid,fromScout=false){
   }
   idx=G.fa.findIndex(f=>f.id===fid);
   if(idx<0)return;
-  f=G.fa[idx];
-  const fee=Math.round((f.contract?.show||f.salary||14000)*0.5);
-  if(G.fin.cash<fee){alert('Not enough cash! Need '+fs(fee));return;}
-  G.fa.splice(idx,1);
-  f.promo=G.promo.id;f.contract=makeContract(f.tier,f.s?.mkt,f.s?.cha);
-  G.roster.push(f);
-  G.fin.cash-=fee;
-  G.log.push('✅ Signed <fighter:'+f.name+'> | Fee: '+fs(fee)+' | '+ctLabel(f.contract));
-  UI.modal=null;render();
+  // Route through negotiation system
+  openNegotiation(fid,false);
 }
 
 function releaseF(fid){
@@ -1667,8 +1851,8 @@ function runEvent(ev){
     const showL=lose?.contract?.show||0;
     const fightPurse=showW+winW+showL;
     totalPurses+=fightPurse;
-    if(win){win.rec.w++;if(win.contract)win.contract.fightsLeft=Math.max(0,win.contract.fightsLeft-1);win.lastFightWk=G.wk;win.lastFightMo=G.mo;win.lastFightYr=G.yr;}
-    if(lose){lose.rec.l++;if(lose.contract)lose.contract.fightsLeft=Math.max(0,lose.contract.fightsLeft-1);lose.lastFightWk=G.wk;lose.lastFightMo=G.mo;lose.lastFightYr=G.yr;
+    if(win){win.rec.w++;if(win.contract)win.contract.fightsLeft=Math.max(0,win.contract.fightsLeft-1);win.lastFightWk=G.wk;win.lastFightMo=G.mo;win.lastFightYr=G.yr;if(win.morale!==undefined)win.morale=Math.min(100,win.morale+8);}
+    if(lose){lose.rec.l++;if(lose.contract)lose.contract.fightsLeft=Math.max(0,lose.contract.fightsLeft-1);lose.lastFightWk=G.wk;lose.lastFightMo=G.mo;lose.lastFightYr=G.yr;if(lose.morale!==undefined)lose.morale=Math.max(0,lose.morale-5);
       // KO/TKO medical suspension: ~13 weeks (90 days)
       if(res.method==='KO/TKO'){lose.status='injured';lose.injuryWeeksLeft=13;G.log.push('🏥 <fighter:'+lose.name+'> on 90-day medical suspension after KO');}
     }
@@ -1777,6 +1961,9 @@ function runEvent(ev){
     bonuses,bonusAmt,results,avgEnt,stars,wk:G.wk,mo:G.mo,yr:G.yr,
     date:MON[G.mo-1]+' '+G.yr,fights:results,numFights:ev.fights.length,mktSpend};
   G.events.push(rec);
+  // Update GOAT scores for all fighters in this event
+  updateGoatScores(results, rec, bonuses);
+  updateGoatRanks();
   // Remove from schedule if this was a scheduled event
   if(ev.schedId)G.schedule=(G.schedule||[]).filter(s=>s.id!==ev.schedId);
   else if(ev.id)G.schedule=(G.schedule||[]).filter(s=>s.id!==ev.id);
@@ -1934,6 +2121,7 @@ function fCard(f,onClick){
       D('kpi',[D('kpi-l',['Charisma']),h('div',{style:{fontWeight:'800',fontSize:'15px',color:sc(f.s.cha)}},[f.s.cha+''])]),
       D('kpi',[D('kpi-l',['Contract']),h('div',{style:{fontWeight:'700',fontSize:'11px'}},[ctLabel(f.contract)])]),
     ]),
+    (()=>{const ml=getMoraleLabel(f.morale||70);return h('div',{style:{marginTop:'7px',display:'flex',alignItems:'center',gap:'6px',fontSize:'11px',color:'var(--tx3)'}},[h('span',{},[ml.icon+' Morale: ']),h('div',{style:{flex:'1',height:'4px',background:'var(--bg3)',borderRadius:'2px'}},[h('div',{style:{height:'100%',width:(f.morale||70)+'%',background:f.morale>=70?'var(--grn)':f.morale>=40?'#e67e22':'var(--red)',borderRadius:'2px'}})]),h('span',{cls:ml.cls},[(f.morale||70)+''])]);})()
   ]);
 }
 
@@ -1972,15 +2160,41 @@ function vDash(){
   if(injured.length)alerts.push(D('al al-w',['🤕 Injured: '+injured.map(f=>f.name).join(', ')]));
   if(expiring.length)alerts.push(D('al al-w',['⏱ Expiring: '+expiring.map(f=>f.name).join(', ')]));
   if(fn.cash<3e6)alerts.push(D('al al-d',['💸 Cash critical - run events or reduce roster!']));
+  // Pending demands
+  const demands=G.pendingDemands||[];
+  demands.forEach(d=>{
+    const f=G.roster.find(x=>x.id===d.fid);
+    if(!f)return;
+    alerts.push(h('div',{cls:'al al-d',style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:'8px'}},[
+      h('span',{},[d.type==='release'?'🚪':'📋',' ',h('strong',{},[f.name]),' is demanding a '+(d.type==='release'?'release':'renegotiation')+'!']),
+      h('div',{style:{display:'flex',gap:'6px',flexShrink:'0'}},[
+        Btn(d.type==='release'?'Grant Release':'Renegotiate',()=>resolveDemand(d.fid,true),'btn btn-s btn-sm'),
+        Btn('Deny',()=>resolveDemand(d.fid,false),'btn btn-s btn-sm'),
+      ]),
+    ]));
+  });
 
   const champsCard=D('card',[
     D('ct',['🏆 Champions ('+champs.length+')']),
     ...(champs.length===0?[h('div',{style:{color:'var(--tx3)',fontSize:'13px',padding:'10px 0'}},'No champions yet')]
-    :champs.map(c=>h('div',{style:{display:'flex',alignItems:'center',gap:'8px',padding:'7px',background:'var(--bg3)',borderRadius:'7px',marginBottom:'4px',cursor:'pointer'},onClick:()=>{UI.fDetail=c.id;UI.view='roster';render();}},[
-      h('span',{style:{fontSize:'15px'}},['🏆']),
-      D('',[h('div',{style:{fontWeight:'700',fontSize:'13px'}},[c.name]),h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},[ALL_WCN[c.weightClass]||''])]),
-      h('div',{style:{marginLeft:'auto',fontSize:'11px',color:'var(--tx3)'}},[c.contract?c.contract.fightsLeft+' fights left':'—']),
-    ]))),
+    :champs.map(c=>{
+      const now=(G.yr*48)+(G.mo*4)+G.wk;
+      const lastDef=c.lastFightYr?(c.lastFightYr*48+c.lastFightMo*4+c.lastFightWk):((G.yr-1)*48+1);
+      const wksHeld=now-lastDef;
+      const defUrgent=wksHeld>=36;
+      const contender=getContender(c.weightClass);
+      return h('div',{style:{display:'flex',alignItems:'center',gap:'8px',padding:'7px',background:defUrgent?'rgba(192,57,43,.07)':'var(--bg3)',borderRadius:'7px',marginBottom:'4px',cursor:'pointer',border:defUrgent?'1px solid rgba(192,57,43,.3)':'1px solid transparent'},onClick:()=>{UI.fDetail=c.id;UI.view='roster';render();}},[
+        h('span',{style:{fontSize:'15px'}},['🏆']),
+        D('',[
+          h('div',{style:{fontWeight:'700',fontSize:'13px'}},[c.name]),
+          h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},[ALL_WCN[c.weightClass]||'',contender?' · #1: '+contender.name:'']),
+        ]),
+        h('div',{style:{marginLeft:'auto',textAlign:'right'}},[
+          h('div',{style:{fontSize:'11px',color:defUrgent?'var(--red)':'var(--tx3)',fontWeight:defUrgent?'700':'400'}},[defUrgent?'⚠ '+wksHeld+'wk no defense':wksHeld+'wk held']),
+          h('div',{style:{fontSize:'10px',color:'var(--tx3)'}},[c.contract?c.contract.fightsLeft+' fights left':'—']),
+        ]),
+      ]);
+    })),
   ]);
 
   const recentCard=D('card',[
@@ -2125,6 +2339,7 @@ function vRoster(){
     h('button',{cls:'tab'+(UI.rTab==='p4p'?' on':''),onClick:()=>{UI.rTab='p4p';render();}},'P4P Top 15'),
     h('button',{cls:'tab'+(UI.rTab==='div'?' on':''),onClick:()=>{UI.rTab='div';render();}},'By Division'),
     h('button',{cls:'tab'+(UI.rTab==='all'?' on':''),onClick:()=>{UI.rTab='all';render();}},'All Fighters'),
+    h('button',{cls:'tab'+(UI.rTab==='retired'?' on':''),onClick:()=>{UI.rTab='retired';render();}},'Retired ('+(G.retired||[]).length+')'),
   ]);
 
   let body;
@@ -2190,7 +2405,7 @@ function vRoster(){
       h('td',{style:{fontSize:'11px',color:'var(--tx2)',paddingRight:'6px'}},[f.nat]),
       h('td',{style:{fontSize:'12px',paddingRight:'6px'}},[f.rec.w+'-'+f.rec.l]),
       h('td',{style:{paddingRight:'4px'}},[h('span',{style:{fontWeight:'900',color:sc(ov(f)),fontSize:'13px'}},[ov(f)+''])]),
-      h('td',{},[ttag(f.tier)]),
+      h('td',{},[ttag(f.tier),rank===1&&!isC?S('tag tag-cnd',['#1 Contender']):null]),
     ]);
 
     const wcPicker=h('div',{style:{display:'flex',gap:'5px',flexWrap:'wrap',marginBottom:'14px'}},[
@@ -2248,6 +2463,26 @@ function vRoster(){
               leftTable,
               rightTable,
             ]),
+      ]),
+    ]);
+  } else if(UI.rTab==='retired'){
+    const retired=G.retired||[];
+    body=D('',[
+      D('card',[
+        D('ct',['Hall of Retired Fighters ('+retired.length+')']),
+        retired.length===0
+          ?h('div',{style:{color:'var(--tx3)',padding:'20px',textAlign:'center'}},'No retired fighters yet')
+          :h('table',{cls:'rt'},[
+            h('thead',{},[h('tr',{},[h('th',{},'Fighter'),h('th',{},'Nationality'),h('th',{},'Record'),h('th',{},'OVR'),h('th',{},'Tier'),h('th',{},'Retired')])]),
+            h('tbody',{},[...retired.slice().reverse().map(f=>h('tr',{},[
+              h('td',{},[h('strong',{},[f.name+(f.isChampRetired?' 🏆':'')])]),
+              h('td',{style:{fontSize:'12px',color:'var(--tx2)'}},[f.nat]),
+              h('td',{},[f.rec.w+'–'+f.rec.l]),
+              h('td',{},[h('span',{style:{fontWeight:'800',color:sc(ov(f))}},[ov(f)+''])]),
+              h('td',{},[ttag(f.tier)]),
+              h('td',{style:{fontSize:'11px',color:'var(--tx3)'}},[f.retiredYr||G.yr]),
+            ]))]),
+          ]),
       ]),
     ]);
   } else {
@@ -2315,7 +2550,9 @@ function vFighterDetail(fid){
             D('',[
               h('div',{style:{fontSize:'17px',fontWeight:'900',marginBottom:'3px'}},[f.name]),
               h('div',{style:{fontSize:'12px',color:'var(--tx2)',marginBottom:'7px'}},[f.nat+' · Age '+Math.floor(f.age)+' · '+f.rec.w+'W–'+f.rec.l+'L']),
-              D('',[ttag(f.tier),wtag(f.weightClass),...(f.status==='injured'?[S('tag ti',['🤕 Injured '+f.injuryWeeksLeft+'wk'])]:[]),(f.potential?[S('tag te',['⭐ Pot: '+f.potential])]:null)]),
+              D('',[ttag(f.tier),wtag(f.weightClass),...(f.status==='injured'?[S('tag ti',['🤕 Injured '+f.injuryWeeksLeft+'wk'])]:[]),(f.potential?[S('tag te',['⭐ Pot: '+f.potential])]:null),
+                (()=>{const ml=getMoraleLabel(f.morale||70);return h('span',{cls:'tag',style:{background:'var(--bg3)',border:'1px solid var(--bd)',color:'var(--tx2)'}},[ml.icon+' '+ml.label+' ('+Math.round(f.morale||70)+')']);})(),
+              ]),
             ]),
             ovBadge(o),
           ]),
@@ -2347,13 +2584,8 @@ function vFighterDetail(fid){
             h('div',{style:{fontWeight:'900',fontSize:'18px',color:'var(--gold)'}},[fm(lifetimeEarnings)+(lifetimeEarnings===0?' (no fights yet)':'')]),
           ]),
           h('div',{style:{display:'flex',gap:'7px',flexWrap:'wrap'}},[
-            ...(f.contract&&f.contract.fightsLeft<=2?[Btn('Renew — '+fm(Math.round((f.contract?.show||0)*0.5)),()=>{
-              const cost=Math.round((f.contract?.show||0)*0.5);
-              if(G.fin.cash<cost){alert('Need '+fm(cost));return;}
-              f.contract=makeContract(f.tier,f.s?.mkt,f.s?.cha);
-              G.fin.cash-=cost;
-              G.log.push('🔄 Renewed <fighter:'+f.name+'> | '+ctLabel(f.contract));render();
-            },'btn btn-g')]:[]),
+            ...(f.contract&&f.contract.fightsLeft<=2?[Btn('🤝 Renegotiate',()=>{openNegotiation(f.id,true);},'btn btn-g')]:[]),
+            Btn('⚖️ Move Weight Class',()=>{UI.modal={type:'moveWC',fighter:f};render();},'btn btn-s'),
             Btn('Release',()=>{if(confirm('Release '+f.name+'?'))releaseF(f.id);},'btn btn-s'),
           ]),
         ]),
@@ -2371,6 +2603,48 @@ function vFighterDetail(fid){
             ])),
           ]),
         ]),
+        // GOAT Score card
+        D('card',[
+          D('ct',['🐐 Legacy & GOAT Score']),
+          h('div',{style:{display:'flex',alignItems:'center',gap:'12px',marginBottom:'12px'}},[
+            h('div',{style:{textAlign:'center',padding:'10px 16px',background:'rgba(212,172,13,.08)',border:'1.5px solid rgba(212,172,13,.3)',borderRadius:'10px'}},[
+              h('div',{style:{fontWeight:'900',fontSize:'26px',color:'var(--gold)'}},[Math.round(f.goatScore||0)+'']),
+              h('div',{style:{fontSize:'10px',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.08em'}},'GOAT Score'),
+            ]),
+            h('div',{style:{flex:'1'}},[
+              ltTag(f.goatScore||0),
+              h('div',{style:{fontSize:'12px',color:'var(--tx2)',marginTop:'6px'}},[
+                '#'+(f.goatRank||'?')+' All-Time · '+(f.titleDefs||0)+' Title Defense'+(f.titleDefs!==1?'s':''),
+              ]),
+              f.hallOfFame?h('div',{style:{marginTop:'5px',fontSize:'12px',fontWeight:'700',color:'var(--gold)'}},'🏛 Hall of Famer'):null,
+              (f.champDivs||[]).length>=2?h('div',{style:{marginTop:'5px',fontSize:'12px',fontWeight:'700',color:'var(--red)'}},'👑 Two-Division Champion'):null,
+            ]),
+          ]),
+          // Milestones
+          (f.milestones||[]).length>0?h('div',{},[
+            D('ct',['Career Milestones']),
+            h('div',{style:{display:'flex',flexWrap:'wrap',gap:'6px'}},[
+              ...MILESTONES.filter(m=>f.milestones.includes(m.id)).map(m=>
+                h('div',{cls:'milestone-badge achieved'},[h('span',{},[m.icon]),h('span',{},[m.label])])
+              ),
+            ]),
+          ]):null,
+        ]),
+        // Career timeline
+        (f.careerTimeline||[]).length>0?D('card',[
+          D('ct',['📅 Career Timeline']),
+          h('div',{style:{maxHeight:'200px',overflowY:'auto'}},[
+            ...[...f.careerTimeline].reverse().map(ev=>h('div',{style:{display:'flex',gap:'10px',alignItems:'flex-start',marginBottom:'8px'}},[
+              h('div',{style:{display:'flex',flexDirection:'column',alignItems:'center'}},[
+                h('div',{cls:'timeline-dot',style:{background:ev.big?'var(--gold)':'var(--red)'}}),
+              ]),
+              h('div',{style:{flex:'1',paddingBottom:'6px',borderBottom:'1px solid var(--bd)'}},[
+                h('div',{style:{fontWeight:ev.big?'800':'600',fontSize:'12px'}},[ev.event]),
+                h('div',{style:{fontSize:'10px',color:'var(--tx3)',marginTop:'2px'}},[MON[ev.mo-1]+' '+ev.yr]),
+              ]),
+            ])),
+          ]),
+        ]):null,
         // Fight history
         D('card',[
           D('ct',['Fight History ('+fightHistory.length+' fights)']),
@@ -2583,7 +2857,7 @@ function vEvents(){
     h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'10px'}},[
       h('div',{style:{fontWeight:'800',fontSize:'15px'}},'📆 Event Calendar'),
       h('div',{style:{display:'flex',gap:'6px'}},[
-        h('button',{cls:'btn btn-g',onClick:()=>{UI.evB={tier:'fightnight',name:'',fights:[],venueId:VENUES[0].id,locationId:'usa_west',selWC:null,selF1:null,ticketMode:'auto',scheduleMode:true,schedWk:G.wk+1,schedMo:G.mo,schedYr:G.yr};render();}},'📅 Schedule Event'),
+        h('button',{cls:'btn btn-g',onClick:()=>{UI.evB={tier:'fightnight',name:'',fights:[],venueId:'v3',locationId:'usa_west',selWC:null,selF1:null,ticketMode:'auto',scheduleMode:true,schedWk:G.wk+1,schedMo:G.mo,schedYr:G.yr};render();}},'📅 Schedule Event'),
       ]),
     ]),
     upcoming.length===0
@@ -2626,7 +2900,10 @@ function vEvents(){
     h('div',{style:{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'8px'}},[
       ...Object.entries(TIER_INFO).map(([k,ti])=>h('div',{
         style:{padding:'12px',background:'var(--bg3)',border:'1px solid var(--bd)',borderRadius:'9px',cursor:'pointer'},
-        onClick:()=>{UI.evB={tier:k,name:'',fights:[],venueId:VENUES[0].id,selWC:null,selF1:null,ticketMode:'auto',scheduled:false};render();},
+        onClick:()=>{
+          const tierVenue={weekly:'v1',fightnight:'v2',premium:'v4',supercard:'v5'};
+          UI.evB={tier:k,name:'',fights:[],venueId:tierVenue[k]||VENUES[0].id,selWC:null,selF1:null,ticketMode:'auto',scheduled:false};render();
+        },
       },[
         h('div',{style:{fontSize:'20px',marginBottom:'3px'}},[ti.icon]),
         h('div',{style:{fontWeight:'800',fontSize:'13px',color:ti.col}},[ti.label]),
@@ -3733,7 +4010,99 @@ function vModal(){
           h('div',{style:{fontWeight:'900',color:'var(--gold)',fontSize:'14px'}},['+'+fm(b.amt)]),
         ])),
       ]):null,
+      // ── Event Narrative ─────────────────────────────────────
+      (()=>{
+        const lines=generateNarrative(ev);
+        if(!lines||!lines.length)return null;
+        return h('div',{style:{marginBottom:'12px'}},[
+          D('ct',['📰 Event Story']),
+          h('div',{cls:'narrative-card'},[
+            ...lines.map((l,i)=>h('p',{style:{margin:i===0?'0 0 8px':'6px 0 0',fontWeight:i===0?'800':'400',color:i===0?'var(--tx)':'var(--tx2)'}},[l])),
+          ]),
+        ]);
+      })(),
       Btn('Close',()=>{UI.modal=null;render();},'btn btn-r btn-fw'),
+    ]);
+  }
+
+  // ── CONTRACT NEGOTIATION MODAL ──────────────────────────
+  if(m.type==='negotiate'){
+    const f=m.fighter;
+    const ml=getMoraleLabel(f.morale||70);
+    inner=D('md',[
+      h('div',{style:{display:'flex',alignItems:'center',gap:'10px',marginBottom:'16px'}},[
+        h('div',{style:{fontSize:'32px'}},'🤝'),
+        D('',[
+          h('div',{style:{fontWeight:'900',fontSize:'16px'}},[m.isRenewal?'Contract Renewal — '+f.name:'Sign '+f.name]),
+          h('div',{style:{fontSize:'12px',color:'var(--tx2)',marginTop:'2px'}},[f.nat+' · '+Math.floor(f.age)+'yo · '+(ALL_WCN[f.weightClass]||f.weightClass)+' · '+ml.icon+' Morale '+Math.round(f.morale||70)]),
+        ]),
+      ]),
+      D('ct',['Choose Your Offer']),
+      ...m.offers.map((offer,i)=>{
+        const isSelected=m.selectedOffer===i;
+        const rejectPct=Math.round(offer.rejectChance*100);
+        return h('div',{
+          cls:'neg-offer'+(isSelected?' selected':''),
+          onClick:()=>{m.selectedOffer=i;render();},
+        },[
+          h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'6px'}},[
+            h('div',{style:{fontWeight:'800',fontSize:'14px'}},[offer.label]),
+            h('div',{style:{fontSize:'11px',fontWeight:'700',color:rejectPct===0?'var(--grn)':rejectPct>50?'var(--red)':'#e67e22'}},[
+              rejectPct===0?'✅ Will accept':'⚠ '+rejectPct+'% reject chance',
+            ]),
+          ]),
+          h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'8px',marginBottom:'6px'}},[
+            h('div',{},[h('div',{style:{fontSize:'10px',color:'var(--tx3)',textTransform:'uppercase'}},'Show'),h('div',{style:{fontWeight:'800',color:'var(--grn)',fontSize:'13px'}},[fm(offer.show)])]),
+            h('div',{},[h('div',{style:{fontSize:'10px',color:'var(--tx3)',textTransform:'uppercase'}},'Win Bonus'),h('div',{style:{fontWeight:'800',color:'var(--grn)',fontSize:'13px'}},[fm(offer.win)])]),
+            h('div',{},[h('div',{style:{fontSize:'10px',color:'var(--tx3)',textTransform:'uppercase'}},'Fights'),h('div',{style:{fontWeight:'800',fontSize:'13px'}},[offer.fights+''])]),
+          ]),
+          h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},['Signing fee: '+fm(Math.round(offer.show*0.4))+' · '+offer.desc]),
+        ]);
+      }),
+      h('div',{style:{display:'flex',gap:'8px',marginTop:'14px'}},[
+        Btn('Make This Offer',()=>resolveNegotiation(m.selectedOffer),'btn btn-g',false),
+        Btn('Cancel',()=>{UI.modal=null;render();},'btn btn-s'),
+      ]),
+    ]);
+  }
+
+  // ── NEGOTIATION REJECTED MODAL ──────────────────────────
+  if(m.type==='negotiateRejected'){
+    const f=m.fighter;
+    inner=D('md',[
+      h('div',{style:{textAlign:'center',padding:'10px 0 20px'}},[
+        h('div',{style:{fontSize:'48px',marginBottom:'10px'}},'❌'),
+        h('div',{style:{fontWeight:'900',fontSize:'18px',marginBottom:'6px'}},[f.name+' rejected your offer!'],),
+        h('div',{style:{fontSize:'13px',color:'var(--tx2)',marginBottom:'16px'}},['Your '+m.offerLabel+' offer was turned down. Try a better deal or move on.']),
+      ]),
+      h('div',{style:{display:'flex',gap:'8px'}},[
+        Btn('Make Another Offer',()=>{openNegotiation(f.id,UI.modal?.isRenewal||false);},'btn btn-g'),
+        Btn('Walk Away',()=>{UI.modal=null;render();},'btn btn-s'),
+      ]),
+    ]);
+  }
+
+  // ── WEIGHT CLASS MOVE MODAL ─────────────────────────────
+  if(m.type==='moveWC'){
+    const f=m.fighter;
+    const allWCs=[...WCO,...FWCO];
+    const isFemale=Object.keys(FWCN).includes(f.weightClass);
+    const eligible=allWCs.filter(wc=>wc!==f.weightClass&&(isFemale?Object.keys(FWCN).includes(wc):!Object.keys(FWCN).includes(wc)));
+    inner=D('md',[
+      h('div',{style:{fontWeight:'900',fontSize:'16px',marginBottom:'6px'}},'⚖️ Move Weight Class'),
+      h('div',{style:{fontSize:'13px',color:'var(--tx2)',marginBottom:'16px'}},[f.name+' currently fights at '+(ALL_WCN[f.weightClass]||f.weightClass)+'. Moving resets division ranking.']),
+      ...eligible.map(wc=>{
+        const divCount=G.roster.filter(r=>r.weightClass===wc).length;
+        const contender=getContender(wc);
+        return h('div',{cls:'wc-move-row',onClick:()=>moveWeightClass(f.id,wc)},[
+          h('div',{style:{flex:'1'}},[
+            h('div',{style:{fontWeight:'700',fontSize:'13px'}},[ALL_WCN[wc]||wc]),
+            h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},[divCount+' fighters · #1: '+(contender?contender.name:'Vacant')]),
+          ]),
+          Btn('Move →',()=>moveWeightClass(f.id,wc),'btn btn-s btn-sm'),
+        ]);
+      }),
+      h('div',{style:{marginTop:'12px'}},[Btn('Cancel',()=>{UI.modal=null;render();},'btn btn-s btn-fw')]),
     ]);
   }
 
@@ -3742,7 +4111,215 @@ function vModal(){
   return ov;
 }
 
-// -- SETTINGS ---------------------------------------------
+// -- CHANGELOG -----------------------------------------------
+const CHANGELOG=[
+  {
+    version:'v18',
+    date:'Build 2 — Legacy Systems',
+    tag:'latest',
+    tagColor:'var(--grn)',
+    summary:'GOAT rankings, Hall of Fame, dynamic eras, prospect leaderboard, narrative engine, promotion legacy score, career milestones & timelines.',
+    sections:[
+      {icon:'🐐',title:'Global GOAT Rankings',items:[
+        'Every fighter earns GOAT points for wins, finishes, title fights, defenses, bonuses, and win streaks',
+        'Opponent quality, promo prestige, and entertainment score all factor in',
+        '7 legacy tiers: Local Star → Top Contender → Champion → Legend → All-Time Great → GOAT Contender → GOAT',
+        'Top 50 all-time leaderboard with Active / Retired filters and "Your Promo" highlight',
+        'Starting GOAT scores seeded for all real champions based on actual career history',
+      ]},
+      {icon:'🏛',title:'Hall of Fame',items:[
+        'Fighters evaluated for induction on retirement based on title defenses, GOAT score, win record, and longevity',
+        'HoF page shows all inductees with career stats, defense counts, and induction year',
+        'Records leaderboard: most title defenses, highest GOAT score, most wins',
+        'Your promotion earns +50 legacy points per HoF inductee',
+      ]},
+      {icon:'📜',title:'Dynamic Eras',items:[
+        'Eras trigger when 3+ champions retire within a 2-year window, or every 10 years',
+        'Era names generated from the retiring champions\' nationalities (The Dagestani Era, The Brazilian Era, etc.)',
+        'Displayed in Hall of Fame and Legacy pages with start/end years',
+      ]},
+      {icon:'🌟',title:'Top Prospects Leaderboard',items:[
+        'Global ranking of the 50 best prospects across your roster and free agents',
+        'Prospect score factors age, potential, OVR, win rate, and win streak',
+        'Age color-coded: green (22 and under) to red (30+)',
+        'Sign directly from the prospects table',
+      ]},
+      {icon:'📰',title:'Narrative Engine',items:[
+        'Every event result modal now includes a generated event story summary',
+        'Highlights main event result, title changes, GOAT ranking movement, and rising prospects',
+        'Callouts for Fight of the Night winners and exceptional performances',
+      ]},
+      {icon:'🏆',title:'Promotion Legacy Score',items:[
+        'Full promotion leaderboard ranking your organization against all rivals',
+        'Score based on: prestige, fan trust, HoF fighters produced, legend-tier fighters, title fight count, events run',
+        'Top 5 greatest fighters your promotion has produced',
+        'All eras shown in context of your promotion\'s history',
+      ]},
+      {icon:'🎯',title:'Career Milestones & Timeline',items:[
+        'Milestone badges earned in-game: 10/20/30 wins, win streaks, title wins/defenses, two-division champ, GOAT tiers',
+        'Career timeline shows key events with year/month stamps (big moments in gold)',
+        'Both visible on every fighter detail page',
+      ]},
+    ],
+  },
+  {
+    version:'v17',
+    date:'Build 1 — Fighter Lifecycle',
+    tag:'latest',
+    tagColor:'var(--grn)',
+    summary:'Fighter morale, retirement, contract negotiations, title defense pressure, weight class moves.',
+    sections:[
+      {icon:'😊',title:'Fighter Morale System',items:[
+        'Every fighter has a morale score (0–100) displayed on cards and detail pages',
+        'Morale shifts weekly based on idle time, contract value vs tier expectation, wins/losses, and champion status',
+        'Fighters below 30 morale randomly demand release or renegotiation',
+        'Demands surface as actionable alerts on the Dashboard — Grant or Deny',
+        'Morale influences fight entertainment score (+3 happy, −5 furious)',
+        'Wins boost morale +8, losses reduce morale −5',
+      ]},
+      {icon:'👴',title:'Fighter Retirement & Age Curve',items:[
+        'Fighters can retire from age 32+, with probability rising sharply after 38',
+        'Modifiers: champions retire less (×0.3), unhappy fighters retire sooner (×1.8), bad injury doubles chance',
+        'Retiring champions create a VACANT title with log announcement and legitimacy penalty',
+        'Retired fighters moved to a new Retired tab in the Roster view with full career record',
+      ]},
+      {icon:'🤝',title:'Contract Negotiations',items:[
+        'Signing free agents and renewing contracts now opens a negotiation modal',
+        '3 offer tiers: Lowball / Fair Market / Premium — each with reject probability shown',
+        'Reject chance scales by fighter tier and morale — elites demand more, unhappy fighters walk',
+        'Fighter rejection lets you try again or walk away',
+        'Premium offers boost morale; underpaying tanks it',
+      ]},
+      {icon:'🏆',title:'Title Defense System',items:[
+        'Champions tracked for weeks since last defense',
+        'At 20 weeks: warning logged, champion shows red alert on Dashboard',
+        'At 28 weeks: title stripped automatically — Legitimacy −8, Fan Trust −5',
+        'Dashboard champions card now shows weeks held and current #1 contender',
+        '#1 Contender badge shown in division rankings view',
+      ]},
+      {icon:'⚖️',title:'Weight Class Transfers',items:[
+        'Move Weight Class button on every fighter detail page',
+        'Modal shows all eligible divisions with fighter count and current #1 contender',
+        'Moving resets division ranking points and gives a small morale boost',
+      ]},
+    ],
+  },
+  {
+    version:'v16',
+    date:'Regional Expansion System',
+    tag:'',
+    tagColor:'var(--blu)',
+    summary:'Full regional presence system with investable markets, travel cost discounts, and home market fighter bonuses.',
+    sections:[
+      {icon:'🌍',title:'Regional Presence',items:[
+        '7 investable regions: North America, Latin America, Europe, Russia/CIS, Middle East, Asia Pacific, Oceania',
+        '3 levels per region: Foothold → Established → Dominant',
+        'Benefits: travel cost discounts (up to 75%), fill rate boosts, stacking prestige bonuses',
+        'Each promotion starts with realistic regional presence (UFC dominant in NA, established in LatAm/Europe/Middle East)',
+      ]},
+      {icon:'🏠',title:'Home Market Fighter System',items:[
+        'Fighters boost gate fill +3% when competing in their nationality\'s region (capped at 20%)',
+        'Home market crowd boost logged per event',
+        'Event builder shows regional level, discounted travel cost, and active bonuses inline',
+      ]},
+      {icon:'📍',title:'Event Location Improvements',items:[
+        '18 real event locations grouped by region in the location picker',
+        'Effective travel cost shown vs original after regional discounts',
+        'Dedicated Regions tab with investment UI, progress bars, and cost preview',
+      ]},
+    ],
+  },
+  {
+    version:'v15',
+    date:'Core Game Engine',
+    tag:'',
+    tagColor:'var(--tx3)',
+    summary:'Full game foundation: 9 promotions, real rosters, events, finance, scouting, infrastructure, sponsorships.',
+    sections:[
+      {icon:'🏢',title:'Promotions & Rosters',items:[
+        '9 selectable real promotions: UFC, ONE, PFL, Bellator, RIZIN, KSW, Cage Warriors, BKFC, Eternal MMA + Custom',
+        'Real fighter rosters with accurate stats across 9 men\'s + 4 women\'s weight classes',
+        'Fighter tiers: Champion, Elite, Contender, Prospect with OVR, stats, contracts',
+        'P4P rankings with Elo-style points and movement arrows',
+      ]},
+      {icon:'🥊',title:'Events System',items:[
+        '4 event tiers: Weekly, Fight Night, Premium, Supercard',
+        'Event builder with manual card construction and smart auto-fill',
+        'Venue selection (6 venues), marketing budget, fight night bonuses',
+        'Scheduling system: book 1–24 events in advance, auto-runs on correct week',
+        'Revenue breakdown: gate, TV, merch, sponsorship per event',
+      ]},
+      {icon:'💰',title:'Finance & Business',items:[
+        'Monthly income/expense cycle with media rights, sponsor income, overhead, buildings',
+        'TV clause penalties for underperformance',
+        'Full finance page with P&L and revenue breakdown by source',
+      ]},
+      {icon:'🔭',title:'Scouting & Infrastructure',items:[
+        '6 scout regions with trait bonuses and time-delayed mission reveals',
+        '5 purchasable buildings: Performance Institute, Sports Medicine, Content Studio, Scouting Network, Fighter Academy',
+        'Building effects: fighter development, injury reduction, charisma boost, prospect generation',
+      ]},
+      {icon:'🤝',title:'Sponsorships & Rivals',items:[
+        '6 sponsor categories with real brands, prestige requirements, and special effects',
+        'AI rivals poach free agents and run their own events weekly',
+        'vs Rivals comparison page',
+      ]},
+    ],
+  },
+];
+
+function vChangelog(){
+  return D('page',[
+    h('div',{style:{display:'flex',alignItems:'center',gap:'12px',marginBottom:'20px'}},[
+      D('',[
+        D('ptitle',['📋 Release Notes']),
+        D('psub',['Full history of features and updates to MMA Mogul']),
+      ]),
+    ]),
+    ...CHANGELOG.map(rel=>{
+      return h('div',{style:{marginBottom:'28px'}},[
+        // Version header
+        h('div',{style:{display:'flex',alignItems:'center',gap:'10px',marginBottom:'12px',paddingBottom:'10px',borderBottom:'2px solid var(--bd)'}},[
+          h('div',{style:{background:'var(--red)',color:'#fff',borderRadius:'8px',padding:'4px 12px',fontWeight:'900',fontSize:'15px'}},[rel.version]),
+          h('div',{style:{flex:'1'}},[
+            h('div',{style:{fontWeight:'800',fontSize:'15px'}},[rel.date]),
+            h('div',{style:{fontSize:'12px',color:'var(--tx2)',marginTop:'2px'}},[rel.summary]),
+          ]),
+          rel.tag?h('div',{style:{background:'rgba(39,174,96,.12)',border:'1px solid rgba(39,174,96,.4)',borderRadius:'20px',padding:'3px 10px',fontSize:'11px',fontWeight:'800',color:'var(--grn)'}},'● LATEST'):null,
+        ]),
+        // Sections grid
+        h('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(300px,1fr))',gap:'10px'}},[
+          ...rel.sections.map(sec=>h('div',{style:{background:'var(--bg3)',border:'1px solid var(--bd)',borderRadius:'10px',padding:'14px'}},[
+            h('div',{style:{display:'flex',alignItems:'center',gap:'8px',marginBottom:'10px'}},[
+              h('span',{style:{fontSize:'18px'}},[sec.icon]),
+              h('div',{style:{fontWeight:'800',fontSize:'13px'}},[sec.title]),
+            ]),
+            h('ul',{style:{paddingLeft:'16px',display:'flex',flexDirection:'column',gap:'5px'}},[
+              ...sec.items.map(item=>h('li',{style:{fontSize:'12px',color:'var(--tx2)',lineHeight:'1.5'}},[item])),
+            ]),
+          ])),
+        ]),
+      ]);
+    }),
+    // Footer
+    h('div',{style:{marginTop:'24px',padding:'16px',background:'var(--bg3)',borderRadius:'10px',textAlign:'center',fontSize:'12px',color:'var(--tx3)'}},[
+      h('div',{style:{fontWeight:'700',marginBottom:'4px'}},'MMA Mogul — Fight Empire Simulator'),
+      h('div',{},'Build 3 coming next: Debt/loans · Merchandise income · Broadcasting bidding wars · Ticket pricing · Rival acquisitions · Goals & achievements · Fighter storylines'),
+    ]),
+  ]);
+}
+
+// -- FOOTER -----------------------------------------------
+function vFooter(){
+  return h('div',{cls:'game-footer'},[
+    D('game-footer-left',['MMA Mogul v18 · Fight Empire Simulator']),
+    D('game-footer-right',[
+      h('button',{cls:'footer-link',onClick:()=>{UI.view='changelog';render();}},'📋 Release Notes'),
+      h('button',{cls:'footer-link',onClick:()=>{UI.setOpen=!UI.setOpen;render();}},'⚙ Settings'),
+    ]),
+  ]);
+}
+
 function vSettings(){
   if(!UI.setOpen)return null;
   return D('sp',[
@@ -3751,7 +4328,10 @@ function vSettings(){
       D('',[h('div',{style:{fontWeight:'600'}},'Dark Mode'),h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},'Toggle theme')]),
       h('button',{cls:'tog'+(UI.dark?' on':''),onClick:()=>{UI.dark=!UI.dark;document.body.classList.toggle('dark',UI.dark);render();}}),
     ]),
-    h('div',{style:{marginTop:'16px',fontSize:'11px',color:'var(--tx3)'}},'MMA Mogul v3.0'),
+    h('div',{style:{marginTop:'16px',borderTop:'1px solid var(--bd)',paddingTop:'12px'}},[
+      h('div',{style:{fontSize:'12px',fontWeight:'800',color:'var(--tx)',marginBottom:'2px'}},'MMA Mogul v17'),
+      h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},'Fight Empire Simulator'),
+    ]),
   ]);
 }
 
@@ -4125,6 +4705,839 @@ function applySponsors(prevSponsors){
   G._hypericeActive=G.sponsors?.healthcare==='hyperice';
 }
 
+// ============================================================
+// BUILD 1 — FIGHTER LIFECYCLE SYSTEMS
+// ============================================================
+
+// ── 1. MORALE SYSTEM ─────────────────────────────────────────
+// Morale: 0–100. Affects entertainment score, fan trust, chance of demanding release.
+// Drivers: fights booked, wins, contract value relative to tier, idle time, title shots earned/denied
+
+function getMoraleLabel(m){
+  if(m>=80)return{label:'Happy',cls:'morale-hi',icon:'😊'};
+  if(m>=55)return{label:'Content',cls:'morale-ok',icon:'😐'};
+  if(m>=35)return{label:'Unhappy',cls:'morale-lo',icon:'😤'};
+  return{label:'Furious',cls:'morale-lo',icon:'🤬'};
+}
+
+function initMorale(f){
+  // Base morale by tier; champions start happy
+  const base={champion:85,elite:75,contender:65,prospect:60}[f.tier]||65;
+  f.morale=base+ri(-5,5);
+}
+
+function tickMorale(){
+  if(!G||!G.roster)return;
+  const now=(G.yr*48)+(G.mo*4)+G.wk;
+  G.roster.forEach(f=>{
+    if(f.morale===undefined)f.morale=70;
+    let delta=0;
+    // Idle penalty: weeks since last fight
+    const lastFight=f.lastFightYr?(f.lastFightYr*48+f.lastFightMo*4+f.lastFightWk):0;
+    const idleWks=lastFight?now-lastFight:52;
+    if(idleWks>20)delta-=0.8;
+    else if(idleWks>12)delta-=0.4;
+    else if(idleWks<8)delta+=0.3;
+    // Contract expiry stress
+    if(f.contract&&f.contract.fightsLeft<=1)delta-=0.6;
+    // Champion happiness
+    if(f.isChamp)delta+=0.4;
+    // Underpaid vs tier (compare show money to tier expectation)
+    const expected={champion:300000,elite:80000,contender:25000,prospect:8000}[f.tier]||12000;
+    if((f.contract?.show||0)<expected*0.6)delta-=0.5;
+    else if((f.contract?.show||0)>expected*1.4)delta+=0.2;
+    // Clamp
+    f.morale=Math.min(100,Math.max(0,(f.morale||70)+delta));
+
+    // Demand logic: fighters below 30 morale may demand release or renegotiation
+    if(f.morale<30&&Math.random()<0.08){
+      const demand=f.morale<15?'release':'renegotiate';
+      // Only fire once per fighter (check pendingDemands)
+      G.pendingDemands=G.pendingDemands||[];
+      if(!G.pendingDemands.find(d=>d.fid===f.id)){
+        G.pendingDemands.push({fid:f.id,type:demand,wk:G.wk,mo:G.mo,yr:G.yr});
+        G.log.push('😤 <fighter:'+f.name+'> is unhappy and demanding '+(demand==='release'?'a release':'contract renegotiation')+'!');
+      }
+    }
+  });
+}
+
+// ── 2. RETIREMENT SYSTEM ─────────────────────────────────────
+// Age-based retirement probability. Champions retire less. High morale delays retirement.
+
+function checkRetirements(){
+  if(!G||!G.roster)return;
+  const retirees=[];
+  G.roster.forEach(f=>{
+    const age=f.age||25;
+    if(age<32)return; // nobody retires before 32
+    // Base chance per week: rises sharply after 37
+    let chance=0;
+    if(age>=42)chance=0.025;
+    else if(age>=40)chance=0.015;
+    else if(age>=38)chance=0.008;
+    else if(age>=35)chance=0.004;
+    else chance=0.001;
+    // Modifiers
+    if(f.isChamp)chance*=0.3; // champs retire much less
+    if((f.morale||70)<40)chance*=1.8; // unhappy fighters retire sooner
+    if(f.status==='injured'&&f.injuryWeeksLeft>8)chance*=2; // bad injury pushes retirement
+    if(f.rec&&f.rec.l>f.rec.w)chance*=1.4; // bad record
+    if(Math.random()<chance){
+      retirees.push(f);
+    }
+  });
+  retirees.forEach(f=>{
+    f.status='retired';
+    f.retiredYr=G.yr;
+    if(f.isChamp){
+      f.isChamp=false;
+      G.log.push('🏆 VACANT: <fighter:'+f.name+'> retired as champion — '+( ALL_WCN[f.weightClass]||f.weightClass)+' title is VACANT!');
+      G.promo.legit=Math.max(0,G.promo.legit-5);
+    } else {
+      G.log.push('👴 <fighter:'+f.name+'> (Age '+Math.floor(f.age)+') has retired.');
+    }
+    // Move to retired pool, off active roster
+    G.retired=G.retired||[];
+    G.retired.push({...f});
+    G.roster=G.roster.filter(r=>r.id!==f.id);
+    // Hall of Fame check on retirement
+    if(evaluateHof(f)){injectHof(G.retired[G.retired.length-1]);}
+  });
+}
+
+// ── 3. CONTRACT NEGOTIATION SYSTEM ───────────────────────────
+// When signing a FA or renewing, player gets 3 offer tiers to choose from.
+// Fighter may reject low offers based on their tier + morale.
+
+function openNegotiation(fid, isRenewal=false){
+  const f=isRenewal?G.roster.find(x=>x.id===fid):G.fa.find(x=>x.id===fid);
+  if(!f)return;
+  // Build 3 offer options
+  const baseCT=CT[f.tier]||CT.prospect;
+  const starAvg=f.s?.mkt&&f.s?.cha?(f.s.mkt+f.s.cha)/2:60;
+  const starMult=starAvg<65?1:1+Math.pow((starAvg-65)/35,1.6)*11;
+  // Low / fair / generous
+  const offers=[
+    {label:'Lowball',desc:'Minimum viable offer. Fighter may reject.',fights:baseCT.fights,show:Math.round(baseCT.show*starMult*0.65/1000)*1000,win:Math.round(baseCT.win*starMult*0.65/1000)*1000,rejectChance:f.tier==='champion'?0.9:f.tier==='elite'?0.7:f.tier==='contender'?0.45:0.2},
+    {label:'Fair Market',desc:'Standard offer. Usually accepted.',fights:baseCT.fights,show:Math.round(baseCT.show*starMult*1.0/1000)*1000,win:Math.round(baseCT.win*starMult*1.0/1000)*1000,rejectChance:f.tier==='champion'?0.35:f.tier==='elite'?0.15:0.05},
+    {label:'Premium',desc:'Above market. Fighter will be very happy.',fights:baseCT.fights+2,show:Math.round(baseCT.show*starMult*1.5/1000)*1000,win:Math.round(baseCT.win*starMult*1.5/1000)*1000,rejectChance:0},
+  ];
+  UI.modal={type:'negotiate',fid,isRenewal,fighter:f,offers,selectedOffer:1};
+  render();
+}
+
+function resolveNegotiation(offerIdx){
+  const m=UI.modal;
+  if(!m||m.type!=='negotiate')return;
+  const offer=m.offers[offerIdx];
+  const f=m.isRenewal?G.roster.find(x=>x.id===m.fid):G.fa.find(x=>x.id===m.fid);
+  if(!f){UI.modal=null;render();return;}
+  // Morale modifier on reject chance
+  const moraleAdj=(f.morale||70)<50?0.1:(f.morale||70)>80?-0.1:0;
+  const finalReject=Math.max(0,offer.rejectChance+moraleAdj);
+  if(Math.random()<finalReject){
+    // Fighter rejects
+    G.log.push('❌ '+f.name+' rejected your '+offer.label+' offer!');
+    if(f.morale!==undefined)f.morale=Math.max(0,f.morale-10);
+    UI.modal={type:'negotiateRejected',fighter:f,offerLabel:offer.label};
+    render();return;
+  }
+  // Accepted
+  const newContract={fights:offer.fights,show:offer.show,win:offer.win,fightsLeft:offer.fights,ppv:0};
+  const signingFee=Math.round(offer.show*0.4);
+  if(G.fin.cash<signingFee){alert('Need '+fm(signingFee)+' signing fee!');UI.modal=null;render();return;}
+  G.fin.cash-=signingFee;
+  if(m.isRenewal){
+    f.contract=newContract;
+    f.salary=offer.show+offer.win;
+    if(f.morale!==undefined)f.morale=Math.min(100,f.morale+15);
+    G.log.push('✅ Renewed <fighter:'+f.name+'> on '+offer.label+' deal | '+ctLabel(newContract));
+  } else {
+    const idx=G.fa.findIndex(x=>x.id===m.fid);
+    if(idx>=0)G.fa.splice(idx,1);
+    f.promo=G.promo.id;f.contract=newContract;f.salary=offer.show+offer.win;
+    if(f.morale===undefined)initMorale(f);
+    f.morale=Math.min(100,(f.morale||70)+10);
+    G.roster.push(f);
+    G.log.push('✅ Signed <fighter:'+f.name+'> on '+offer.label+' deal | Fee: '+fm(signingFee)+' | '+ctLabel(newContract));
+  }
+  UI.modal=null;render();
+}
+
+// ── 4. TITLE DEFENSE SYSTEM ──────────────────────────────────
+// Champions must defend every ~16 weeks or face mandatory defense pressure.
+// At 20 weeks, title is put on notice. At 28 weeks, stripped.
+
+function checkTitleDefenses(){
+  if(!G||!G.roster)return;
+  const now=(G.yr*48)+(G.mo*4)+G.wk;
+  G.roster.filter(f=>f.isChamp).forEach(f=>{
+    const lastDef=f.lastFightYr?(f.lastFightYr*48+f.lastFightMo*4+f.lastFightWk):((G.yr-1)*48+1);
+    const wksHeld=now-lastDef;
+    if(wksHeld>=45&&!f.titleStripWarned){
+      // Strip the title
+      f.isChamp=false;f.tier='elite';f.titleStripWarned=false;
+      G.log.push('🚨 <fighter:'+f.name+'> STRIPPED of '+(ALL_WCN[f.weightClass]||f.weightClass)+' title after '+wksHeld+' weeks without a defense!');
+      G.promo.legit=Math.max(0,G.promo.legit-8);
+      G.promo.fanTrust=Math.max(0,G.promo.fanTrust-5);
+      if(!G.vacantTitles)G.vacantTitles={};
+      G.vacantTitles[f.weightClass]=true;
+    } else if(wksHeld>=36&&!f.titleStripWarned){
+      f.titleStripWarned=true;
+      G.log.push('⚠️ <fighter:'+f.name+'> — '+(ALL_WCN[f.weightClass]||'')+' title on notice! Book a defense or it\'ll be stripped ('+Math.round(45-wksHeld)+' weeks left).');
+    }
+    if(wksHeld<36&&f.titleStripWarned)f.titleStripWarned=false;
+  });
+}
+
+// Determine #1 contender for a weight class (highest ranked non-champ)
+function getContender(wc){
+  const ranked=G.roster.filter(f=>f.weightClass===wc&&!f.isChamp&&f.status!=='retired')
+    .sort((a,b)=>(b.rankPts||0)-(a.rankPts||0));
+  return ranked[0]||null;
+}
+
+// ── 5. WEIGHT CLASS TRANSFER ─────────────────────────────────
+function moveWeightClass(fid, newWC){
+  const f=G.roster.find(x=>x.id===fid);
+  if(!f)return;
+  const old=f.weightClass;
+  f.weightClass=newWC;
+  f.rankPts=200; // reset ranking in new division
+  f.rankPrev=null;
+  f.morale=Math.min(100,(f.morale||70)+5); // slight morale boost — fresh start
+  G.log.push('⚖️ <fighter:'+f.name+'> moved from '+(ALL_WCN[old]||old)+' → '+(ALL_WCN[newWC]||newWC));
+  UI.modal=null;render();
+}
+
+// ── 6. DEMAND RESOLUTION ─────────────────────────────────────
+function resolveDemand(fid, accept){
+  G.pendingDemands=G.pendingDemands||[];
+  const idx=G.pendingDemands.findIndex(d=>d.fid===fid);
+  if(idx<0)return;
+  const demand=G.pendingDemands.splice(idx,1)[0];
+  const f=G.roster.find(x=>x.id===fid);
+  if(!f)return;
+  if(demand.type==='release'){
+    if(accept){
+      releaseF(fid);
+      G.log.push('🚪 Granted <fighter:'+f.name+">'s release request.");
+    } else {
+      f.morale=Math.max(0,(f.morale||70)-20);
+      G.log.push('😡 Denied <fighter:'+f.name+">'s release — morale tanked further.");
+    }
+  } else {
+    if(accept){
+      openNegotiation(fid,true);return;
+    } else {
+      f.morale=Math.max(0,(f.morale||70)-15);
+      G.log.push('😤 Denied <fighter:'+f.name+">'s renegotiation — they are furious.");
+    }
+  }
+  render();
+}
+
+
+
+// ============================================================
+// BUILD 2 — LEGACY SYSTEMS (v18)
+// ============================================================
+
+// ── GOAT SCORING ─────────────────────────────────────────────
+const LEGACY_TIERS=[
+  {id:'local',    label:'Local Star',     min:0,   cls:'lt-local'},
+  {id:'contender',label:'Top Contender',  min:30,  cls:'lt-contender'},
+  {id:'champion', label:'Champion',       min:80,  cls:'lt-champion'},
+  {id:'legend',   label:'Legend',         min:160, cls:'lt-legend'},
+  {id:'great',    label:'All-Time Great', min:280, cls:'lt-great'},
+  {id:'goatc',    label:'GOAT Contender', min:440, cls:'lt-goatc'},
+  {id:'goat',     label:'GOAT',           min:650, cls:'lt-goat'},
+];
+
+function getLegacyTier(score){
+  for(let i=LEGACY_TIERS.length-1;i>=0;i--){
+    if(score>=LEGACY_TIERS[i].min)return LEGACY_TIERS[i];
+  }
+  return LEGACY_TIERS[0];
+}
+
+function ltTag(score){
+  const t=getLegacyTier(score||0);
+  return S('tag '+t.cls,[t.label]);
+}
+
+function calcGoatDelta(result, fighter, isWinner, isTitle, oppRankPts, promoPrestige, bonuses){
+  let d=0;
+  if(isWinner){
+    d+=2; // win
+    if(result.method==='KO/TKO'||result.method==='Submission') d+=2; // finish
+    if(isTitle){
+      if(fighter.isChamp) d+=5; // title defense
+      else d+=6; // title win
+      d+=3; // championship fight bonus
+    }
+    // Bonus awards
+    if(bonuses){
+      if(bonuses.find(b=>b.fighter?.id===fighter.id&&b.label.includes('Night'))) d+=2;
+    }
+    // Streak bonus (after 5 wins in a row)
+    const streak=fighter.winStreak||0;
+    if(streak>=5) d+= Math.min(4,Math.floor((streak-4)/1));
+    // Opponent quality bonus
+    const oppBonus=Math.round((oppRankPts-400)/200); // +1 to +3 for beating top fighters
+    d+=Math.max(0,Math.min(3,oppBonus));
+    // Promo prestige multiplier (small)
+    if(promoPrestige>=80) d+=1;
+  } else {
+    d-=1; // loss
+  }
+  // Entertainment score bonus
+  if(result.ent>=90) d+=2;
+  else if(result.ent>=80) d+=1;
+  return d;
+}
+
+function updateGoatScores(results, ev, bonuses){
+  // Called after every event. results = array of fight result objects.
+  results.forEach(r=>{
+    const win=G.roster.find(f=>f.id===r.wId);
+    const lose=G.roster.find(f=>f.id===r.lId);
+    const oppWinPts=lose?.rankPts||400;
+    const oppLosePts=win?.rankPts||400;
+    if(win){
+      if(win.goatScore===undefined)win.goatScore=0;
+      win.winStreak=(win.winStreak||0)+1;
+      win.goatScore+=calcGoatDelta(r,win,true,r.title,oppWinPts,G.promo.prestige,bonuses);
+      win.goatScore=Math.max(0,win.goatScore);
+      checkMilestones(win, r, true);
+    }
+    if(lose){
+      if(lose.goatScore===undefined)lose.goatScore=0;
+      lose.winStreak=0;
+      lose.goatScore+=calcGoatDelta(r,lose,false,r.title,oppLosePts,G.promo.prestige,bonuses);
+      lose.goatScore=Math.max(0,lose.goatScore);
+      checkMilestones(lose, r, false);
+    }
+  });
+  // Longevity bonus monthly (called from advWeek on mo==1)
+  // handled in tickLegacyMonthly
+}
+
+function tickLegacyMonthly(){
+  // Give active fighters longevity points and update P4P ranking tag
+  if(!G||!G.roster)return;
+  G.roster.forEach(f=>{
+    if(f.status==='retired')return;
+    if(f.goatScore===undefined)f.goatScore=0;
+    // +1 per active year (approx monthly: +1/12)
+    f._legacyMonths=(f._legacyMonths||0)+1;
+    if(f._legacyMonths%12===0) f.goatScore+=1;
+    // P4P #1 bonus: tracked separately, awarded in updateGoatRanks
+  });
+  updateGoatRanks();
+  checkEras();
+}
+
+function updateGoatRanks(){
+  // Rank all fighters across all rosters by goatScore
+  const allF=getAllFighters();
+  allF.sort((a,b)=>(b.goatScore||0)-(a.goatScore||0));
+  allF.forEach((f,i)=>{
+    const prevRank=f.goatRank;
+    f.goatRank=i+1;
+    // P4P #1 bonus (top ranked active fighter from player roster gets +10 once)
+    if(i===0&&!f._p4p1Bonus&&f.promo===G.promo.id){
+      f.goatScore+=10;f._p4p1Bonus=true;
+      G.log.push('🐐 <fighter:'+f.name+'> has reached #1 on the GOAT leaderboard! (+10 GOAT pts)');
+    }
+    f.legacyTier=getLegacyTier(f.goatScore||0).id;
+  });
+}
+
+function getAllFighters(){
+  const all=[...G.roster,...(G.retired||[])];
+  G.rivals.forEach(rv=>(rv.roster||[]).forEach(f=>{ if(!all.find(x=>x.id===f.id))all.push(f); }));
+  return all;
+}
+
+// ── CAREER MILESTONES ─────────────────────────────────────────
+const MILESTONES=[
+  {id:'win10',   label:'10 Wins',          icon:'🥊', check:f=>f.rec.w>=10},
+  {id:'win20',   label:'20 Wins',          icon:'🥊', check:f=>f.rec.w>=20},
+  {id:'win30',   label:'30 Wins',          icon:'🥊', check:f=>f.rec.w>=30},
+  {id:'streak5', label:'5-Fight Win Streak',icon:'🔥', check:f=>(f.winStreak||0)>=5},
+  {id:'streak10',label:'10-Fight Win Streak',icon:'🔥', check:f=>(f.winStreak||0)>=10},
+  {id:'champ',   label:'First Title Won',  icon:'🏆', check:f=>f.isChamp||(f.milestones||[]).includes('champ')},
+  {id:'def3',    label:'3 Title Defenses', icon:'🛡', check:f=>(f.titleDefs||0)>=3},
+  {id:'def5',    label:'5 Title Defenses', icon:'🛡', check:f=>(f.titleDefs||0)>=5},
+  {id:'def10',   label:'10 Title Defenses',icon:'👑', check:f=>(f.titleDefs||0)>=10},
+  {id:'champchamp',label:'Two-Division Champ',icon:'👑', check:f=>(f.champDivs||[]).length>=2},
+  {id:'fotn',    label:'Fight of the Night',icon:'⭐', check:f=>(f.fotnCount||0)>=1},
+  {id:'goat100', label:'GOAT Score 100+',  icon:'🐐', check:f=>(f.goatScore||0)>=100},
+  {id:'goat300', label:'GOAT Score 300+',  icon:'🐐', check:f=>(f.goatScore||0)>=300},
+  {id:'legend',  label:'Legendary Status', icon:'🌟', check:f=>getLegacyTier(f.goatScore||0).id==='legend'||getLegacyTier(f.goatScore||0).id==='great'||getLegacyTier(f.goatScore||0).id==='goatc'||getLegacyTier(f.goatScore||0).id==='goat'},
+];
+
+function checkMilestones(f, result, isWin){
+  if(!f)return;
+  f.milestones=f.milestones||[];
+  f.careerTimeline=f.careerTimeline||[];
+  // Title tracking
+  if(isWin&&result.title&&!f.milestones.includes('champ')){
+    f.milestones.push('champ');
+    f.champDivs=f.champDivs||[];
+    if(!f.champDivs.includes(f.weightClass))f.champDivs.push(f.weightClass);
+    f.careerTimeline.push({yr:G.yr,mo:G.mo,event:'Won '+( ALL_WCN[f.weightClass]||f.weightClass)+' Championship 🏆',big:true});
+  }
+  // Title defense tracking
+  if(isWin&&result.title&&f.isChamp){
+    f.titleDefs=(f.titleDefs||0)+1;
+    if(f.titleDefs===3||f.titleDefs===5||f.titleDefs===10){
+      f.careerTimeline.push({yr:G.yr,mo:G.mo,event:f.titleDefs+'th Title Defense 🛡',big:true});
+    }
+  }
+  // Two-division check
+  if(isWin&&result.title){
+    f.champDivs=f.champDivs||[];
+    if(!f.champDivs.includes(f.weightClass))f.champDivs.push(f.weightClass);
+    if(f.champDivs.length>=2&&!f.milestones.includes('champchamp')){
+      f.milestones.push('champchamp');
+      f.careerTimeline.push({yr:G.yr,mo:G.mo,event:'Two-Division Champion! 👑',big:true});
+      G.log.push('👑 <fighter:'+f.name+'> becomes a TWO-DIVISION CHAMPION!');
+    }
+  }
+  // Record milestones
+  [10,20,30].forEach(n=>{
+    const mid='win'+n;
+    if(f.rec.w===n&&!f.milestones.includes(mid)){
+      f.milestones.push(mid);
+      f.careerTimeline.push({yr:G.yr,mo:G.mo,event:n+'th Career Win 🥊'});
+    }
+  });
+  // Streak milestones
+  if(isWin){
+    [5,10].forEach(n=>{
+      const mid='streak'+n;
+      if((f.winStreak||0)===n&&!f.milestones.includes(mid)){
+        f.milestones.push(mid);
+        f.careerTimeline.push({yr:G.yr,mo:G.mo,event:n+'-Fight Win Streak 🔥',big:n===10});
+        if(n>=5)G.log.push('🔥 <fighter:'+f.name+'> is on a '+n+'-fight win streak!');
+      }
+    });
+  }
+  // GOAT tier milestones
+  const tier=getLegacyTier(f.goatScore||0);
+  const tierMilId='tier_'+tier.id;
+  if(!f.milestones.includes(tierMilId)&&tier.id!=='local'){
+    f.milestones.push(tierMilId);
+    f.careerTimeline.push({yr:G.yr,mo:G.mo,event:'Reached '+tier.label+' status '+tier.cls.includes('goat')?'🐐':'🌟',big:tier.id==='great'||tier.id==='goatc'||tier.id==='goat'});
+    if(tier.id==='legend'||tier.id==='great'||tier.id==='goatc'||tier.id==='goat'){
+      G.log.push((tier.id==='goat'?'🐐':'🌟')+' <fighter:'+f.name+'> has reached '+tier.label+' status!');
+    }
+  }
+}
+
+// ── HALL OF FAME ──────────────────────────────────────────────
+function evaluateHof(f){
+  // Called when fighter retires
+  if(!f)return false;
+  let pts=0;
+  if(f.rec.w>=20) pts+=2;
+  if(f.rec.w>=30) pts+=2;
+  if((f.titleDefs||0)>=3) pts+=3;
+  if((f.titleDefs||0)>=7) pts+=3;
+  if((f.goatScore||0)>=150) pts+=3;
+  if((f.goatScore||0)>=300) pts+=3;
+  if((f.champDivs||[]).length>=2) pts+=3;
+  if((f.winStreak||0)>=10) pts+=2;
+  if((f.fotnCount||0)>=3) pts+=1;
+  const tierIdx=LEGACY_TIERS.findIndex(t=>t.id===getLegacyTier(f.goatScore||0).id);
+  if(tierIdx>=3) pts+=2; // legend+
+  if(tierIdx>=5) pts+=3; // goat contender+
+  return pts>=6;
+}
+
+function injectHof(f){
+  f.hallOfFame=true;
+  f.hofYear=G.yr;
+  G.hof=G.hof||[];
+  G.hof.push({id:f.id,name:f.name,nat:f.nat,weightClass:f.weightClass,
+    rec:{...f.rec},titleDefs:f.titleDefs||0,goatScore:f.goatScore||0,
+    goatRank:f.goatRank||999,hofYear:G.yr,legacyTier:getLegacyTier(f.goatScore||0).id,
+    champDivs:f.champDivs||[],winStreak:f.winStreak||0});
+  G.log.push('🏛 HALL OF FAME: <fighter:'+f.name+'> inducted! Career: '+f.rec.w+'W–'+f.rec.l+'L | Defenses: '+(f.titleDefs||0)+' | GOAT Score: '+Math.round(f.goatScore||0));
+  G.promo.legacyScore=(G.promo.legacyScore||0)+50;
+}
+
+// ── DYNAMIC ERAS ─────────────────────────────────────────────
+function checkEras(){
+  if(!G)return;
+  G.eras=G.eras||[];
+  const retired=G.retired||[];
+  // Era triggered by: 3+ champions retiring within a 2-year span, or every 10 years
+  const recentRetirements=retired.filter(f=>(f.milestones||[]).includes('champ')&&f.retiredYr&&G.yr-f.retiredYr<=2);
+  const lastEraYr=(G.eras[G.eras.length-1]?.endYr)||(G.yr-11);
+  if((recentRetirements.length>=3||G.yr-lastEraYr>=10)&&(G.eras.length===0||G.yr>((G.eras[G.eras.length-1]?.startYr)||0)+4)){
+    // Generate era name from dominant style/nationality of retiring champions
+    const nat=recentRetirements.map(f=>f.nat||'').join(' ');
+    let eraName='New Era';
+    if(nat.includes('Russian')||nat.includes('Dagestani'))eraName='The Dagestani Era';
+    else if(nat.includes('Brazilian'))eraName='The Brazilian Era';
+    else if(nat.includes('American'))eraName='The American Era';
+    else if(nat.includes('Georgian')||nat.includes('British'))eraName='The European Era';
+    else if(nat.includes('Chinese')||nat.includes('Korean')||nat.includes('Japanese'))eraName='The Asian Era';
+    else eraName='Era of '+(recentRetirements[0]?.name||'Champions');
+    // Close previous era
+    if(G.eras.length>0)G.eras[G.eras.length-1].endYr=G.yr;
+    const topFighter=getAllFighters().filter(f=>f.promo===G.promo.id).sort((a,b)=>(b.goatScore||0)-(a.goatScore||0))[0];
+    G.eras.push({
+      name:eraName,startYr:G.yr,endYr:null,
+      topFighter:topFighter?.name||'Unknown',
+      topPromo:G.promo.name,
+      retired:recentRetirements.map(f=>f.name),
+    });
+    G.log.push('📜 A new era begins: "'+eraName+'" ('+G.yr+')');
+  }
+}
+
+// ── PROSPECT SCORING ─────────────────────────────────────────
+function calcProspectScore(f){
+  const age=Math.floor(f.age||24);
+  const agePeak=age<=22?1.2:age<=25?1.1:age<=28?1.0:age<=31?0.85:0.65;
+  const pot=f.potential||(ov(f)>75?'A':ov(f)>65?'B':'C');
+  const potMult={'S':1.4,'A':1.2,'B':1.0,'C':0.8}[pot]||1.0;
+  const finishRate=(f.rec.w>0&&(f.rec.w/(f.rec.w+f.rec.l+.001))>0.7)?1.1:1.0;
+  const streak=Math.min(10,f.winStreak||0);
+  const base=((ov(f)-40)/60)*100; // 0-100
+  return Math.round(base*agePeak*potMult*finishRate + streak*2);
+}
+
+// ── PROMOTION LEGACY SCORE ───────────────────────────────────
+function calcPromoLegacy(promo, roster, hofList, events){
+  let s=0;
+  s+=Math.round((promo.prestige||50)*8);
+  s+=Math.round((promo.fanTrust||50)*4);
+  s+=(hofList||[]).length*50;
+  s+=(roster||[]).filter(f=>getLegacyTier(f.goatScore||0).id!=='local').length*5;
+  s+=(roster||[]).filter(f=>(f.titleDefs||0)>=3).length*20;
+  s+=(events||[]).filter(e=>e.avgEnt>=80).length*3;
+  s+=(events||[]).length*1;
+  s+=Math.round((promo.revenue||0)/1e6);
+  return s;
+}
+
+// ── NARRATIVE ENGINE ─────────────────────────────────────────
+function generateNarrative(ev){
+  if(!ev||!ev.results||!ev.results.length)return null;
+  const lines=[];
+  const mainEvent=ev.results[0];
+  const win=G.roster.find(f=>f.id===mainEvent.wId)||(G.retired||[]).find(f=>f.id===mainEvent.wId);
+  const lose=G.roster.find(f=>f.id===mainEvent.lId)||(G.retired||[]).find(f=>f.id===mainEvent.lId);
+  const evName=ev.name||(G.promo.name+' '+ev.tier);
+
+  lines.push(evName+' delivered '+(ev.avgEnt>=80?'fireworks':'an entertaining card')+'.');
+  if(win&&lose){
+    const method=mainEvent.method;
+    const rd=mainEvent.round;
+    if(mainEvent.title){
+      if(win.isChamp){
+        lines.push(win.name+' defended the '+(ALL_WCN[mainEvent.wc]||'')+' title'+(method==='KO/TKO'||method==='Submission'?' by '+method+' in round '+rd:'')+'.');
+        lines.push((win.name)+' now holds '+(win.titleDefs||1)+' title defense'+(( win.titleDefs||1)>1?'s':'')+' and is ranked #'+(win.goatRank||'?')+' on the all-time GOAT leaderboard.');
+      } else {
+        lines.push(win.name+' is the NEW '+(ALL_WCN[mainEvent.wc]||'')+' champion, stopping '+lose.name+(method==='Decision'?' by decision':' by '+method+' in round '+rd)+'.');
+        if((win.goatScore||0)>50)lines.push(win.name+' moves to #'+(win.goatRank||'?')+' on the GOAT leaderboard with a score of '+Math.round(win.goatScore||0)+'.');
+      }
+    } else {
+      lines.push(win.name+(method==='Decision'?' won a decision over ':' stopped ')+lose.name+(method!=='Decision'?' by '+method+' in round '+rd:'')+'.');
+    }
+  }
+  // Bonus highlights
+  const fotn=ev.bonuses?.find(b=>b.label.includes('Fight'));
+  if(fotn)lines.push('The '+( fotn.fighter?.name||'')+(fotn.fighter2?' & '+fotn.fighter2.name:'')+' bout earned Fight of the Night honours.');
+  // Rising prospect callout
+  const risingProspect=G.roster.filter(f=>f.tier==='prospect'&&(f.winStreak||0)>=3&&(f.winStreak||0)<7).sort((a,b)=>(b.goatScore||0)-(a.goatScore||0))[0];
+  if(risingProspect)lines.push('Rising prospect '+risingProspect.name+' improved to '+(risingProspect.rec.w)+'-'+(risingProspect.rec.l)+' and is #'+(risingProspect.goatRank||'?')+' in the GOAT rankings.');
+
+  return lines;
+}
+
+// Hook updateGoatScores into runEvent and checkRetirements into retirement
+// These are called after fight results are processed.
+
+// ── VIEWS ─────────────────────────────────────────────────────
+
+function vGoat(){
+  updateGoatRanks();
+  const all=getAllFighters().filter(f=>f.status!=='retired'||(f.goatScore||0)>0);
+  const sorted=[...all].sort((a,b)=>(b.goatScore||0)-(a.goatScore||0)).slice(0,50);
+  const tabs=[
+    {id:'all',l:'Top 50 All-Time'},
+    {id:'active',l:'Active Fighters'},
+    {id:'retired',l:'Legends'},
+  ];
+  if(!UI.goatTab)UI.goatTab='all';
+  let list=sorted;
+  if(UI.goatTab==='active')list=sorted.filter(f=>f.status!=='retired');
+  if(UI.goatTab==='retired')list=sorted.filter(f=>f.status==='retired');
+
+  const rankIcon=(i)=>i===0?'🥇':i===1?'🥈':i===2?'🥉':(i+1)+'.';
+  const rankCls=(i)=>i===0?'gold':i===1?'silver':i===2?'bronze':'';
+
+  return D('page',[
+    D('ptitle',['🐐 GOAT Rankings']),
+    D('psub',['Greatest fighters across all promotions, all time']),
+    D('tabs',[...tabs.map(t=>h('button',{cls:'tab'+(UI.goatTab===t.id?' on':''),onClick:()=>{UI.goatTab=t.id;render();}},[t.l]))]),
+    D('card',[
+      list.length===0
+        ?h('div',{style:{color:'var(--tx3)',padding:'20px',textAlign:'center'}},'No fighters yet — run some events!')
+        :h('div',{},[
+          ...list.map((f,i)=>{
+            const tier=getLegacyTier(f.goatScore||0);
+            const isMine=f.promo===G.promo.id||G.roster.find(r=>r.id===f.id);
+            return h('div',{cls:'goat-row',style:{background:isMine?'rgba(192,57,43,.04)':''},
+              onClick:()=>{if(G.roster.find(r=>r.id===f.id)){UI.fDetail=f.id;UI.view='roster';render();}}},[
+              h('div',{cls:'goat-rank '+rankCls(i)},[rankIcon(i)]),
+              h('div',{},[
+                h('div',{style:{fontWeight:'700',fontSize:'13px',display:'flex',alignItems:'center',gap:'6px'}},[
+                  f.name,
+                  isMine?h('span',{style:{fontSize:'10px',background:'rgba(192,57,43,.1)',color:'var(--red)',borderRadius:'4px',padding:'1px 5px'}},'YOUR PROMO'):null,
+                  f.hallOfFame?h('span',{style:{fontSize:'11px'}},'🏛'):null,
+                ]),
+                h('div',{style:{fontSize:'11px',color:'var(--tx3)',marginTop:'2px'}},[
+                  f.nat+' · '+(ALL_WCN[f.weightClass]||'')+' · '+f.rec.w+'W–'+f.rec.l+'L'+(f.isChamp?' · 🏆 Champ':'')+(f.status==='retired'?' · Retired':''),
+                ]),
+              ]),
+              h('div',{style:{textAlign:'center'}},[
+                h('div',{style:{fontWeight:'900',fontSize:'15px',color:'var(--gold)'}},[Math.round(f.goatScore||0)+'pts']),
+                h('div',{style:{fontSize:'10px',color:'var(--tx3)'}},'GOAT Score'),
+              ]),
+              h('div',{style:{textAlign:'right'}},[ltTag(f.goatScore||0)]),
+              h('div',{style:{fontSize:'11px',color:'var(--tx3)',textAlign:'right',minWidth:'40px'}},[(f.titleDefs||0)+'🛡']),
+            ]);
+          }),
+        ]),
+    ]),
+  ]);
+}
+
+function vHof(){
+  G.hof=G.hof||[];
+  const eras=G.eras||[];
+
+  // Best of stats
+  const hofList=G.hof;
+  const mostDefs=hofList.slice().sort((a,b)=>(b.titleDefs||0)-(a.titleDefs||0))[0];
+  const highestGoat=hofList.slice().sort((a,b)=>(b.goatScore||0)-(a.goatScore||0))[0];
+  const mostWins=hofList.slice().sort((a,b)=>b.rec.w-a.rec.w)[0];
+
+  return D('page',[
+    D('ptitle',['🏛 Hall of Fame']),
+    D('psub',['The greatest fighters to compete under '+G.promo.name]),
+    // Stats strip
+    hofList.length>0?h('div',{cls:'g4',style:{marginBottom:'14px'}},[
+      D('kpi',[D('kpi-l',['Inductees']),h('div',{style:{fontWeight:'900',fontSize:'20px'}},[hofList.length+''])]),
+      mostDefs?D('kpi',[D('kpi-l',['Most Defenses']),h('div',{style:{fontWeight:'900',fontSize:'13px'}},[mostDefs.name]),h('div',{style:{color:'var(--gold)',fontWeight:'800'}},[mostDefs.titleDefs+'🛡'])]):D('kpi',[D('kpi-l',['Most Defenses']),h('div',{style:{color:'var(--tx3)',fontSize:'12px'}},'—')]),
+      highestGoat?D('kpi',[D('kpi-l',['Top GOAT Score']),h('div',{style:{fontWeight:'900',fontSize:'13px'}},[highestGoat.name]),h('div',{style:{color:'var(--gold)',fontWeight:'800'}},[Math.round(highestGoat.goatScore)+'pts'])]):D('kpi',[D('kpi-l',['Top GOAT']),h('div',{style:{color:'var(--tx3)',fontSize:'12px'}},'—')]),
+      mostWins?D('kpi',[D('kpi-l',['Most Wins']),h('div',{style:{fontWeight:'900',fontSize:'13px'}},[mostWins.name]),h('div',{style:{color:'var(--grn)',fontWeight:'800'}},[mostWins.rec.w+'W'])]):D('kpi',[D('kpi-l',['Most Wins']),h('div',{style:{color:'var(--tx3)',fontSize:'12px'}},'—')]),
+    ]):null,
+    // HoF entries
+    D('card',[
+      D('ct',['🏛 Inducted Legends']),
+      hofList.length===0
+        ?h('div',{style:{color:'var(--tx3)',padding:'20px',textAlign:'center',fontStyle:'italic'}},'No Hall of Famers yet. Retire a legend to see them inducted.')
+        :h('div',{},[...hofList.slice().reverse().map(f=>h('div',{cls:'hof-card'},[
+          h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',flexWrap:'wrap',gap:'8px'}},[
+            h('div',{},[
+              h('div',{cls:'hof-name'},[f.name+' 🏛']),
+              h('div',{style:{fontSize:'12px',color:'var(--tx2)',marginTop:'3px'}},[f.nat+' · '+(ALL_WCN[f.weightClass]||f.weightClass)+' · Inducted '+f.hofYear]),
+            ]),
+            h('div',{style:{textAlign:'right'}},[
+              ltTag(f.goatScore||0),
+              h('div',{style:{fontSize:'11px',color:'var(--tx3)',marginTop:'4px'}},['#'+f.goatRank+' All-Time']),
+            ]),
+          ]),
+          h('div',{style:{display:'flex',gap:'14px',flexWrap:'wrap',marginTop:'10px',fontSize:'12px'}},[
+            h('span',{style:{color:'var(--tx2)'}},[f.rec.w+'W–'+f.rec.l+'L']),
+            h('span',{style:{color:'var(--gold)',fontWeight:'700'}},[f.titleDefs+'🛡 Defenses']),
+            h('span',{style:{color:'var(--grn)',fontWeight:'700'}},[Math.round(f.goatScore)+'pts GOAT']),
+            (f.champDivs||[]).length>1?h('span',{style:{color:'var(--red)',fontWeight:'700'}},['👑 '+f.champDivs.length+'x Champ']):null,
+          ]),
+        ]))]),
+    ]),
+    // Eras
+    eras.length>0?D('card',[
+      D('ct',['📜 Historical Eras']),
+      ...eras.map(era=>h('div',{style:{padding:'10px 0',borderBottom:'1px solid var(--bd)',display:'flex',gap:'12px',alignItems:'flex-start'}},[
+        h('div',{style:{minWidth:'80px',fontSize:'12px',color:'var(--tx3)',fontWeight:'700'}},[era.startYr+(era.endYr?' – '+era.endYr:' – Present')]),
+        h('div',{},[
+          h('div',{style:{fontWeight:'800',fontSize:'14px'}},[era.name]),
+          h('div',{style:{fontSize:'12px',color:'var(--tx2)',marginTop:'3px'}},[
+            'Defined by: '+(era.retired?.join(', ')||era.topFighter),
+          ]),
+        ]),
+      ])),
+    ]):null,
+  ]);
+}
+
+function vProspects(){
+  // Combine player roster prospects + FAs by prospect score
+  const prospects=[...G.roster,...G.fa]
+    .filter(f=>f.tier==='prospect'&&f.status!=='retired'&&Math.floor(f.age||30)<=30)
+    .map(f=>({...f,_pScore:calcProspectScore(f),_owned:!!G.roster.find(r=>r.id===f.id)}))
+    .sort((a,b)=>b._pScore-a._pScore)
+    .slice(0,50);
+
+  const potLabel={'S':'⭐⭐⭐ Elite','A':'⭐⭐ High','B':'⭐ Average','C':'Below Avg'};
+  const ageColor=(age)=>age<=22?'var(--grn)':age<=25?'#27ae60':age<=28?'#e67e22':'var(--red)';
+
+  return D('page',[
+    D('ptitle',['🌟 Top Prospects']),
+    D('psub',['Global ranking of the most promising emerging talent']),
+    D('card',[
+      prospects.length===0
+        ?h('div',{style:{color:'var(--tx3)',padding:'20px',textAlign:'center'}},'No prospects found. Scout more regions!')
+        :h('table',{cls:'rt'},[
+          h('thead',{},[h('tr',{},[
+            h('th',{},'#'),h('th',{},'Prospect'),h('th',{},'Division'),
+            h('th',{},'Age'),h('th',{},'Record'),h('th',{},'OVR'),
+            h('th',{},'Potential'),h('th',{},'Score'),h('th',{},''),
+          ])]),
+          h('tbody',{},[...prospects.map((f,i)=>h('tr',{
+            style:{cursor:'pointer'},
+            onClick:()=>{if(f._owned){UI.fDetail=f.id;UI.view='roster';render();}}
+          },[
+            h('td',{style:{color:'var(--tx3)',fontWeight:'700',fontSize:'12px'}},[i+1+'.']),
+            h('td',{},[
+              h('div',{style:{fontWeight:'700',fontSize:'13px'}},[f.name]),
+              h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},[f.nat]),
+            ]),
+            h('td',{},[wtag(f.weightClass)]),
+            h('td',{},[h('span',{style:{fontWeight:'700',color:ageColor(Math.floor(f.age||24))}},[Math.floor(f.age||24)+''])]),
+            h('td',{},[f.rec.w+'–'+f.rec.l]),
+            h('td',{},[h('span',{style:{fontWeight:'900',color:sc(ov(f))}},[ov(f)+''])]),
+            h('td',{},[
+              h('div',{style:{fontSize:'11px',fontWeight:'700',color:'var(--gold)'}},[potLabel[f.potential]||'—']),
+            ]),
+            h('td',{},[
+              h('div',{style:{fontWeight:'900',color:'var(--red)',fontSize:'13px'}},[f._pScore+'']),
+              h('div',{cls:'prospect-bar',style:{width:'60px'}},[
+                h('div',{cls:'prospect-fill',style:{width:Math.min(100,f._pScore)+'%',background:'var(--red)'}}),
+              ]),
+            ]),
+            h('td',{},[
+              f._owned
+                ?h('span',{style:{fontSize:'11px',color:'var(--grn)',fontWeight:'700'}},'✅ Signed')
+                :Btn('Sign',()=>signF(f.id),'btn btn-g btn-sm'),
+            ]),
+          ]))]),
+        ]),
+    ]),
+  ]);
+}
+
+function vLegacy(){
+  updateGoatRanks();
+  const legacyScore=calcPromoLegacy(G.promo,G.roster,G.hof||[],G.events);
+  G.promo.legacyScore=legacyScore;
+
+  // Build all-promo legacy leaderboard (player + rivals)
+  const promoScores=[
+    {name:G.promo.name,sn:G.promo.sn,col:G.promo.col,score:legacyScore,isPlayer:true,hof:(G.hof||[]).length,
+     champs:G.roster.filter(f=>f.isChamp).length,events:G.events.length,prestige:G.promo.prestige},
+    ...G.rivals.map(rv=>{
+      const rvScore=calcPromoLegacy({prestige:rv.prestige||50,fanTrust:rv.fanTrust||50,sponsor:rv.sponsor||50,revenue:rv.totalRevenue||0},
+        rv.roster||[],[],rv.recentEvents||[]);
+      return{name:rv.name,sn:rv.sn,col:rv.col,score:rvScore,isPlayer:false,
+        hof:0,champs:(rv.roster||[]).filter(f=>f.isChamp).length,
+        events:rv.eventsRun||0,prestige:rv.prestige||50};
+    }),
+  ].sort((a,b)=>b.score-a.score);
+
+  // Best fighters produced
+  const myFighters=getAllFighters().filter(f=>f.promo===G.promo.id||(G.retired||[]).find(r=>r.id===f.id&&r.promo===G.promo.id));
+  const topFighters=myFighters.sort((a,b)=>(b.goatScore||0)-(a.goatScore||0)).slice(0,5);
+
+  // GOAT score breakdown
+  const hofCount=(G.hof||[]).length;
+  const legendCount=G.roster.filter(f=>['legend','great','goatc','goat'].includes(getLegacyTier(f.goatScore||0).id)).length;
+  const titleFightCount=G.events.reduce((s,e)=>s+(e.results||[]).filter(r=>r.title).length,0);
+
+  return D('page',[
+    D('ptitle',['🏆 Promotion Legacy']),
+    D('psub',['Your organization\'s place in MMA history']),
+    // Player score card
+    D('card',[
+      h('div',{style:{display:'flex',alignItems:'center',gap:'14px',marginBottom:'16px'}},[
+        h('div',{style:{width:'52px',height:'52px',background:G.promo.col||'var(--red)',borderRadius:'12px',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:'900',fontSize:'13px',color:'#fff',flexShrink:'0'}},[G.promo.sn]),
+        D('',[
+          h('div',{style:{fontWeight:'900',fontSize:'18px'}},[G.promo.name]),
+          h('div',{style:{fontSize:'12px',color:'var(--tx2)',marginTop:'2px'}},'Your Promotion'),
+        ]),
+        h('div',{style:{marginLeft:'auto',textAlign:'right'}},[
+          h('div',{style:{fontWeight:'900',fontSize:'28px',color:'var(--gold)'}},[legacyScore.toLocaleString()]),
+          h('div',{style:{fontSize:'12px',color:'var(--tx3)'}},'Legacy Score'),
+        ]),
+      ]),
+      h('div',{cls:'g4'},[
+        D('kpi',[D('kpi-l',['Hall of Famers']),h('div',{style:{fontWeight:'900',fontSize:'18px',color:'var(--gold)'}},[hofCount+'🏛'])]),
+        D('kpi',[D('kpi-l',['Legend+ Fighters']),h('div',{style:{fontWeight:'900',fontSize:'18px',color:'var(--red)'}},[legendCount+'🌟'])]),
+        D('kpi',[D('kpi-l',['Title Fights']),h('div',{style:{fontWeight:'900',fontSize:'18px',color:'var(--blu)'}},[titleFightCount+'🏆'])]),
+        D('kpi',[D('kpi-l',['Events Run']),h('div',{style:{fontWeight:'900',fontSize:'18px'}},[G.events.length+''])]),
+      ]),
+    ]),
+    // Legacy score breakdown
+    topFighters.length>0?D('card',[
+      D('ct',['Your Greatest Fighters']),
+      ...topFighters.map((f,i)=>h('div',{style:{display:'flex',alignItems:'center',gap:'10px',padding:'7px 0',borderBottom:'1px solid var(--bd)'}},[
+        h('div',{style:{width:'24px',fontWeight:'900',color:'var(--tx3)',fontSize:'12px'}},[(i+1)+'.']),
+        h('div',{style:{flex:'1'}},[
+          h('div',{style:{fontWeight:'700',fontSize:'13px'}},[f.name+(f.hallOfFame?' 🏛':'')]),
+          h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},[f.rec.w+'W–'+f.rec.l+'L · '+(f.titleDefs||0)+' defenses'+(f.status==='retired'?' · Retired':'')]),
+        ]),
+        h('div',{style:{textAlign:'right'}},[
+          h('div',{style:{fontWeight:'900',color:'var(--gold)',fontSize:'14px'}},[Math.round(f.goatScore||0)+'pts']),
+          ltTag(f.goatScore||0),
+        ]),
+      ])),
+    ]):null,
+    // All-promotions leaderboard
+    D('card',[
+      D('ct',['All-Time Promotions Leaderboard']),
+      ...promoScores.map((p,i)=>h('div',{style:{
+        display:'flex',alignItems:'center',gap:'10px',padding:'9px 10px',
+        borderRadius:'8px',marginBottom:'4px',
+        background:p.isPlayer?'rgba(192,57,43,.06)':'transparent',
+        border:p.isPlayer?'1px solid rgba(192,57,43,.2)':'1px solid transparent',
+      }},[
+        h('div',{style:{width:'28px',fontWeight:'900',color:i<3?'var(--gold)':'var(--tx3)',fontSize:i===0?'16px':'13px'}},[(i+1)+'.']),
+        h('div',{style:{width:'38px',height:'38px',background:p.col||'#888',borderRadius:'8px',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:'900',fontSize:'10px',color:'#fff',flexShrink:'0'}},[p.sn]),
+        h('div',{style:{flex:'1'}},[
+          h('div',{style:{fontWeight:p.isPlayer?'900':'700',fontSize:'13px'}},[p.name+(p.isPlayer?' ⭐':'')]),
+          h('div',{style:{fontSize:'11px',color:'var(--tx3)'}},[p.events+' events · '+p.champs+' champs · Prestige '+Math.round(p.prestige)]),
+        ]),
+        h('div',{style:{fontWeight:'900',fontSize:'15px',color:'var(--gold)'}},[p.score.toLocaleString()]),
+      ])),
+    ]),
+    // Eras
+    (G.eras||[]).length>0?D('card',[
+      D('ct',['📜 MMA Eras in '+G.promo.name+' History']),
+      ...(G.eras||[]).map(era=>h('div',{style:{display:'flex',gap:'12px',padding:'8px 0',borderBottom:'1px solid var(--bd)'}},[
+        h('div',{style:{minWidth:'90px',fontSize:'11px',color:'var(--tx3)',fontWeight:'700'}},[era.startYr+(era.endYr?' – '+era.endYr:' – Now')]),
+        h('div',{},[
+          h('div',{style:{fontWeight:'800',fontSize:'13px'}},[era.name]),
+          h('div',{style:{fontSize:'12px',color:'var(--tx2)'}},[era.topFighter+' dominated · '+era.topPromo]),
+        ]),
+      ])),
+    ]):null,
+  ]);
+}
+
+// ── NARRATIVE POST-EVENT MODAL SECTION ───────────────────────
+// This is rendered inside vModal when type === 'result' (already exists)
+// We will inject a narrative strip into the existing result modal.
+
 // -- REGIONS -----------------------------------------------
 function vRegions(){
   const rp=G.regionalPresence||{};
@@ -4245,29 +5658,129 @@ function vRegions(){
 }
 
 // -- NAV + MAIN --------------------------------------------
-const NAVS=[
-  {id:'dash',l:'Dashboard',i:'🏠'},
-  {id:'roster',l:'Roster',i:'👥'},
-  {id:'fa',l:'Free Agents',i:'🔍'},
-  {id:'events',l:'Events',i:'🥊'},
-  {id:'finance',l:'Finance',i:'💰'},
-  {id:'compare',l:'vs Rivals',i:'📊'},
-  {id:'infra',l:'Infrastructure',i:'🏗'},
-  {id:'sponsors',l:'Sponsorships',i:'🤝'},
-  {id:'regions',l:'Regions',i:'🌍'},
-  
+// Nav groups — top-level items with optional dropdown children
+const NAV_GROUPS=[
+  {id:'dash',  l:'Dashboard', i:'🏠'},
+  {id:'roster',l:'Fighters',  i:'👥', children:[
+    {id:'roster',   l:'Roster',      i:'👥'},
+    {id:'fa',       l:'Free Agents', i:'🔍'},
+    {id:'prospects',l:'Prospects',   i:'🌟'},
+  ]},
+  {id:'events',l:'Events',    i:'🥊'},
+  {id:'business',l:'Business',i:'💼', children:[
+    {id:'finance',  l:'Finance',       i:'💰'},
+    {id:'compare',  l:'vs Rivals',     i:'📊'},
+    {id:'infra',    l:'Infrastructure',i:'🏗'},
+    {id:'sponsors', l:'Sponsorships',  i:'🤝'},
+    {id:'regions',  l:'Regions',       i:'🌍'},
+  ]},
+  {id:'legacy',l:'Legacy',    i:'🏆', children:[
+    {id:'goat',  l:'GOAT Rankings', i:'🐐'},
+    {id:'hof',   l:'Hall of Fame',  i:'🏛'},
+    {id:'legacy',l:'Promo Legacy',  i:'🏆'},
+  ]},
 ];
+// Flat list used for mobile drawer and router helpers
+const NAVS=NAV_GROUPS.flatMap(g=>g.children||[g]);
 
 
 function vNav(){
   const{promo:p,fin:fn}=G;
   const open=UI.mobileNav===true;
-  const goTo=id=>{UI.view=id;UI.fDetail=null;UI.evB=null;UI.mobileNav=false;render();};
-  const drawer=h('div',{cls:'mob-drawer'+(open?' open':'')},[    h('div',{style:{padding:'8px 16px 4px'}},[      h('div',{style:{fontSize:'11px',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.08em'}},'Promotion'),      h('div',{style:{fontWeight:'900',fontSize:'16px',marginTop:'2px'}},[p.name]),      h('div',{cls:'mob-cash'},[fm(fn.cash)]),      h('div',{style:{fontSize:'12px',color:'var(--tx3)',paddingLeft:'16px',marginTop:'-6px',paddingBottom:'8px'}},'Wk '+G.wk+' · '+MON[G.mo-1]+' '+G.yr),    ]),    h('div',{cls:'mob-div'}),    ...NAVS.map(n=>h('button',{cls:'mob-nb'+(UI.view===n.id?' on':''),onClick:()=>goTo(n.id)},[n.i,' ',n.l])),    h('div',{cls:'mob-div'}),    h('button',{cls:'mob-adv',onClick:()=>{advWeek();UI.mobileNav=false;}},'⏩ Advance Week'),    h('button',{cls:'mob-nb',style:{color:'var(--tx3)',marginTop:'4px'},onClick:()=>{UI.setOpen=!UI.setOpen;UI.mobileNav=false;render();}},'⚙  Settings'),  ]);
-  const nav=D('nav',[    h('button',{cls:'hambtn',onClick:()=>{UI.mobileNav=!open;render();}},open?'✕':'☰'),    h('div',{style:{display:'flex',alignItems:'center',gap:'6px',cursor:'pointer',flex:'1'},onClick:()=>goTo('dash')},[      h('div',{style:{background:'linear-gradient(135deg,#c0392b,#8e1c14)',borderRadius:'6px',padding:'4px 8px',display:'flex',alignItems:'center',gap:'4px'}},[        h('span',{style:{fontSize:'13px',fontWeight:'900',color:'#fff',letterSpacing:'-0.5px'}},[h('span',{style:{color:'#f39c12'}},'MMA'),' MOGUL']),      ]),      h('div',{style:{display:'flex',alignItems:'center',gap:'6px'}},[ h('div',{style:{fontSize:'12px',color:'var(--tx2)',fontWeight:'600'}},[p.sn]), h('div',{style:{background:'rgba(243,156,18,.18)',border:'1px solid rgba(243,156,18,.5)',borderRadius:'5px',padding:'2px 8px',fontSize:'12px',fontWeight:'900',color:'#f39c12',letterSpacing:'0.03em'}},['Wk'+G.wk+' · '+MON[G.mo-1]+' '+G.yr]), ]),    ]),    D('nlinks',[...NAVS.map(n=>h('button',{cls:'nb'+(UI.view===n.id?' on':''),onClick:()=>{UI.view=n.id;UI.fDetail=null;UI.evB=null;render();}},[n.i+' '+n.l]))]),    D('nright',[      D('ncash'+(fn.cash<2e6?' lo':''),[fm(fn.cash)]),      h('button',{cls:'advbtn',onClick:advWeek},['⏩ Advance Week']),      h('button',{cls:'setbtn',onClick:()=>{UI.setOpen=!UI.setOpen;render();},title:'Settings'},['⚙']),    ]),  ]);
+  const goTo=id=>{UI.view=id;UI.fDetail=null;UI.evB=null;UI.mobileNav=false;UI.openDrop=null;render();};
+
+  // Helper: is any child of a group the active view?
+  const groupActive=(grp)=>grp.children?grp.children.some(c=>c.id===UI.view):grp.id===UI.view;
+
+  // Desktop nav items — single items are plain buttons, groups get a dropdown
+  const desktopItems=NAV_GROUPS.map(grp=>{
+    if(!grp.children){
+      // Simple nav button
+      return h('button',{cls:'nb'+(UI.view===grp.id?' on':''),onClick:()=>goTo(grp.id)},[grp.i+' '+grp.l]);
+    }
+    // Dropdown group
+    const isOpen=UI.openDrop===grp.id;
+    const isActive=groupActive(grp);
+    const wrap=h('div',{cls:'ndrop'+(isOpen?' open':''),id:'ndrop-'+grp.id},[
+      h('button',{
+        cls:'ndrop-trigger'+(isActive?' group-active':''),
+        onClick:(e)=>{
+          e.stopPropagation();
+          UI.openDrop=isOpen?null:grp.id;
+          render();
+        },
+      },[grp.i+' '+grp.l,h('span',{cls:'ndrop-chevron'},'▼')]),
+      h('div',{cls:'ndrop-menu'},[
+        ...grp.children.map(child=>h('button',{
+          cls:'ndrop-item'+(UI.view===child.id?' on':''),
+          onClick:(e)=>{e.stopPropagation();goTo(child.id);},
+        },[child.i+' '+child.l])),
+      ]),
+    ]);
+    return wrap;
+  });
+
+  // Mobile drawer — groups shown with a section label
+  const mobileItems=[];
+  NAV_GROUPS.forEach(grp=>{
+    if(!grp.children){
+      mobileItems.push(h('button',{cls:'mob-nb'+(UI.view===grp.id?' on':''),onClick:()=>goTo(grp.id)},[grp.i,' ',grp.l]));
+    } else {
+      mobileItems.push(h('div',{cls:'mob-section'},[grp.i+' '+grp.l]));
+      grp.children.forEach(child=>{
+        mobileItems.push(h('button',{
+          cls:'mob-nb'+(UI.view===child.id?' on':''),
+          style:{paddingLeft:'28px'},
+          onClick:()=>goTo(child.id),
+        },[child.i,' ',child.l]));
+      });
+    }
+  });
+
+  const drawer=h('div',{cls:'mob-drawer'+(open?' open':'')},[
+    h('div',{style:{padding:'8px 16px 4px'}},[
+      h('div',{style:{fontSize:'11px',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.08em'}},'Promotion'),
+      h('div',{style:{fontWeight:'900',fontSize:'16px',marginTop:'2px'}},[p.name]),
+      h('div',{cls:'mob-cash'},[fm(fn.cash)]),
+      h('div',{style:{fontSize:'12px',color:'var(--tx3)',paddingLeft:'16px',marginTop:'-6px',paddingBottom:'8px'}},'Wk '+G.wk+' · '+MON[G.mo-1]+' '+G.yr),
+    ]),
+    h('div',{cls:'mob-div'}),
+    ...mobileItems,
+    h('div',{cls:'mob-div'}),
+    h('button',{cls:'mob-adv',onClick:()=>{advWeek();UI.mobileNav=false;}},'⏩ Advance Week'),
+  ]);
+
+  const nav=h('div',{cls:'nav'},[
+    h('button',{cls:'hambtn',onClick:()=>{UI.mobileNav=!open;render();}},open?'✕':'☰'),
+    h('div',{style:{display:'flex',alignItems:'center',gap:'6px',cursor:'pointer',flex:'0 0 auto'},onClick:()=>goTo('dash')},[
+      h('div',{style:{background:'linear-gradient(135deg,#c0392b,#8e1c14)',borderRadius:'6px',padding:'4px 8px',display:'flex',alignItems:'center',gap:'4px'}},[
+        h('span',{style:{fontSize:'13px',fontWeight:'900',color:'#fff',letterSpacing:'-0.5px'}},[h('span',{style:{color:'#f39c12'}},'MMA'),' MOGUL']),
+      ]),
+      h('div',{style:{display:'flex',alignItems:'center',gap:'6px'}},[
+        h('div',{style:{fontSize:'12px',color:'var(--tx2)',fontWeight:'600'}},[p.sn]),
+        h('div',{style:{background:'rgba(243,156,18,.18)',border:'1px solid rgba(243,156,18,.5)',borderRadius:'5px',padding:'2px 8px',fontSize:'12px',fontWeight:'900',color:'#f39c12',letterSpacing:'0.03em'}},['Wk'+G.wk+' · '+MON[G.mo-1]+' '+G.yr]),
+      ]),
+    ]),
+    h('div',{cls:'nlinks'},[...desktopItems]),
+    h('div',{cls:'nright'},[
+      h('div',{cls:'ncash'+(fn.cash<2e6?' lo':'')},[fm(fn.cash)]),
+      h('button',{cls:'advbtn',onClick:advWeek},['⏩ Advance Week']),
+    ]),
+  ]);
+
+  // Close dropdown on outside click
   const wrap=document.createElement('div');
   wrap.appendChild(nav);
   wrap.appendChild(drawer);
+
+  // Attach a one-time outside-click listener to close open dropdowns
+  if(UI.openDrop){
+    setTimeout(()=>{
+      const handler=()=>{UI.openDrop=null;render();document.removeEventListener('click',handler);};
+      document.addEventListener('click',handler);
+    },0);
+  }
+
   return wrap;
 }
 
@@ -4279,8 +5792,9 @@ function render(){
   if(!G){root.appendChild(vSelect());return;}
 
   root.appendChild(vNav());
-  const pg=UI.view==='dash'?vDash():UI.view==='roster'?vRoster():UI.view==='fa'?vFA():UI.view==='events'?vEvents():UI.view==='finance'?vFinance():UI.view==='compare'?vCompare():UI.view==='infra'?vInfra():UI.view==='sponsors'?vSponsors():UI.view==='regions'?vRegions():vDash();
+  const pg=UI.view==='dash'?vDash():UI.view==='roster'?vRoster():UI.view==='fa'?vFA():UI.view==='events'?vEvents():UI.view==='finance'?vFinance():UI.view==='compare'?vCompare():UI.view==='infra'?vInfra():UI.view==='sponsors'?vSponsors():UI.view==='regions'?vRegions():UI.view==='changelog'?vChangelog():UI.view==='goat'?vGoat():UI.view==='hof'?vHof():UI.view==='prospects'?vProspects():UI.view==='legacy'?vLegacy():vDash();
   root.appendChild(pg);
+  pg.appendChild(vFooter());
 
   const modal=vModal();if(modal)root.appendChild(modal);
   const settings=vSettings();if(settings)root.appendChild(settings);
