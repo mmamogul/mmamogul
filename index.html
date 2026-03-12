@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MMA Mogul</title>
+<title>MMA Mogul v16</title>
 <style>
 /* ── Select Screen ───────────────────────────────── */
 .sel-wrap::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -1043,7 +1043,7 @@ Object.keys(EXTRA_ROSTERS).forEach(pid=>{
 const PD={...R,ufc:{id:'ufc',name:'UFC',sn:'UFC',prestige:95,fanTrust:78,legit:95,media:92,pull:95,sponsor:92,cash:85e6,ovhd:12e6,col:'#c0392b',mr:{name:'Paramount+',mv:8e6,minEventsYr:42,minAvgEnt:62,penalty:2000000,desc:'Paramount+ deal. 42 events/year minimum. Keep avg entertainment above 62 or face $10M/yr penalty at contract renewal.'},diff:'Hard',dn:"You're market leader - fighter leverage is maximum, rivals poach your stars constantly, and every bad event makes headlines.",dc:'#c0392b'}}
 // -- SAVE / LOAD -------------------------------------------
 const SAVE_KEY='mmaempire2026_save';
-const SAVE_VER=3;
+const SAVE_VER=4;
 
 function saveGame(){
   try{
@@ -1141,6 +1141,7 @@ function ctValue(c){if(!c)return 0;return(c.show+c.win)*(c.fightsLeft/Math.max(1
 function pf(raw,pid){
   const tier=raw.tier||'prospect';
   const ct=makeContract(tier, raw.s?.mkt, raw.s?.cha);
+  const baseRankPts={champion:1000,elite:700,contender:450,prospect:200}[tier]||300;
   return{
     id:uid(),name:raw.n,age:raw.age,rec:{...raw.rec},tier:raw.tier,
     isChamp:raw.ch||false,nat:raw.nat,
@@ -1148,12 +1149,14 @@ function pf(raw,pid){
     s:{...raw.s},
     promo:pid,
     contract:ct,
-    salary:(ct.show+ct.win), // total per-fight earnings (show+win) for finance calcs
+    salary:(ct.show+ct.win),
     status:'active',
     injuryWeeksLeft:0,
     potential:raw.pot||null,
     isProspect:raw.pot?true:false,
     hidden:{inj:Math.random(),con:Math.random()*0.25},
+    rankPts:raw.ch?1000:baseRankPts+Math.round((Math.random()-0.5)*80),
+    rankPrev:null, // previous rank position (for movement arrows)
   };
 }
 
@@ -1207,6 +1210,146 @@ const EVENT_LOCATIONS=[
   {id:'nz',travelCost:280000,name:'Auckland, New Zealand',region:'pacific',country:'New Zealand',pop:0.8,presBonus:{eternal:5}},
   {id:'canada',travelCost:20000,name:'Toronto, Canada',region:'north_america',country:'Canada',pop:1.0},
 ];
+
+// -- REGIONAL SYSTEM ----------------------------------------
+// Each region has: base travel cost, unlockable bonuses, and associated locations
+const REGION_DEFS={
+  north_america:{
+    id:'north_america',name:'North America',icon:'🌎',flag:'🇺🇸',
+    desc:'The home of combat sports. Massive TV deals, high gate revenue.',
+    locations:['usa_east','usa_west','usa_mid','canada'],
+    baseTravelCost:0,
+    perLevelBonus:{travelDiscount:0.15,fillBoost:0.05,presBonus:0.5},
+    natKeywords:['American','Canadian','Mexican'],
+    investCost:[0,500000,2000000,5000000],
+  },
+  latin_america:{
+    id:'latin_america',name:'Latin America',icon:'🌎',flag:'🇧🇷',
+    desc:'Passionate fan bases in Brazil and Mexico. High charisma fighters.',
+    locations:['brazil','mexico'],
+    baseTravelCost:60000,
+    perLevelBonus:{travelDiscount:0.2,fillBoost:0.06,presBonus:0.8},
+    natKeywords:['Brazilian','Mexican','Colombian','Venezuelan','Chilean','Argentine','Peruvian'],
+    investCost:[0,300000,1200000,3000000],
+  },
+  europe:{
+    id:'europe',name:'Europe',icon:'🌍',flag:'🇪🇺',
+    desc:'Growing MMA market with technical fight fans. Strong UK, Poland presence.',
+    locations:['uk','ireland','poland','czechia'],
+    baseTravelCost:100000,
+    perLevelBonus:{travelDiscount:0.2,fillBoost:0.05,presBonus:0.6},
+    natKeywords:['British','Irish','Polish','Czech','French','Dutch','Swedish','German','Lithuanian'],
+    investCost:[0,400000,1500000,4000000],
+  },
+  russia_cis:{
+    id:'russia_cis',name:'Russia / CIS',icon:'🌍',flag:'🇷🇺',
+    desc:'Elite wrestlers and sambo fighters. Huge upside with right fighters.',
+    locations:['russia'],
+    baseTravelCost:130000,
+    perLevelBonus:{travelDiscount:0.25,fillBoost:0.07,presBonus:1.0},
+    natKeywords:['Russian','Uzbek','Kyrgyz','Kazakh','Belarusian','Moldovan','Turkish'],
+    investCost:[0,350000,1200000,3500000],
+  },
+  middle_east:{
+    id:'middle_east',name:'Middle East',icon:'🌏',flag:'🇦🇪',
+    desc:'Emerging market with sovereign wealth backing. Premium event potential.',
+    locations:['uae'],
+    baseTravelCost:150000,
+    perLevelBonus:{travelDiscount:0.2,fillBoost:0.08,presBonus:1.5},
+    natKeywords:['Emirati','Saudi'],
+    investCost:[0,600000,2500000,6000000],
+  },
+  asia:{
+    id:'asia',name:'Asia Pacific',icon:'🌏',flag:'🇯🇵',
+    desc:'Japan and China are massive MMA markets. ONE Championship heartland.',
+    locations:['japan','china','singapore','korea'],
+    baseTravelCost:200000,
+    perLevelBonus:{travelDiscount:0.2,fillBoost:0.06,presBonus:1.0},
+    natKeywords:['Japanese','Chinese','Korean','South Korean','Filipino','Thai','Indonesian','Indian','Vietnamese-American','Samoan'],
+    investCost:[0,500000,2000000,5000000],
+  },
+  pacific:{
+    id:'pacific',name:'Oceania',icon:'🌏',flag:'🇦🇺',
+    desc:'Australia and NZ. Loyal fan base, strong regional talent pipeline.',
+    locations:['australia','nz'],
+    baseTravelCost:240000,
+    perLevelBonus:{travelDiscount:0.25,fillBoost:0.05,presBonus:0.8},
+    natKeywords:['Australian','New Zealander','Samoan'],
+    investCost:[0,200000,800000,2000000],
+  },
+};
+
+// Map each location ID to its region
+const LOC_TO_REGION={};
+Object.entries(REGION_DEFS).forEach(([rid,r])=>r.locations.forEach(lid=>{LOC_TO_REGION[lid]=rid;}));
+
+// Get the effective travel cost for a location given current regional presence
+function getEffectiveTravelCost(locationId){
+  const loc=EVENT_LOCATIONS.find(l=>l.id===locationId)||{};
+  const rid=LOC_TO_REGION[locationId];
+  if(!rid)return loc.travelCost||0;
+  const rDef=REGION_DEFS[rid];
+  const level=(G?.regionalPresence||{})[rid]||0;
+  const discount=level*rDef.perLevelBonus.travelDiscount;
+  const base=loc.travelCost||0;
+  return Math.round(base*(1-Math.min(0.9,discount)));
+}
+
+// Get fill rate boost from regional presence
+function getRegionalFillBoost(locationId){
+  const rid=LOC_TO_REGION[locationId];
+  if(!rid||!G)return 0;
+  const rDef=REGION_DEFS[rid];
+  const level=(G.regionalPresence||{})[rid]||0;
+  return level*rDef.perLevelBonus.fillBoost;
+}
+
+// Get prestige bonus from regional presence (stacks with location presBonus)
+function getRegionalPresBoost(locationId){
+  const rid=LOC_TO_REGION[locationId];
+  if(!rid||!G)return 0;
+  const rDef=REGION_DEFS[rid];
+  const level=(G.regionalPresence||{})[rid]||0;
+  return level*rDef.perLevelBonus.presBonus;
+}
+
+// Check if a fighter is a "home market" fighter for a given location
+function isFighterHomeMarket(fighter, locationId){
+  const rid=LOC_TO_REGION[locationId]||'';
+  const rDef=REGION_DEFS[rid];
+  if(!rDef||!fighter.nat)return false;
+  return rDef.natKeywords.some(kw=>fighter.nat.includes(kw));
+}
+
+// Count home market fighters on a card
+function countHomeMarketFighters(eventFights, locationId){
+  if(!eventFights||!G)return 0;
+  let count=0;
+  eventFights.forEach(fi=>{
+    const f1=G.roster.find(f=>f.id===fi.f1Id);
+    const f2=G.roster.find(f=>f.id===fi.f2Id);
+    if(f1&&isFighterHomeMarket(f1,locationId))count++;
+    if(f2&&isFighterHomeMarket(f2,locationId))count++;
+  });
+  return count;
+}
+
+// Invest in a region (level it up)
+function investRegion(rid){
+  if(!G)return;
+  G.regionalPresence=G.regionalPresence||{};
+  const curLevel=(G.regionalPresence[rid]||0);
+  const rDef=REGION_DEFS[rid];
+  if(!rDef)return;
+  if(curLevel>=3){alert('Max regional presence already reached!');return;}
+  const cost=rDef.investCost[curLevel+1];
+  if(G.fin.cash<cost){alert('Need '+fm(cost)+' to expand into '+rDef.name+'!');return;}
+  G.fin.cash-=cost;
+  G.regionalPresence[rid]=curLevel+1;
+  const levelNames=['','Foothold','Established','Dominant'];
+  G.log.push('🌍 Expanded into '+rDef.name+' — '+levelNames[curLevel+1]+' presence achieved! Travel costs -'+(Math.round(rDef.perLevelBonus.travelDiscount*(curLevel+1)*100))+'%, Fill +'+Math.round(rDef.perLevelBonus.fillBoost*(curLevel+1)*100)+'%');
+  render();
+}
 
 const FA=[
   {n:'Kai Kara-France',age:31,rec:{w:24,l:10},tier:'elite',nat:'New Zealander',wc:'fly',s:{str:82,grp:68,wre:66,chi:72,car:72,iq:68,cha:72,mkt:74}},
@@ -1292,6 +1435,17 @@ function initGame(cid){
     })(),
     activeScoutMissions:[],
     venueHistory:[],
+    regionalPresence:(()=>{
+      // Seed starting regional presence based on promotion
+      if(cid==='ufc')return{north_america:3,latin_america:2,europe:2,middle_east:2,asia:1,russia_cis:1,pacific:1};
+      if(cid==='one')return{asia:3,pacific:1};
+      if(cid==='rizin')return{asia:3};
+      if(cid==='bellator'||cid==='pfl')return{north_america:2,europe:1};
+      if(cid==='ksw')return{europe:2};
+      if(cid==='cagewarriors')return{europe:2};
+      if(cid==='eternal')return{pacific:2};
+      return{north_america:1};
+    })(),
   };
   UI.view='dash';UI.evB=null;UI.fDetail=null;UI.modal=null;
   render();
@@ -1307,6 +1461,27 @@ function showToast(msg, col){
   setTimeout(()=>{ t.style.transform='translateX(120%)'; setTimeout(()=>t.remove(), 300); }, 2800);
 }
 
+
+// -- RANKING UPDATE ----------------------------------------
+function updateRankings(){
+  const allWCs=[...WCO,...FWCO];
+  allWCs.forEach(wc=>{
+    const inDiv=G.roster.filter(f=>f.weightClass===wc);
+    if(!inDiv.length)return;
+    // Snapshot current rank before this week's update
+    const sorted=[...inDiv].sort((a,b)=>(b.rankPts||0)-(a.rankPts||0));
+    sorted.forEach((f,i)=>{f.rankPrev=i+1;});
+    // Small decay for fighters who haven't competed recently
+    inDiv.forEach(f=>{
+      if(f.isChamp){f.rankPts=1000;return;}
+      const wksSinceFight=f.lastFightYr
+        ?Math.max(0,(G.yr-f.lastFightYr)*48+(G.mo-f.lastFightMo)*4+(G.wk-f.lastFightWk))
+        :999;
+      if(wksSinceFight>12)f.rankPts=Math.max(50,(f.rankPts||300)-2);
+      f.rankPts=Math.min(999,Math.max(50,f.rankPts||300));
+    });
+  });
+}
 
 function advWeek(){
   G.wk++;
@@ -1403,6 +1578,7 @@ function advWeek(){
       const ev=due[0];
       if(ev.fights&&ev.fights.length>=1){
         runEvent(ev);
+        updateRankings();
         return;
       } else {
         UI.evB={...ev,scheduled:true,schedId:ev.id};
@@ -1415,6 +1591,7 @@ function advWeek(){
   // Process pending scout jobs
   processScoutJobs();
 
+  updateRankings();
   render();
   const _mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   showToast('⏩ Week '+G.wk+' · '+(_mo[G.mo-1]||'')+' '+G.yr,'#2c3e50');
@@ -1468,7 +1645,11 @@ function runEvent(ev){
   const selVenue=venue;
   const evLoc=EVENT_LOCATIONS.find(l=>l.id===ev.locationId)||EVENT_LOCATIONS[0];
   const locPopMult=evLoc.pop||1;
-  const locPresBns=(evLoc.presBonus||{})[G.promo.id]||0;
+  const locPresBns=((evLoc.presBonus||{})[G.promo.id]||0)+getRegionalPresBoost(evLoc.id);
+  // Home market fighter boost: each home market fighter on the card adds 3% fill bonus, capped at 20%
+  const hmCount=countHomeMarketFighters(ev.fights,evLoc.id);
+  const hmFillBoost=Math.min(0.20,hmCount*0.03);
+  if(hmCount>0)G.log.push('🏠 '+hmCount+' home market fighter'+(hmCount>1?'s':'')+' on card — crowd boost +'+Math.round(hmFillBoost*100)+'%');
   const results=[];let totEnt=0;
   // Bonus pool - configurable per promotion
   const bonusAmt=G.promo.bonusAmt||{weekly:10000,fightnight:30000,premium:75000,supercard:100000}[ev.tier]||50000;
@@ -1501,6 +1682,21 @@ function runEvent(ev){
     if((res.method==='KO/TKO'||res.method==='Submission')&&win&&(!kotdWinner))kotdWinner=win;
     if(res.ent>fotd.ent){fotd={ent:res.ent,r:res,f1,f2};}
     if(!potdWinner&&win&&res.ent>78)potdWinner=win;
+
+    // Update ranking points - Elo-style within weight class
+    if(win&&lose){
+      const winPts=win.rankPts||500, losePts=lose.rankPts||500;
+      // Points exchanged scale with rank gap (beating higher-ranked = more points)
+      const rankGap=Math.max(50, losePts-winPts); // how much higher-ranked the loser was
+      const baseXfer=fi.title?120:Math.min(80, Math.max(20, 40+(rankGap*0.25)));
+      const methodBonus=res.method==='KO/TKO'?1.3:res.method==='Submission'?1.2:1.0;
+      const xfer=Math.round(baseXfer*methodBonus);
+      win.rankPts=Math.min(999,Math.max(50,(win.rankPts||500)+xfer));
+      lose.rankPts=Math.max(50,Math.min(999,(lose.rankPts||500)-Math.round(xfer*0.7)));
+      // Champion always anchored at 1000
+      if(win.isChamp)win.rankPts=1000;
+    }
+
     results.push({...res,title:fi.title,wc:fi.wc,showW,winW,showL,purse:fightPurse});
   });
 
@@ -1537,7 +1733,8 @@ function runEvent(ev){
   const venueSizeFactor=selVenue.cap<=8000?1.15:selVenue.cap<=20000?1.0:selVenue.cap<=65000?0.82:0.65;
   const tierFillBase={weekly:0.55,fightnight:0.68,premium:0.78,supercard:0.72}[ev.tier]||0.6;
   const demandScore=tierFillBase*(G.promo.prestige/80)*(G.promo.fanTrust/80)*(avgMkt/75)*starMult*venueSizeFactor;
-  const fillRate=Math.min(0.99,Math.max(0.08,(demandScore+mktFillBoost)*(0.85+Math.random()*.30)));
+  const regionalFill=getRegionalFillBoost(evLoc.id);
+  const fillRate=Math.min(0.99,Math.max(0.08,(demandScore+mktFillBoost+regionalFill+hmFillBoost)*(0.85+Math.random()*.30)));
   const baseTicket={weekly:45,fightnight:90,premium:180,supercard:320}[ev.tier]||80;
   const presBonus=(G.promo.prestige-60)/10*baseTicket*.12;
   const ticketPrice=Math.max(baseTicket*.5, baseTicket+presBonus);
@@ -1555,7 +1752,7 @@ function runEvent(ev){
   // Venue cost
   const venueCost=Math.round(venue.baseCost*(venue.rentMult||1));
 
-  const travelCost=evLoc?evLoc.travelCost||0:0;
+  const travelCost=evLoc?getEffectiveTravelCost(evLoc.id):0;
   const totalRev=gateRev+tvRev+merchRev+sponsorRev;
   const profit=totalRev-venueCost-totalPurses-totalBonuses-travelCost-mktSpend;
 
@@ -1933,15 +2130,24 @@ function vRoster(){
   let body;
   if(UI.rTab==='p4p'){
     const FWCS_SET=new Set(Object.keys(FWCN));
-    const males=[...G.roster].filter(f=>!FWCS_SET.has(f.weightClass)).sort((a,b)=>ov(b)-ov(a)).slice(0,15);
-    const females=[...G.roster].filter(f=>FWCS_SET.has(f.weightClass)).sort((a,b)=>ov(b)-ov(a)).slice(0,15);
+    const rankSort=(a,b)=>(b.rankPts||0)-(a.rankPts||0)||(ov(b)-ov(a));
+    const males=[...G.roster].filter(f=>!FWCS_SET.has(f.weightClass)).sort(rankSort).slice(0,15);
+    const females=[...G.roster].filter(f=>FWCS_SET.has(f.weightClass)).sort(rankSort).slice(0,15);
+    const mvArrow=(f,curRank)=>{
+      if(f.rankPrev===null||f.rankPrev===undefined)return h('span',{style:{color:'var(--gold)',fontSize:'10px',fontWeight:'800'}},'NEW');
+      const diff=f.rankPrev-curRank;
+      if(diff>0)return h('span',{style:{color:'var(--grn)',fontWeight:'800',fontSize:'11px'}},['▲'+diff]);
+      if(diff<0)return h('span',{style:{color:'var(--red)',fontWeight:'800',fontSize:'11px'}},['▼'+Math.abs(diff)]);
+      return h('span',{style:{color:'var(--tx3)',fontSize:'11px'}},'–');
+    };
     const p4pTable=(list,title)=>D('card',[
       D('ct',[title]),
       list.length===0?h('div',{style:{color:'var(--tx3)',padding:'14px'}},'No fighters yet')
       :h('table',{cls:'rt'},[
-        h('thead',{},[h('tr',{},[h('th',{},['#']),h('th',{},['Fighter']),h('th',{},['Division']),h('th',{},['Record']),h('th',{},['OVR']),h('th',{},['Tier']),h('th',{})])]),
+        h('thead',{},[h('tr',{},[h('th',{},['#']),h('th',{style:{width:'36px'}},['Δ']),h('th',{},['Fighter']),h('th',{},['Division']),h('th',{},['Record']),h('th',{},['OVR']),h('th',{},['Tier']),h('th',{})])]),
         h('tbody',{},[...list.map((f,i)=>h('tr',{cls:f.isChamp?'cr':'',style:{cursor:'pointer'},onClick:()=>{UI.fDetail=f.id;render();}},[
           h('td',{style:{color:'var(--tx3)',width:'28px'}},[i===0?'🏅':(i+1)+'.']),
+          h('td',{style:{textAlign:'center',width:'36px'}},[mvArrow(f,i+1)]),
           h('td',{},[h('strong',{},[f.name])]),
           h('td',{},[wtag(f.weightClass)]),
           h('td',{},[f.rec.w+'–'+f.rec.l]),
@@ -1959,18 +2165,27 @@ function vRoster(){
 
     const divF=G.roster
       .filter(f=>f.weightClass===UI.rWC)
-      .sort((a,b)=>ov(b)-ov(a));
+      .sort((a,b)=>(b.rankPts||0)-(a.rankPts||0)||(ov(b)-ov(a)));
     const champ=divF.find(f=>f.isChamp);
     const nonChamps=divF.filter(f=>!f.isChamp);
     // Show ALL non-champs, first 14 = ranked, rest = "rest"
     const top14=nonChamps.slice(0,15);
     const restDiv=nonChamps.slice(15);
 
+    const divMvArrow=(f,rank)=>{
+      if(!f.isChamp&&(f.rankPrev===null||f.rankPrev===undefined))return h('span',{style:{color:'var(--gold)',fontSize:'9px',fontWeight:'800'}},'NEW');
+      if(f.isChamp)return null;
+      const diff=f.rankPrev-rank;
+      if(diff>0)return h('span',{style:{color:'var(--grn)',fontWeight:'800',fontSize:'10px'}},['▲'+diff]);
+      if(diff<0)return h('span',{style:{color:'var(--red)',fontWeight:'800',fontSize:'10px'}},['▼'+Math.abs(diff)]);
+      return h('span',{style:{color:'var(--tx3)',fontSize:'10px'}},'–');
+    };
     const divRow=(f,rank,isC)=>h('tr',{
       style:{cursor:'pointer',background:isC?'rgba(241,196,15,.07)':''},
       onClick:()=>{UI.fDetail=f.id;render();}
     },[
       h('td',{style:{width:'28px',fontWeight:'800',color:isC?'var(--gold)':'var(--tx3)',fontSize:'12px',paddingRight:'4px'}},[isC?'🏆':rank+'.']),
+      h('td',{style:{width:'28px',textAlign:'center'}},[divMvArrow(f,rank)]),
       h('td',{style:{fontWeight:isC?'800':'500',fontSize:'13px',paddingRight:'6px'}},[f.name]),
       h('td',{style:{fontSize:'11px',color:'var(--tx2)',paddingRight:'6px'}},[f.nat]),
       h('td',{style:{fontSize:'12px',paddingRight:'6px'}},[f.rec.w+'-'+f.rec.l]),
@@ -1990,7 +2205,7 @@ function vRoster(){
       h('div',{style:{fontSize:'11px',fontWeight:'700',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.06em',marginBottom:'6px'}},'Top 15 ('+(1+(top14.length))+')'),
       h('table',{cls:'rt',style:{width:'100%'}},[
         h('thead',{},[h('tr',{},[
-          h('th',{},['#']),h('th',{},['Fighter']),
+          h('th',{},['#']),h('th',{style:{width:'28px'}},['Δ']),h('th',{},['Fighter']),
           h('th',{},['Nat']),h('th',{},['Rec']),
           h('th',{},['OVR']),h('th',{},['Tier']),
         ])]),
@@ -2515,6 +2730,12 @@ function vEventBuilder(){
   const selVenue=VENUES.find(v=>v.id===ev.venueId)||VENUES[0];
   const selLoc=EVENT_LOCATIONS.find(l=>l.id===ev.locationId)||EVENT_LOCATIONS[0];
   const locBonus=(selLoc.presBonus||{})[G.promo.id]||0;
+  const locRegion=LOC_TO_REGION[selLoc.id]||'';
+  const locRegDef=REGION_DEFS[locRegion];
+  const locRegLevel=(G.regionalPresence||{})[locRegion]||0;
+  const effTravelCost=getEffectiveTravelCost(selLoc.id);
+  const locFillBoost=getRegionalFillBoost(selLoc.id);
+  const locPresBoost=getRegionalPresBoost(selLoc.id);
 
   // Build set of fighters already booked in OTHER scheduled events
   const thisEvId=ev.schedId||ev.id||null;
@@ -2788,6 +3009,19 @@ function vEventBuilder(){
             locBonus>0?h('span',{style:{color:'var(--gold)',fontWeight:'700'}},['⭐ Home market +'+locBonus+' prestige']):
             h('span',{},[selLoc.pop>1?'High demand market':'Standard market']),
           ]),
+          // Regional presence info
+          locRegDef?h('div',{style:{marginTop:'8px',padding:'7px',background:locRegLevel>0?'rgba(39,174,96,.06)':'var(--bg3)',border:'1px solid '+(locRegLevel>0?'rgba(39,174,96,.25)':'var(--bd)'),borderRadius:'7px',fontSize:'11px'}},[
+            h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:locRegLevel>0?'6px':'0'}},[
+              h('span',{style:{fontWeight:'700'}},[locRegDef.icon+' '+locRegDef.name+' — '+(locRegLevel===0?'No Presence':locRegLevel===1?'Foothold':locRegLevel===2?'Established':'Dominant')]),
+              locRegLevel===0?h('span',{style:{color:'var(--tx3)'}},'Invest in Regions tab'):h('span',{style:{color:'var(--grn)',fontWeight:'700'}},'Lv '+locRegLevel),
+            ]),
+            locRegLevel>0?h('div',{style:{display:'flex',gap:'12px',color:'var(--tx2)'}},[
+              effTravelCost<(selLoc.travelCost||0)?h('span',{style:{color:'var(--grn)'}},'✈ Travel: '+fm(effTravelCost)+' (was '+fm(selLoc.travelCost||0)+')')
+                :h('span',{},'✈ '+fm(effTravelCost)+' travel'),
+              locFillBoost>0?h('span',{style:{color:'var(--blu)'}},'📈 Fill +'+Math.round(locFillBoost*100)+'%'):null,
+              locPresBoost>0?h('span',{style:{color:'var(--gold)'}},'⭐ Pres +'+locPresBoost):null,
+            ]):null,
+          ]):null,
         ]),
         mmPanel]),
       D('',[
@@ -3891,6 +4125,125 @@ function applySponsors(prevSponsors){
   G._hypericeActive=G.sponsors?.healthcare==='hyperice';
 }
 
+// -- REGIONS -----------------------------------------------
+function vRegions(){
+  const rp=G.regionalPresence||{};
+  const levelNames=['None','Foothold','Established','Dominant'];
+  const levelColors=['var(--tx3)','#e67e22','#2980b9','#27ae60'];
+  const levelIcons=['○','◑','◕','●'];
+
+  const cards=Object.entries(REGION_DEFS).map(([rid,rDef])=>{
+    const level=rp[rid]||0;
+    const nextLevel=level+1;
+    const maxed=level>=3;
+    const nextCost=maxed?0:rDef.investCost[nextLevel];
+    const canAfford=!maxed&&G.fin.cash>=nextCost;
+    const travelDiscount=Math.round(level*rDef.perLevelBonus.travelDiscount*100);
+    const fillBoost=Math.round(level*rDef.perLevelBonus.fillBoost*100);
+    const presBoost=Math.round(level*rDef.perLevelBonus.presBonus*10)/10;
+    // Count roster fighters from this region
+    const homeFighters=G.roster.filter(f=>rDef.natKeywords.some(kw=>(f.nat||'').includes(kw))).length;
+    // Count events run in this region
+    const regionEvents=G.events.filter(e=>{
+      const loc=EVENT_LOCATIONS.find(l=>l.id===e.locationId);
+      return loc&&LOC_TO_REGION[loc.id]===rid;
+    }).length;
+
+    return D('card',[
+      h('div',{style:{display:'flex',alignItems:'center',gap:'10px',marginBottom:'10px'}},[
+        h('div',{style:{fontSize:'28px',lineHeight:'1'}},[rDef.icon]),
+        h('div',{style:{flex:'1'}},[
+          h('div',{style:{fontWeight:'800',fontSize:'14px'}},[rDef.name]),
+          h('div',{style:{fontSize:'12px',color:'var(--tx2)',marginTop:'2px'}},[rDef.desc]),
+        ]),
+        h('div',{style:{textAlign:'center',flexShrink:'0'}},[
+          h('div',{style:{fontSize:'22px',color:levelColors[level],fontWeight:'900'}},[levelIcons[level]]),
+          h('div',{style:{fontSize:'10px',fontWeight:'700',color:levelColors[level],textTransform:'uppercase',letterSpacing:'0.5px'}},[levelNames[level]]),
+        ]),
+      ]),
+      // Presence progress bar
+      h('div',{style:{marginBottom:'10px'}},[
+        h('div',{style:{display:'flex',justifyContent:'space-between',fontSize:'11px',color:'var(--tx3)',marginBottom:'3px'}},[
+          h('span',{},'Presence Level '+level+'/3'),
+          level>0?h('span',{style:{color:levelColors[level]}},[levelNames[level]]):null,
+        ]),
+        h('div',{style:{height:'6px',background:'var(--bg3)',borderRadius:'3px',overflow:'hidden'}},[
+          h('div',{style:{height:'100%',width:Math.round(level/3*100)+'%',background:levelColors[level],borderRadius:'3px',transition:'width .3s'}}),
+        ]),
+      ]),
+      // Bonuses
+      level>0?h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'6px',marginBottom:'10px'}},[
+        D('kpi',[D('kpi-l',['Travel']),h('div',{style:{fontWeight:'800',fontSize:'14px',color:'var(--grn)'}},['-'+travelDiscount+'%'])]),
+        D('kpi',[D('kpi-l',['Fill Rate']),h('div',{style:{fontWeight:'800',fontSize:'14px',color:'var(--blu)'}},['+'+fillBoost+'%'])]),
+        D('kpi',[D('kpi-l',['Prestige']),h('div',{style:{fontWeight:'800',fontSize:'14px',color:'var(--gold)'}},['+'+presBoost])]),
+      ]):null,
+      // Stats row
+      h('div',{style:{display:'flex',gap:'12px',fontSize:'12px',color:'var(--tx2)',marginBottom:'10px'}},[
+        h('span',{},[rDef.flag+' '+homeFighters+' roster fighters']),
+        h('span',{style:{color:'var(--tx3)'}},'·'),
+        h('span',{},[regionEvents+' events run']),
+      ]),
+      // Locations in this region
+      h('div',{style:{display:'flex',gap:'4px',flexWrap:'wrap',marginBottom:'10px'}},[
+        ...rDef.locations.map(lid=>{
+          const loc=EVENT_LOCATIONS.find(l=>l.id===lid);
+          if(!loc)return null;
+          const effCost=getEffectiveTravelCost(lid);
+          const origCost=loc.travelCost||0;
+          return h('div',{style:{background:'var(--bg3)',border:'1px solid var(--bd)',borderRadius:'5px',padding:'3px 7px',fontSize:'11px',fontWeight:'600'}},[
+            loc.name,
+            origCost>0?h('span',{style:{color:level>0?'var(--grn)':'var(--tx3)',marginLeft:'4px'}},[
+              level>0&&effCost<origCost?('✓ '+fm(effCost)):('✈ '+fm(origCost))
+            ]):h('span',{style:{color:'var(--grn)',marginLeft:'4px'}},'✓ Home'),
+          ]);
+        }),
+      ]),
+      // Invest button
+      maxed
+        ?h('div',{style:{padding:'7px',background:'rgba(39,174,96,.08)',border:'1px solid rgba(39,174,96,.3)',borderRadius:'7px',textAlign:'center',fontSize:'12px',fontWeight:'700',color:'var(--grn)'}},'✅ Maximum presence reached')
+        :h('div',{style:{display:'flex',alignItems:'center',gap:'8px'}},[
+            Btn(
+              (level===0?'Enter Market':'Expand Presence')+' — '+fm(nextCost),
+              ()=>investRegion(rid),
+              'btn '+(canAfford?'btn-g':'btn-s')+' btn-fw',
+              !canAfford
+            ),
+          ]),
+    ]);
+  });
+
+  const totalInvested=Object.entries(rp).reduce((s,[rid,lv])=>{
+    const rDef=REGION_DEFS[rid];
+    if(!rDef)return s;
+    let t=0;for(let i=1;i<=lv;i++)t+=rDef.investCost[i]||0;
+    return s+t;
+  },0);
+  const activeRegions=Object.values(rp).filter(v=>v>0).length;
+
+  return D('page',[
+    D('ptitle',['🌍 Regional Expansion']),
+    D('psub',['Build presence in regions to reduce travel costs, boost attendance, and unlock home market advantages.']),
+    // Summary KPIs
+    D('g4',[
+      D('kpi',[D('kpi-l',['Active Regions']),h('div',{cls:'kpi-v',style:{color:'var(--blu)'}},[activeRegions+''])]),
+      D('kpi',[D('kpi-l',['Total Invested']),h('div',{cls:'kpi-v',style:{color:'var(--gold)'}},[fm(totalInvested)])]),
+      D('kpi',[D('kpi-l',['Cash']),h('div',{cls:'kpi-v',style:{color:G.fin.cash<2e6?'var(--red)':'var(--grn)'}},[fm(G.fin.cash)])]),
+      D('kpi',[D('kpi-l',['Home Fighters']),h('div',{cls:'kpi-v'},[G.roster.filter(f=>Object.entries(rp).some(([rid,lv])=>lv>0&&REGION_DEFS[rid]?.natKeywords.some(kw=>(f.nat||'').includes(kw)))).length+''])]),
+    ],{marginBottom:'16px'}),
+    // How it works explainer
+    h('div',{style:{background:'rgba(41,128,185,.07)',border:'1px solid rgba(41,128,185,.25)',borderRadius:'10px',padding:'12px 16px',marginBottom:'16px',fontSize:'12px',lineHeight:'1.6'}},[
+      h('div',{style:{fontWeight:'800',fontSize:'13px',marginBottom:'6px'}},'📖 How Regional Presence Works'),
+      h('ul',{style:{paddingLeft:'18px',color:'var(--tx2)'}},[
+        h('li',{},'Level 1 (Foothold): Reduced travel costs, small fill rate boost'),
+        h('li',{},'Level 2 (Established): Bigger discounts, fighters from this region boost gate revenue'),
+        h('li',{},'Level 3 (Dominant): Max bonuses + home market fighters give extra prestige per event'),
+        h('li',{style:{color:'var(--gold)'}},'💡 Tip: Match fighters with home market crowds for a 3% gate boost each!'),
+      ]),
+    ]),
+    D('fg',[...cards]),
+  ]);
+}
+
 // -- NAV + MAIN --------------------------------------------
 const NAVS=[
   {id:'dash',l:'Dashboard',i:'🏠'},
@@ -3901,6 +4254,7 @@ const NAVS=[
   {id:'compare',l:'vs Rivals',i:'📊'},
   {id:'infra',l:'Infrastructure',i:'🏗'},
   {id:'sponsors',l:'Sponsorships',i:'🤝'},
+  {id:'regions',l:'Regions',i:'🌍'},
   
 ];
 
@@ -3925,7 +4279,7 @@ function render(){
   if(!G){root.appendChild(vSelect());return;}
 
   root.appendChild(vNav());
-  const pg=UI.view==='dash'?vDash():UI.view==='roster'?vRoster():UI.view==='fa'?vFA():UI.view==='events'?vEvents():UI.view==='finance'?vFinance():UI.view==='compare'?vCompare():UI.view==='infra'?vInfra():UI.view==='sponsors'?vSponsors():vDash();
+  const pg=UI.view==='dash'?vDash():UI.view==='roster'?vRoster():UI.view==='fa'?vFA():UI.view==='events'?vEvents():UI.view==='finance'?vFinance():UI.view==='compare'?vCompare():UI.view==='infra'?vInfra():UI.view==='sponsors'?vSponsors():UI.view==='regions'?vRegions():vDash();
   root.appendChild(pg);
 
   const modal=vModal();if(modal)root.appendChild(modal);
