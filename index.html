@@ -18,19 +18,19 @@ button,input,select{font-family:inherit}
 input,select{background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx);padding:6px 10px;font-size:13px;outline:none}
 input:focus,select:focus{border-color:var(--red)}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--bd);border-radius:2px}
-.nav{position:fixed;top:0;left:0;right:0;height:50px;background:var(--bg2);border-bottom:2px solid var(--red);display:flex;align-items:center;padding:0 14px;gap:6px;z-index:100;box-shadow:0 2px 8px var(--sh)}
+.nav{position:fixed;top:0;left:0;right:0;height:56px;background:var(--bg2);border-bottom:2px solid var(--red);display:flex;align-items:center;padding:0 16px;gap:8px;z-index:100;box-shadow:0 2px 8px var(--sh)}
 .nlogo{font-size:15px;font-weight:900;color:var(--red);margin-right:4px;white-space:nowrap}
 .ntag{font-size:11px;color:var(--tx3);background:var(--bg3);border-radius:4px;padding:2px 6px;white-space:nowrap}
-.nlinks{display:flex;gap:1px;flex:1;overflow-x:auto}
-.nb{background:none;border:none;border-radius:6px;color:var(--tx2);font-size:12px;padding:5px 10px;cursor:pointer;white-space:nowrap}
+.nlinks{display:flex;gap:2px;flex:1;flex-wrap:nowrap;justify-content:flex-start}
+.nb{background:none;border:none;border-radius:6px;color:var(--tx2);font-size:13px;font-weight:500;padding:7px 12px;cursor:pointer;white-space:nowrap}
 .nb:hover{background:var(--bg3)}
 .nb.on{background:var(--red);color:#fff;font-weight:700}
 .nright{display:flex;align-items:center;gap:7px;flex-shrink:0}
 .ncash{font-size:13px;font-weight:800;color:var(--grn);white-space:nowrap}
 .ncash.lo{color:var(--red)}
-.advbtn{background:var(--red);border:none;border-radius:6px;color:#fff;font-size:12px;font-weight:700;padding:6px 11px;cursor:pointer;white-space:nowrap}
+.advbtn{background:var(--red);border:none;border-radius:6px;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;cursor:pointer;white-space:nowrap}
 .setbtn{background:var(--bg3);border:1px solid var(--bd);border-radius:6px;color:var(--tx2);font-size:14px;padding:4px 8px;cursor:pointer}
-.page{margin-top:50px;padding:18px;min-height:calc(100vh - 50px)}
+.page{margin-top:56px;padding:18px;min-height:calc(100vh - 56px)}
 .ptitle{font-size:20px;font-weight:900;margin-bottom:3px}
 .psub{font-size:13px;color:var(--tx2);margin-bottom:16px}
 .card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:14px;box-shadow:0 2px 6px var(--sh);margin-bottom:12px}
@@ -104,7 +104,7 @@ input:focus,select:focus{border-color:var(--red)}
 .tier-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
 .tc-card{background:var(--bg3);border:2px solid var(--bd);border-radius:9px;padding:10px;cursor:pointer;text-align:center}
 .tc-card:hover,.tc-card.on{border-color:var(--red);background:rgba(192,57,43,.05)}
-.sp{position:fixed;top:50px;right:0;width:240px;height:calc(100vh - 50px);background:var(--bg2);border-left:1px solid var(--bd);padding:16px;z-index:99;box-shadow:-4px 0 16px var(--sh)}
+.sp{position:fixed;top:56px;right:0;width:240px;height:calc(100vh - 50px);background:var(--bg2);border-left:1px solid var(--bd);padding:16px;z-index:99;box-shadow:-4px 0 16px var(--sh)}
 .sp-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}
 .tog{width:36px;height:20px;background:var(--bg3);border-radius:10px;border:1px solid var(--bd);cursor:pointer;position:relative;transition:background .2s}
 .tog.on{background:var(--red);border-color:var(--red)}
@@ -113,7 +113,7 @@ input:focus,select:focus{border-color:var(--red)}
 
 /* ── MOBILE NAV ─────────────────────────────────────── */
 .hambtn{display:none;background:none;border:none;color:var(--tx);font-size:22px;cursor:pointer;padding:4px 8px;line-height:1;flex-shrink:0;}
-.mob-drawer{position:fixed;top:50px;left:0;right:0;bottom:0;background:var(--bg2);z-index:999;flex-direction:column;padding:12px;gap:4px;overflow-y:auto;border-top:2px solid var(--red);display:none;}
+.mob-drawer{position:fixed;top:56px;left:0;right:0;bottom:0;background:var(--bg2);z-index:999;flex-direction:column;padding:12px;gap:4px;overflow-y:auto;border-top:2px solid var(--red);display:none;}
 .mob-drawer.open{display:flex;}
 .mob-nb{background:none;border:none;border-radius:8px;color:var(--tx);font-size:15px;padding:13px 16px;cursor:pointer;text-align:left;width:100%;font-weight:600;display:flex;align-items:center;gap:10px;}
 .mob-nb:hover,.mob-nb.on{background:var(--bg3);color:var(--red);}
@@ -201,290 +201,278 @@ const PROSPECT_POOL=[
 const R={
 ufc:{
   heavy:[
-    {n:'Jon Jones',age:37,rec:{w:27,l:1},tier:'elite',nat:'American',s:{str:85,grp:82,wre:84,chi:85,car:72,iq:95,cha:88,mkt:88}},
-    {n:'Tom Aspinall',age:32,rec:{w:15,l:3},tier:'champion',ch:true,nat:'British',s:{str:88,grp:86,wre:84,chi:82,car:88,iq:85,cha:76,mkt:80}},
-    {n:'Ciryl Gane',age:33,rec:{w:12,l:2},tier:'elite',nat:'French',s:{str:88,grp:74,wre:70,chi:78,car:88,iq:87,cha:70,mkt:74}},
-    {n:'Stipe Miocic',age:41,rec:{w:20,l:4},tier:'elite',nat:'American',s:{str:85,grp:72,wre:80,chi:90,car:85,iq:86,cha:72,mkt:78}},
-    {n:'Sergei Pavlovich',age:32,rec:{w:18,l:2},tier:'contender',nat:'Russian',s:{str:91,grp:65,wre:68,chi:76,car:78,iq:78,cha:58,mkt:64}},
-    {n:'Curtis Blaydes',age:33,rec:{w:17,l:4},tier:'contender',nat:'American',s:{str:78,grp:80,wre:88,chi:74,car:84,iq:78,cha:62,mkt:65}},
-    {n:'Alexander Volkov',age:35,rec:{w:36,l:10},tier:'contender',nat:'Russian',s:{str:84,grp:68,wre:65,chi:79,car:80,iq:80,cha:60,mkt:62}},
-    {n:'Jairzinho Rozenstruik',age:35,rec:{w:13,l:5},tier:'contender',nat:'Dutch',s:{str:86,grp:60,wre:58,chi:80,car:72,iq:72,cha:65,mkt:66}},
-    {n:'Derrick Lewis',age:39,rec:{w:26,l:10},tier:'contender',nat:'American',s:{str:88,grp:56,wre:54,chi:82,car:68,iq:68,cha:90,mkt:88}},
-    {n:'Chris Daukaus',age:35,rec:{w:12,l:6},tier:'prospect',nat:'American',s:{str:80,grp:60,wre:60,chi:74,car:74,iq:70,cha:66,mkt:64}},
+    {n:'Tom Aspinall',age:32,rec:{w:15,l:3},tier:'champion',ch:true,nat:'British',s:{str:90,grp:86,wre:84,chi:84,car:90,iq:86,cha:78,mkt:82}},
+    {n:'Ciryl Gane',age:33,rec:{w:13,l:2},tier:'elite',nat:'French',s:{str:88,grp:76,wre:72,chi:78,car:88,iq:87,cha:70,mkt:76}},
+    {n:'Alexander Volkov',age:36,rec:{w:37,l:10},tier:'elite',nat:'Russian',s:{str:84,grp:68,wre:66,chi:80,car:82,iq:80,cha:60,mkt:64}},
+    {n:'Sergei Pavlovich',age:32,rec:{w:18,l:3},tier:'contender',nat:'Russian',s:{str:92,grp:64,wre:68,chi:76,car:78,iq:78,cha:58,mkt:64}},
+    {n:'Curtis Blaydes',age:34,rec:{w:18,l:4},tier:'contender',nat:'American',s:{str:78,grp:80,wre:90,chi:74,car:84,iq:78,cha:62,mkt:66}},
+    {n:'Waldo Cortes-Acosta',age:32,rec:{w:14,l:1},tier:'contender',nat:'Dominican',s:{str:86,grp:68,wre:72,chi:78,car:80,iq:74,cha:64,mkt:64}},
+    {n:'Serghei Spivac',age:28,rec:{w:16,l:4},tier:'contender',nat:'Moldovan',s:{str:82,grp:80,wre:74,chi:76,car:80,iq:76,cha:60,mkt:62}},
+    {n:'Rizvan Kuniev',age:29,rec:{w:12,l:0},tier:'contender',nat:'Russian',s:{str:80,grp:78,wre:80,chi:76,car:82,iq:74,cha:56,mkt:58}},
+    {n:'Derrick Lewis',age:39,rec:{w:27,l:11},tier:'contender',nat:'American',s:{str:88,grp:56,wre:54,chi:82,car:68,iq:68,cha:92,mkt:88}},
+    {n:'Marcin Tybura',age:38,rec:{w:25,l:8},tier:'contender',nat:'Polish',s:{str:80,grp:70,wre:74,chi:80,car:78,iq:76,cha:58,mkt:58}},
+    {n:'Ante Delija',age:35,rec:{w:22,l:5},tier:'contender',nat:'Croatian',s:{str:82,grp:66,wre:68,chi:76,car:76,iq:72,cha:58,mkt:58}},
+    {n:'Tallison Teixeira',age:27,rec:{w:12,l:1},tier:'prospect',nat:'Brazilian',s:{str:82,grp:70,wre:70,chi:74,car:78,iq:70,cha:58,mkt:60}},
+    {n:'Mick Parkin',age:28,rec:{w:11,l:1},tier:'prospect',nat:'British',s:{str:80,grp:68,wre:68,chi:72,car:76,iq:68,cha:60,mkt:60}},
+    {n:'Shamil Gaziev',age:29,rec:{w:12,l:0},tier:'prospect',nat:'Russian',s:{str:82,grp:68,wre:70,chi:74,car:76,iq:70,cha:56,mkt:58}},
+    {n:'Tai Tuivasa',age:31,rec:{w:15,l:7},tier:'contender',nat:'Australian',s:{str:88,grp:56,wre:54,chi:78,car:70,iq:66,cha:86,mkt:82}},
+    {n:'Jailton Almeida',age:32,rec:{w:20,l:2},tier:'contender',nat:'Brazilian',s:{str:82,grp:86,wre:82,chi:74,car:80,iq:74,cha:62,mkt:60}},
+    {n:'Marcos Rogerio de Lima',age:37,rec:{w:22,l:10},tier:'contender',nat:'Brazilian',s:{str:80,grp:72,wre:68,chi:68,car:68,iq:64,cha:58,mkt:56}},
+    {n:'Tanner Boser',age:33,rec:{w:20,l:10},tier:'contender',nat:'Canadian',s:{str:78,grp:70,wre:68,chi:68,car:68,iq:64,cha:56,mkt:54}},
+    {n:'Andrei Arlovski',age:45,rec:{w:36,l:21},tier:'contender',nat:'Belarusian',s:{str:76,grp:70,wre:68,chi:68,car:56,iq:68,cha:62,mkt:60}},
+    {n:'Josh Parisian',age:33,rec:{w:15,l:6},tier:'contender',nat:'American',s:{str:76,grp:76,wre:72,chi:68,car:70,iq:68,cha:56,mkt:54}},
+    {n:'Marcio Pinto',age:29,rec:{w:11,l:0},tier:'prospect',nat:'Brazilian',s:{str:80,grp:74,wre:70,chi:68,car:76,iq:66,cha:54,mkt:52}},
+    {n:'Alexandr Romanov',age:34,rec:{w:18,l:2},tier:'contender',nat:'Moldovan',s:{str:78,grp:78,wre:72,chi:68,car:70,iq:68,cha:54,mkt:52}},
+    {n:'Justin Tafa',age:30,rec:{w:10,l:4},tier:'contender',nat:'Australian',s:{str:84,grp:66,wre:62,chi:66,car:68,iq:60,cha:58,mkt:56}},
+    {n:'Chris Barnett',age:36,rec:{w:20,l:8},tier:'contender',nat:'American',s:{str:82,grp:72,wre:66,chi:68,car:68,iq:64,cha:66,mkt:62}}
   ],
   lheavy:[
-    {n:'Magomed Ankalaev',age:32,rec:{w:18,l:2},tier:'elite',nat:'Russian',s:{str:86,grp:82,wre:84,chi:86,car:84,iq:86,cha:62,mkt:68}},
-    {n:'Alex Pereira',age:37,rec:{w:12,l:2},tier:'champion',ch:true,nat:'Brazilian',s:{str:94,grp:66,wre:62,chi:84,car:78,iq:82,cha:88,mkt:92}},
-    {n:'Jiri Prochazka',age:31,rec:{w:30,l:4},tier:'elite',nat:'Czech',s:{str:90,grp:74,wre:68,chi:80,car:88,iq:82,cha:80,mkt:84}},
-    {n:'Jamahal Hill',age:32,rec:{w:12,l:2},tier:'elite',nat:'American',s:{str:88,grp:70,wre:68,chi:78,car:82,iq:78,cha:76,mkt:78}},
-    {n:'Jan Blachowicz',age:40,rec:{w:29,l:10},tier:'contender',nat:'Polish',s:{str:82,grp:74,wre:72,chi:84,car:76,iq:80,cha:68,mkt:70}},
-    {n:'Volkan Oezdemir',age:34,rec:{w:18,l:5},tier:'contender',nat:'Swiss',s:{str:84,grp:64,wre:62,chi:80,car:76,iq:74,cha:66,mkt:64}},
-    {n:'Anthony Smith',age:35,rec:{w:36,l:17},tier:'contender',nat:'American',s:{str:80,grp:76,wre:72,chi:78,car:80,iq:78,cha:72,mkt:70}},
-    {n:'Aleksandar Rakic',age:31,rec:{w:14,l:4},tier:'contender',nat:'Austrian',s:{str:84,grp:70,wre:70,chi:76,car:80,iq:76,cha:62,mkt:64}},
-    {n:'Ryan Spann',age:33,rec:{w:21,l:9},tier:'prospect',nat:'American',s:{str:80,grp:68,wre:66,chi:76,car:76,iq:72,cha:64,mkt:62}},
+    {n:'Alex Pereira',age:37,rec:{w:12,l:2},tier:'champion',ch:true,nat:'Brazilian',s:{str:95,grp:66,wre:62,chi:84,car:78,iq:82,cha:90,mkt:94}},
+    {n:'Magomed Ankalaev',age:32,rec:{w:19,l:2},tier:'elite',nat:'Russian',s:{str:86,grp:84,wre:86,chi:86,car:86,iq:86,cha:62,mkt:70}},
+    {n:'Jiří Procházka',age:32,rec:{w:30,l:4},tier:'elite',nat:'Czech',s:{str:90,grp:74,wre:68,chi:80,car:88,iq:82,cha:82,mkt:86}},
+    {n:'Carlos Ulberg',age:30,rec:{w:14,l:1},tier:'contender',nat:'New Zealander',s:{str:86,grp:66,wre:68,chi:78,car:82,iq:76,cha:68,mkt:68}},
+    {n:'Khalil Rountree Jr.',age:33,rec:{w:13,l:5},tier:'contender',nat:'American',s:{str:88,grp:64,wre:64,chi:78,car:78,iq:74,cha:72,mkt:70}},
+    {n:'Jan Blachowicz',age:41,rec:{w:30,l:10},tier:'contender',nat:'Polish',s:{str:82,grp:74,wre:72,chi:84,car:76,iq:80,cha:68,mkt:70}},
+    {n:'Azamat Murzakanov',age:33,rec:{w:14,l:1},tier:'contender',nat:'Russian',s:{str:84,grp:70,wre:72,chi:76,car:80,iq:74,cha:60,mkt:62}},
+    {n:'Jamahal Hill',age:32,rec:{w:12,l:3},tier:'contender',nat:'American',s:{str:88,grp:70,wre:68,chi:76,car:80,iq:76,cha:76,mkt:76}},
+    {n:'Bogdan Guskov',age:31,rec:{w:15,l:2},tier:'contender',nat:'Russian',s:{str:82,grp:68,wre:70,chi:76,car:78,iq:72,cha:58,mkt:60}},
+    {n:'Volkan Oezdemir',age:34,rec:{w:18,l:6},tier:'contender',nat:'Swiss',s:{str:84,grp:64,wre:62,chi:80,car:76,iq:74,cha:66,mkt:64}},
+    {n:'Dominick Reyes',age:34,rec:{w:12,l:5},tier:'contender',nat:'American',s:{str:82,grp:68,wre:70,chi:76,car:78,iq:76,cha:68,mkt:66}},
+    {n:'Aleksandar Rakic',age:32,rec:{w:14,l:5},tier:'contender',nat:'Austrian',s:{str:84,grp:70,wre:70,chi:76,car:78,iq:76,cha:62,mkt:64}},
+    {n:'Johnny Walker',age:32,rec:{w:20,l:8},tier:'contender',nat:'Brazilian',s:{str:86,grp:66,wre:64,chi:74,car:76,iq:70,cha:74,mkt:70}},
+    {n:'Nikita Krylov',age:34,rec:{w:29,l:9},tier:'contender',nat:'Ukrainian',s:{str:84,grp:72,wre:66,chi:74,car:78,iq:72,cha:62,mkt:62}},
+    {n:'Dustin Jacoby',age:35,rec:{w:18,l:8},tier:'contender',nat:'American',s:{str:80,grp:64,wre:66,chi:74,car:76,iq:70,cha:62,mkt:60}},
+    {n:'Alonzo Menifield',age:35,rec:{w:14,l:5},tier:'contender',nat:'American',s:{str:82,grp:68,wre:66,chi:68,car:70,iq:64,cha:58,mkt:56}},
+    {n:'Anthony Smith',age:36,rec:{w:38,l:19},tier:'contender',nat:'American',s:{str:76,grp:76,wre:70,chi:70,car:72,iq:70,cha:68,mkt:66}},
+    {n:'Da-un Jung',age:34,rec:{w:17,l:5},tier:'contender',nat:'South Korean',s:{str:80,grp:70,wre:66,chi:66,car:72,iq:66,cha:56,mkt:54}},
+    {n:'Ovince Saint Preux',age:41,rec:{w:30,l:16},tier:'contender',nat:'American',s:{str:76,grp:72,wre:68,chi:66,car:64,iq:66,cha:58,mkt:56}},
+    {n:'Alonzo Menifield',age:35,rec:{w:14,l:5},tier:'contender',nat:'American',s:{str:82,grp:68,wre:66,chi:68,car:70,iq:64,cha:58,mkt:56}},
+    {n:'Ion Cutelaba',age:31,rec:{w:16,l:8},tier:'contender',nat:'Moldovan',s:{str:80,grp:70,wre:66,chi:66,car:68,iq:64,cha:58,mkt:56}},
+    {n:'Oumar Sy',age:29,rec:{w:9,l:2},tier:'prospect',nat:'French',s:{str:78,grp:70,wre:66,chi:66,car:74,iq:64,cha:56,mkt:54}},
+    {n:'Karl Roberson',age:34,rec:{w:14,l:6},tier:'contender',nat:'American',s:{str:76,grp:72,wre:68,chi:66,car:66,iq:66,cha:54,mkt:52}},
+    {n:'Gaston Bolanos',age:31,rec:{w:10,l:3},tier:'contender',nat:'Ecuadorian',s:{str:76,grp:70,wre:64,chi:64,car:72,iq:62,cha:52,mkt:50}}
   ],
   middle:[
-    {n:'Dricus du Plessis',age:31,rec:{w:22,l:3},tier:'elite',nat:'S. African',s:{str:86,grp:84,wre:80,chi:90,car:88,iq:86,cha:82,mkt:84}},
-    {n:'Israel Adesanya',age:34,rec:{w:24,l:4},tier:'elite',nat:'Nigerian',s:{str:92,grp:68,wre:66,chi:78,car:84,iq:90,cha:92,mkt:94}},
-    {n:'Robert Whittaker',age:33,rec:{w:25,l:7},tier:'elite',nat:'Australian',s:{str:88,grp:76,wre:78,chi:86,car:88,iq:88,cha:76,mkt:78}},
-    {n:'Khamzat Chimaev',age:31,rec:{w:14,l:0},tier:'champion',ch:true,nat:'Swedish',s:{str:86,grp:92,wre:94,chi:88,car:94,iq:86,cha:80,mkt:88}},
-    {n:'Sean Strickland',age:33,rec:{w:28,l:6},tier:'contender',nat:'American',s:{str:84,grp:70,wre:74,chi:88,car:86,iq:80,cha:88,mkt:82}},
-    {n:'Paulo Costa',age:33,rec:{w:14,l:3},tier:'contender',nat:'Brazilian',s:{str:86,grp:70,wre:72,chi:82,car:82,iq:76,cha:84,mkt:82}},
-    {n:'Marvin Vettori',age:30,rec:{w:19,l:6},tier:'contender',nat:'Italian',s:{str:78,grp:76,wre:80,chi:84,car:84,iq:78,cha:68,mkt:66}},
-    {n:'Jared Cannonier',age:40,rec:{w:15,l:7},tier:'contender',nat:'American',s:{str:84,grp:68,wre:70,chi:80,car:78,iq:78,cha:70,mkt:68}},
-    {n:'Brendan Allen',age:29,rec:{w:23,l:5},tier:'contender',nat:'American',s:{str:78,grp:78,wre:76,chi:78,car:82,iq:76,cha:62,mkt:60}},
-    {n:'Roman Dolidze',age:35,rec:{w:13,l:3},tier:'prospect',nat:'Georgian',s:{str:82,grp:72,wre:70,chi:78,car:80,iq:74,cha:64,mkt:62}},
+    {n:'Khamzat Chimaev',age:31,rec:{w:14,l:0},tier:'champion',ch:true,nat:'Swedish',s:{str:88,grp:94,wre:96,chi:90,car:96,iq:88,cha:82,mkt:90}},
+    {n:'Dricus Du Plessis',age:31,rec:{w:22,l:3},tier:'elite',nat:'S. African',s:{str:86,grp:86,wre:82,chi:90,car:90,iq:88,cha:84,mkt:86}},
+    {n:'Nassourdine Imavov',age:28,rec:{w:16,l:4},tier:'elite',nat:'French',s:{str:84,grp:80,wre:80,chi:82,car:86,iq:82,cha:70,mkt:72}},
+    {n:'Sean Strickland',age:33,rec:{w:28,l:7},tier:'elite',nat:'American',s:{str:84,grp:70,wre:76,chi:88,car:88,iq:82,cha:90,mkt:84}},
+    {n:'Israel Adesanya',age:35,rec:{w:24,l:5},tier:'elite',nat:'Nigerian',s:{str:92,grp:68,wre:66,chi:78,car:82,iq:90,cha:92,mkt:94}},
+    {n:'Caio Borralho',age:30,rec:{w:17,l:1},tier:'contender',nat:'Brazilian',s:{str:80,grp:82,wre:82,chi:82,car:88,iq:80,cha:68,mkt:68}},
+    {n:'Brendan Allen',age:30,rec:{w:24,l:5},tier:'contender',nat:'American',s:{str:78,grp:80,wre:78,chi:78,car:84,iq:78,cha:62,mkt:62}},
+    {n:'Anthony Hernandez',age:29,rec:{w:16,l:3},tier:'contender',nat:'American',s:{str:80,grp:78,wre:78,chi:78,car:82,iq:76,cha:64,mkt:64}},
+    {n:'Reinier de Ridder',age:33,rec:{w:17,l:3},tier:'contender',nat:'Dutch',s:{str:74,grp:88,wre:82,chi:78,car:84,iq:80,cha:66,mkt:66}},
+    {n:'Robert Whittaker',age:34,rec:{w:25,l:8},tier:'contender',nat:'Australian',s:{str:88,grp:78,wre:80,chi:86,car:88,iq:88,cha:76,mkt:80}},
+    {n:'Jared Cannonier',age:40,rec:{w:15,l:8},tier:'contender',nat:'American',s:{str:84,grp:68,wre:70,chi:80,car:76,iq:78,cha:70,mkt:68}},
+    {n:'Roman Dolidze',age:35,rec:{w:13,l:4},tier:'contender',nat:'Georgian',s:{str:82,grp:72,wre:70,chi:78,car:80,iq:74,cha:64,mkt:62}},
+    {n:'Gregory Rodrigues',age:31,rec:{w:14,l:5},tier:'contender',nat:'Brazilian',s:{str:82,grp:74,wre:72,chi:76,car:80,iq:72,cha:64,mkt:62}},
+    {n:'Paulo Costa',age:33,rec:{w:14,l:4},tier:'contender',nat:'Brazilian',s:{str:86,grp:70,wre:72,chi:80,car:80,iq:74,cha:84,mkt:82}},
+    {n:'Joe Pyfer',age:27,rec:{w:12,l:2},tier:'prospect',nat:'American',s:{str:84,grp:68,wre:68,chi:76,car:78,iq:72,cha:70,mkt:68}},
+    {n:'Eryk Anders',age:36,rec:{w:16,l:8},tier:'contender',nat:'American',s:{str:78,grp:72,wre:72,chi:68,car:68,iq:66,cha:58,mkt:56}},
+    {n:'Kevin Holland',age:32,rec:{w:27,l:12},tier:'contender',nat:'American',s:{str:78,grp:70,wre:68,chi:68,car:70,iq:68,cha:76,mkt:74}},
+    {n:'Abus Magomedov',age:31,rec:{w:26,l:4},tier:'contender',nat:'Russian',s:{str:80,grp:72,wre:70,chi:68,car:74,iq:68,cha:56,mkt:54}},
+    {n:'Chris Curtis',age:36,rec:{w:30,l:10},tier:'contender',nat:'American',s:{str:76,grp:70,wre:66,chi:66,car:70,iq:66,cha:60,mkt:58}},
+    {n:'Gerald Meerschaert',age:37,rec:{w:37,l:17},tier:'contender',nat:'American',s:{str:70,grp:82,wre:68,chi:66,car:68,iq:70,cha:58,mkt:56}},
+    {n:'Edmen Shahbazyan',age:27,rec:{w:13,l:5},tier:'contender',nat:'American',s:{str:76,grp:68,wre:66,chi:66,car:68,iq:66,cha:62,mkt:60}},
+    {n:'Brad Tavares',age:37,rec:{w:20,l:11},tier:'contender',nat:'American',s:{str:74,grp:72,wre:68,chi:70,car:70,iq:70,cha:60,mkt:58}},
+    {n:'Chidi Njokuani',age:34,rec:{w:22,l:8},tier:'contender',nat:'American',s:{str:80,grp:66,wre:62,chi:64,car:66,iq:62,cha:56,mkt:54}},
+    {n:'Eryk Anders',age:36,rec:{w:16,l:8},tier:'contender',nat:'American',s:{str:78,grp:72,wre:72,chi:68,car:68,iq:66,cha:58,mkt:56}}
   ],
   welter:[
-    {n:'Leon Edwards',age:33,rec:{w:22,l:4},tier:'elite',nat:'British',s:{str:86,grp:76,wre:78,chi:84,car:86,iq:86,cha:74,mkt:80}},
-    {n:'Kamaru Usman',age:37,rec:{w:20,l:4},tier:'elite',nat:'Nigerian',s:{str:82,grp:80,wre:88,chi:86,car:88,iq:88,cha:76,mkt:82}},
-    {n:'Colby Covington',age:36,rec:{w:17,l:4},tier:'elite',nat:'American',s:{str:82,grp:76,wre:88,chi:84,car:92,iq:82,cha:78,mkt:78}},
-    {n:'Belal Muhammad',age:36,rec:{w:23,l:3},tier:'elite',nat:'American',s:{str:80,grp:82,wre:84,chi:82,car:90,iq:84,cha:68,mkt:70}},
-    {n:'Shavkat Rakhmonov',age:30,rec:{w:18,l:0},tier:'contender',nat:'Kazakh',s:{str:84,grp:86,wre:80,chi:84,car:84,iq:82,cha:70,mkt:74}},
-    {n:'Gilbert Burns',age:37,rec:{w:22,l:7},tier:'contender',nat:'Brazilian',s:{str:82,grp:88,wre:78,chi:82,car:84,iq:84,cha:74,mkt:72}},
-    {n:'Sean Brady',age:31,rec:{w:17,l:1},tier:'contender',nat:'American',s:{str:78,grp:82,wre:84,chi:80,car:86,iq:80,cha:64,mkt:64}},
-    {n:'Vicente Luque',age:33,rec:{w:22,l:9},tier:'contender',nat:'Brazilian',s:{str:84,grp:78,wre:70,chi:78,car:80,iq:78,cha:68,mkt:66}},
-    {n:'Geoff Neal',age:33,rec:{w:16,l:5},tier:'contender',nat:'American',s:{str:84,grp:68,wre:70,chi:78,car:78,iq:74,cha:68,mkt:66}},
-    {n:'Jack Della Maddalena',age:28,rec:{w:16,l:3},tier:'contender',nat:'Australian',s:{str:84,grp:74,wre:70,chi:82,car:82,iq:78,cha:68,mkt:72}},
+    {n:'Islam Makhachev',age:33,rec:{w:28,l:1},tier:'champion',ch:true,nat:'Russian',s:{str:87,grp:94,wre:96,chi:87,car:92,iq:94,cha:76,mkt:88}},
+    {n:'Jack Della Maddalena',age:28,rec:{w:17,l:3},tier:'elite',nat:'Australian',s:{str:86,grp:76,wre:72,chi:84,car:84,iq:80,cha:72,mkt:76}},
+    {n:'Ian Machado Garry',age:27,rec:{w:15,l:0},tier:'elite',nat:'Irish',s:{str:84,grp:74,wre:74,chi:82,car:84,iq:80,cha:82,mkt:82}},
+    {n:'Michael Morales',age:25,rec:{w:17,l:0},tier:'elite',nat:'Ecuadorian',s:{str:84,grp:76,wre:76,chi:80,car:84,iq:78,cha:66,mkt:68}},
+    {n:'Belal Muhammad',age:36,rec:{w:23,l:4},tier:'contender',nat:'American',s:{str:80,grp:84,wre:86,chi:82,car:92,iq:86,cha:68,mkt:72}},
+    {n:'Carlos Prates',age:30,rec:{w:17,l:4},tier:'contender',nat:'Brazilian',s:{str:88,grp:70,wre:68,chi:78,car:80,iq:74,cha:68,mkt:68}},
+    {n:'Sean Brady',age:31,rec:{w:17,l:2},tier:'contender',nat:'American',s:{str:78,grp:84,wre:86,chi:80,car:88,iq:82,cha:64,mkt:66}},
+    {n:'Kamaru Usman',age:37,rec:{w:20,l:5},tier:'contender',nat:'Nigerian',s:{str:82,grp:82,wre:90,chi:86,car:88,iq:88,cha:76,mkt:82}},
+    {n:'Leon Edwards',age:33,rec:{w:22,l:5},tier:'contender',nat:'British',s:{str:86,grp:78,wre:80,chi:84,car:88,iq:86,cha:74,mkt:82}},
+    {n:'Joaquin Buckley',age:30,rec:{w:21,l:7},tier:'contender',nat:'American',s:{str:88,grp:66,wre:66,chi:76,car:78,iq:72,cha:80,mkt:76}},
+    {n:'Gabriel Bonfim',age:25,rec:{w:16,l:1},tier:'contender',nat:'Brazilian',s:{str:80,grp:76,wre:76,chi:78,car:82,iq:76,cha:64,mkt:64}},
+    {n:'Gilbert Burns',age:37,rec:{w:22,l:8},tier:'contender',nat:'Brazilian',s:{str:82,grp:90,wre:80,chi:82,car:84,iq:84,cha:74,mkt:72}},
+    {n:'Uros Medic',age:29,rec:{w:13,l:2},tier:'contender',nat:'Croatian',s:{str:80,grp:72,wre:72,chi:78,car:80,iq:74,cha:60,mkt:60}},
+    {n:'Colby Covington',age:36,rec:{w:17,l:5},tier:'contender',nat:'American',s:{str:82,grp:76,wre:90,chi:84,car:94,iq:82,cha:78,mkt:78}},
+    {n:'Daniel Rodriguez',age:34,rec:{w:17,l:5},tier:'contender',nat:'American',s:{str:82,grp:72,wre:70,chi:78,car:80,iq:76,cha:64,mkt:66}},
+    {n:'Niko Price',age:33,rec:{w:16,l:9},tier:'contender',nat:'American',s:{str:76,grp:72,wre:66,chi:68,car:68,iq:66,cha:64,mkt:62}},
+    {n:'Niko Price',age:33,rec:{w:16,l:9},tier:'contender',nat:'American',s:{str:76,grp:72,wre:66,chi:68,car:68,iq:66,cha:64,mkt:62}},
+    {n:'Santiago Ponzinibbio',age:36,rec:{w:29,l:8},tier:'contender',nat:'Argentine',s:{str:80,grp:70,wre:64,chi:68,car:68,iq:66,cha:64,mkt:62}},
+    {n:'Nikolay Veretennikov',age:30,rec:{w:17,l:3},tier:'contender',nat:'Russian',s:{str:78,grp:74,wre:72,chi:66,car:74,iq:68,cha:52,mkt:50}},
+    {n:'Matthew Semelsberger',age:30,rec:{w:11,l:5},tier:'contender',nat:'American',s:{str:82,grp:66,wre:64,chi:64,car:68,iq:62,cha:58,mkt:56}},
+    {n:'Jake Matthews',age:31,rec:{w:19,l:9},tier:'contender',nat:'Australian',s:{str:72,grp:74,wre:68,chi:66,car:66,iq:66,cha:52,mkt:50}},
+    {n:'Nicolas Dalby',age:38,rec:{w:22,l:4},tier:'contender',nat:'Danish',s:{str:74,grp:72,wre:66,chi:66,car:66,iq:68,cha:52,mkt:50}},
+    {n:'Muslim Salikhov',age:39,rec:{w:20,l:5},tier:'contender',nat:'Russian',s:{str:82,grp:66,wre:64,chi:68,car:62,iq:66,cha:58,mkt:56}},
+    {n:'Themba Gorimbo',age:31,rec:{w:12,l:4},tier:'contender',nat:'Zimbabwean',s:{str:78,grp:68,wre:66,chi:68,car:70,iq:64,cha:68,mkt:66}}
   ],
   light:[
-    {n:'Islam Makhachev',age:33,rec:{w:27,l:1},tier:'champion',ch:true,nat:'Russian',s:{str:87,grp:93,wre:95,chi:86,car:91,iq:93,cha:76,mkt:86}},
-    {n:'Dustin Poirier',age:35,rec:{w:30,l:9},tier:'elite',nat:'American',s:{str:88,grp:82,wre:78,chi:82,car:84,iq:88,cha:88,mkt:88}},
-    {n:'Justin Gaethje',age:36,rec:{w:26,l:5},tier:'champion',ch:true,nat:'American',s:{str:88,grp:74,wre:80,chi:80,car:90,iq:82,cha:84,mkt:86}},
-    {n:'Charles Oliveira',age:35,rec:{w:33,l:10},tier:'contender',nat:'Brazilian',s:{str:78,grp:92,wre:76,chi:76,car:82,iq:84,cha:80,mkt:82}},
-    {n:'Max Holloway',age:32,rec:{w:26,l:7},tier:'elite',nat:'American',s:{str:90,grp:74,wre:72,chi:90,car:94,iq:88,cha:86,mkt:88}},
-    {n:'Arman Tsarukyan',age:27,rec:{w:21,l:2},tier:'contender',nat:'Armenian',s:{str:84,grp:84,wre:86,chi:82,car:90,iq:84,cha:68,mkt:72}},
-    {n:'Beneil Dariush',age:34,rec:{w:22,l:5},tier:'contender',nat:'American',s:{str:80,grp:86,wre:80,chi:80,car:84,iq:84,cha:66,mkt:66}},
-    {n:'Bobby Green',age:36,rec:{w:30,l:14},tier:'contender',nat:'American',s:{str:82,grp:72,wre:68,chi:80,car:80,iq:78,cha:78,mkt:74}},
-    {n:'Dan Hooker',age:34,rec:{w:23,l:13},tier:'contender',nat:'New Zealander',s:{str:82,grp:72,wre:68,chi:78,car:80,iq:78,cha:72,mkt:70}},
-    {n:'Jalin Turner',age:29,rec:{w:14,l:6},tier:'prospect',nat:'American',s:{str:82,grp:72,wre:66,chi:76,car:78,iq:72,cha:70,mkt:68}},
-    {n:'Mateusz Gamrot',age:31,rec:{w:23,l:2},tier:'contender',nat:'Polish',s:{str:80,grp:80,wre:82,chi:78,car:86,iq:80,cha:62,mkt:62}},
+    {n:'Ilia Topuria',age:28,rec:{w:18,l:0},tier:'champion',ch:true,nat:'Georgian',s:{str:93,grp:86,wre:84,chi:90,car:90,iq:90,cha:92,mkt:94}},
+    {n:'Justin Gaethje',age:36,rec:{w:26,l:5},tier:'elite',nat:'American',s:{str:90,grp:76,wre:82,chi:82,car:92,iq:84,cha:86,mkt:88}},
+    {n:'Arman Tsarukyan',age:28,rec:{w:22,l:2},tier:'elite',nat:'Armenian',s:{str:86,grp:86,wre:88,chi:84,car:92,iq:86,cha:70,mkt:74}},
+    {n:'Charles Oliveira',age:35,rec:{w:33,l:11},tier:'elite',nat:'Brazilian',s:{str:78,grp:94,wre:78,chi:76,car:82,iq:86,cha:80,mkt:84}},
+    {n:'Max Holloway',age:33,rec:{w:26,l:8},tier:'elite',nat:'American',s:{str:90,grp:74,wre:72,chi:90,car:94,iq:88,cha:88,mkt:90}},
+    {n:'Benoit Saint Denis',age:29,rec:{w:13,l:3},tier:'contender',nat:'French',s:{str:82,grp:78,wre:80,chi:78,car:86,iq:78,cha:68,mkt:68}},
+    {n:'Paddy Pimblett',age:30,rec:{w:22,l:3},tier:'contender',nat:'British',s:{str:80,grp:82,wre:76,chi:78,car:80,iq:76,cha:92,mkt:90}},
+    {n:'Dan Hooker',age:34,rec:{w:24,l:13},tier:'contender',nat:'New Zealander',s:{str:82,grp:72,wre:68,chi:78,car:80,iq:78,cha:72,mkt:72}},
+    {n:'Mateusz Gamrot',age:32,rec:{w:24,l:2},tier:'contender',nat:'Polish',s:{str:80,grp:82,wre:84,chi:78,car:88,iq:82,cha:62,mkt:64}},
+    {n:'Mauricio Ruffy',age:25,rec:{w:11,l:1},tier:'contender',nat:'Brazilian',s:{str:82,grp:74,wre:72,chi:76,car:80,iq:74,cha:66,mkt:66}},
+    {n:'Rafael Fiziev',age:31,rec:{w:14,l:4},tier:'contender',nat:'Kazakh',s:{str:88,grp:68,wre:66,chi:76,car:80,iq:76,cha:70,mkt:70}},
+    {n:'Renato Moicano',age:33,rec:{w:20,l:5},tier:'contender',nat:'Brazilian',s:{str:78,grp:80,wre:74,chi:78,car:82,iq:78,cha:74,mkt:72}},
+    {n:'Beneil Dariush',age:35,rec:{w:22,l:6},tier:'contender',nat:'American',s:{str:80,grp:88,wre:82,chi:80,car:84,iq:86,cha:66,mkt:66}},
+    {n:'Michael Chandler',age:38,rec:{w:23,l:9},tier:'contender',nat:'American',s:{str:82,grp:72,wre:78,chi:84,car:84,iq:78,cha:80,mkt:80}},
+    {n:'Manuel Torres',age:26,rec:{w:16,l:3},tier:'contender',nat:'Mexican',s:{str:84,grp:66,wre:66,chi:74,car:76,iq:70,cha:64,mkt:62}},
+    {n:'Bobby Green',age:37,rec:{w:30,l:15},tier:'contender',nat:'American',s:{str:76,grp:72,wre:68,chi:72,car:68,iq:70,cha:68,mkt:66}},
+    {n:'Thiago Moises',age:30,rec:{w:17,l:8},tier:'contender',nat:'Brazilian',s:{str:74,grp:74,wre:72,chi:68,car:70,iq:68,cha:56,mkt:54}},
+    {n:'Bobby Green',age:37,rec:{w:30,l:15},tier:'contender',nat:'American',s:{str:76,grp:72,wre:68,chi:72,car:68,iq:70,cha:68,mkt:66}},
+    {n:'Jalin Turner',age:29,rec:{w:14,l:6},tier:'contender',nat:'American',s:{str:82,grp:70,wre:66,chi:70,car:72,iq:66,cha:64,mkt:62}},
+    {n:'Damir Ismagulov',age:33,rec:{w:26,l:3},tier:'contender',nat:'Kazakhstani',s:{str:74,grp:72,wre:72,chi:66,car:70,iq:68,cha:52,mkt:50}},
+    {n:'Drakkar Klose',age:33,rec:{w:14,l:5},tier:'contender',nat:'American',s:{str:74,grp:72,wre:70,chi:66,car:68,iq:66,cha:54,mkt:52}},
+    {n:'Thiago Moises',age:30,rec:{w:17,l:8},tier:'contender',nat:'Brazilian',s:{str:74,grp:74,wre:72,chi:68,car:70,iq:68,cha:56,mkt:54}},
+    {n:'Tofiq Musayev',age:30,rec:{w:19,l:3},tier:'contender',nat:'Azerbaijani',s:{str:80,grp:70,wre:66,chi:70,car:74,iq:68,cha:58,mkt:56}},
+    {n:'Esteban Ribovics',age:30,rec:{w:13,l:1},tier:'contender',nat:'Argentine',s:{str:78,grp:70,wre:66,chi:66,car:74,iq:64,cha:54,mkt:52}},
+    {n:'Nazim Sadykhov',age:28,rec:{w:9,l:1},tier:'prospect',nat:'Azerbaijani',s:{str:76,grp:68,wre:66,chi:64,car:72,iq:62,cha:50,mkt:48}}
   ],
   feather:[
-    {n:'Ilia Topuria',age:28,rec:{w:17,l:0},tier:'champion',ch:true,nat:'Georgian',s:{str:92,grp:84,wre:82,chi:88,car:88,iq:88,cha:90,mkt:92}},
-    {n:'Alexander Volkanovski',age:36,rec:{w:27,l:3},tier:'elite',nat:'Australian',s:{str:88,grp:80,wre:84,chi:88,car:90,iq:90,cha:86,mkt:88}},
-    {n:'Brian Ortega',age:33,rec:{w:16,l:3},tier:'contender',nat:'American',s:{str:80,grp:90,wre:72,chi:84,car:78,iq:82,cha:80,mkt:78}},
-    {n:'Yair Rodriguez',age:31,rec:{w:17,l:4},tier:'contender',nat:'Mexican',s:{str:90,grp:76,wre:68,chi:78,car:80,iq:80,cha:80,mkt:78}},
-    {n:'Josh Emmett',age:39,rec:{w:18,l:4},tier:'contender',nat:'American',s:{str:84,grp:70,wre:74,chi:80,car:78,iq:78,cha:64,mkt:62}},
-    {n:'Arnold Allen',age:29,rec:{w:18,l:2},tier:'contender',nat:'British',s:{str:80,grp:76,wre:74,chi:80,car:82,iq:80,cha:64,mkt:64}},
-    {n:'Movsar Evloev',age:30,rec:{w:17,l:0},tier:'contender',nat:'Russian',s:{str:78,grp:76,wre:80,chi:80,car:82,iq:80,cha:58,mkt:60}},
-    {n:'Giga Chikadze',age:34,rec:{w:14,l:3},tier:'contender',nat:'Georgian',s:{str:84,grp:68,wre:66,chi:76,car:78,iq:74,cha:70,mkt:68}},
-    {n:'Calvin Kattar',age:36,rec:{w:23,l:7},tier:'contender',nat:'American',s:{str:82,grp:70,wre:68,chi:82,car:80,iq:78,cha:66,mkt:64}},
-    {n:'Sodiq Yusuff',age:31,rec:{w:14,l:2},tier:'prospect',nat:'American',s:{str:82,grp:68,wre:66,chi:78,car:80,iq:74,cha:66,mkt:64}},
+    {n:'Alexander Volkanovski',age:37,rec:{w:27,l:4},tier:'champion',ch:true,nat:'Australian',s:{str:88,grp:82,wre:86,chi:88,car:92,iq:92,cha:88,mkt:90}},
+    {n:'Movsar Evloev',age:31,rec:{w:18,l:0},tier:'elite',nat:'Russian',s:{str:80,grp:78,wre:82,chi:80,car:84,iq:82,cha:60,mkt:62}},
+    {n:'Diego Lopes',age:28,rec:{w:25,l:6},tier:'elite',nat:'Brazilian',s:{str:86,grp:76,wre:72,chi:80,car:84,iq:80,cha:74,mkt:74}},
+    {n:'Lerone Murphy',age:31,rec:{w:15,l:0},tier:'elite',nat:'British',s:{str:82,grp:76,wre:74,chi:80,car:84,iq:78,cha:68,mkt:68}},
+    {n:'Yair Rodriguez',age:31,rec:{w:17,l:5},tier:'contender',nat:'Mexican',s:{str:90,grp:76,wre:68,chi:78,car:80,iq:80,cha:80,mkt:80}},
+    {n:'Aljamain Sterling',age:35,rec:{w:22,l:5},tier:'contender',nat:'American',s:{str:78,grp:90,wre:88,chi:78,car:88,iq:88,cha:82,mkt:80}},
+    {n:'Jean Silva',age:27,rec:{w:14,l:2},tier:'contender',nat:'Brazilian',s:{str:84,grp:72,wre:70,chi:76,car:80,iq:74,cha:66,mkt:66}},
+    {n:'Youssef Zalal',age:28,rec:{w:17,l:5},tier:'contender',nat:'Moroccan',s:{str:80,grp:72,wre:70,chi:78,car:80,iq:76,cha:64,mkt:64}},
+    {n:'Arnold Allen',age:30,rec:{w:19,l:2},tier:'contender',nat:'British',s:{str:80,grp:76,wre:76,chi:80,car:84,iq:80,cha:64,mkt:66}},
+    {n:'Brian Ortega',age:33,rec:{w:16,l:4},tier:'contender',nat:'American',s:{str:80,grp:92,wre:72,chi:84,car:78,iq:82,cha:80,mkt:78}},
+    {n:'Josh Emmett',age:39,rec:{w:18,l:5},tier:'contender',nat:'American',s:{str:84,grp:70,wre:74,chi:80,car:76,iq:78,cha:64,mkt:62}},
+    {n:'Melquizael Costa',age:27,rec:{w:14,l:2},tier:'contender',nat:'Brazilian',s:{str:82,grp:70,wre:68,chi:74,car:78,iq:72,cha:60,mkt:60}},
+    {n:'Kevin Vallejos',age:26,rec:{w:12,l:0},tier:'prospect',nat:'Argentine',s:{str:80,grp:70,wre:70,chi:74,car:78,iq:70,cha:60,mkt:60}},
+    {n:'David Onama',age:28,rec:{w:13,l:5},tier:'contender',nat:'Ugandan',s:{str:80,grp:68,wre:68,chi:74,car:78,iq:70,cha:62,mkt:60}},
+    {n:'Bryce Mitchell',age:30,rec:{w:15,l:3},tier:'contender',nat:'American',s:{str:72,grp:80,wre:80,chi:70,car:72,iq:72,cha:64,mkt:62}},
+    {n:'Bryce Mitchell',age:30,rec:{w:15,l:3},tier:'contender',nat:'American',s:{str:72,grp:80,wre:80,chi:70,car:72,iq:72,cha:64,mkt:62}},
+    {n:'Edson Barboza',age:38,rec:{w:24,l:11},tier:'contender',nat:'Brazilian',s:{str:82,grp:66,wre:62,chi:66,car:64,iq:68,cha:66,mkt:64}},
+    {n:'Ricky Turcios',age:29,rec:{w:14,l:3},tier:'contender',nat:'American',s:{str:76,grp:72,wre:70,chi:68,car:74,iq:68,cha:60,mkt:58}},
+    {n:'Julian Erosa',age:34,rec:{w:27,l:10},tier:'contender',nat:'American',s:{str:76,grp:72,wre:66,chi:66,car:66,iq:66,cha:58,mkt:56}},
+    {n:'Doo-ho Choi',age:31,rec:{w:13,l:5},tier:'contender',nat:'South Korean',s:{str:82,grp:64,wre:60,chi:66,car:66,iq:62,cha:68,mkt:66}},
+    {n:'Pat Sabatini',age:33,rec:{w:20,l:6},tier:'contender',nat:'American',s:{str:70,grp:76,wre:72,chi:66,car:68,iq:68,cha:52,mkt:50}},
+    {n:'Herbert Burns',age:35,rec:{w:15,l:7},tier:'contender',nat:'Brazilian',s:{str:72,grp:74,wre:68,chi:64,car:64,iq:66,cha:52,mkt:50}},
+    {n:'Bill Algeo',age:36,rec:{w:18,l:8},tier:'contender',nat:'American',s:{str:72,grp:72,wre:66,chi:66,car:66,iq:66,cha:54,mkt:52}}
   ],
   bantam:[
-    {n:"Sean O'Malley",age:30,rec:{w:18,l:2},tier:'elite',nat:'American',s:{str:88,grp:70,wre:66,chi:72,car:80,iq:80,cha:96,mkt:94}},
-    {n:'Aljamain Sterling',age:34,rec:{w:22,l:4},tier:'elite',nat:'American',s:{str:78,grp:90,wre:86,chi:78,car:88,iq:88,cha:82,mkt:80}},
-    {n:'Cory Sandhagen',age:32,rec:{w:16,l:4},tier:'contender',nat:'American',s:{str:86,grp:74,wre:72,chi:76,car:86,iq:84,cha:72,mkt:72}},
-    {n:'Umar Nurmagomedov',age:27,rec:{w:17,l:0},tier:'contender',nat:'Russian',s:{str:80,grp:88,wre:90,chi:82,car:88,iq:86,cha:60,mkt:68}},
-    {n:'Marlon Vera',age:31,rec:{w:22,l:8},tier:'contender',nat:'Ecuadorian',s:{str:82,grp:78,wre:74,chi:84,car:82,iq:80,cha:72,mkt:70}},
-    {n:'Merab Dvalishvili',age:34,rec:{w:16,l:5},tier:'contender',nat:'Georgian',s:{str:74,grp:80,wre:88,chi:78,car:96,iq:82,cha:64,mkt:64}},
-    {n:'Song Yadong',age:26,rec:{w:20,l:7},tier:'contender',nat:'Chinese',s:{str:82,grp:72,wre:70,chi:76,car:82,iq:76,cha:66,mkt:68}},
-    {n:'Dominick Cruz',age:38,rec:{w:25,l:5},tier:'contender',nat:'American',s:{str:78,grp:72,wre:76,chi:78,car:82,iq:86,cha:76,mkt:74}},
-    {n:'Petr Yan',age:32,rec:{w:17,l:5},tier:'champion',ch:true,nat:'Russian',s:{str:86,grp:78,wre:78,chi:82,car:86,iq:84,cha:66,mkt:70}},
-    {n:'Rob Font',age:36,rec:{w:20,l:7},tier:'contender',nat:'American',s:{str:80,grp:68,wre:66,chi:78,car:82,iq:76,cha:66,mkt:62}},
+    {n:'Petr Yan',age:32,rec:{w:18,l:5},tier:'champion',ch:true,nat:'Russian',s:{str:88,grp:80,wre:80,chi:84,car:88,iq:86,cha:68,mkt:72}},
+    {n:'Merab Dvalishvili',age:34,rec:{w:17,l:5},tier:'elite',nat:'Georgian',s:{str:74,grp:82,wre:90,chi:80,car:98,iq:84,cha:66,mkt:68}},
+    {n:'Umar Nurmagomedov',age:27,rec:{w:18,l:0},tier:'elite',nat:'Russian',s:{str:82,grp:90,wre:92,chi:82,car:90,iq:88,cha:62,mkt:70}},
+    {n:"Sean O'Malley",age:30,rec:{w:18,l:3},tier:'elite',nat:'American',s:{str:88,grp:70,wre:66,chi:72,car:80,iq:80,cha:98,mkt:96}},
+    {n:'Cory Sandhagen',age:32,rec:{w:17,l:4},tier:'contender',nat:'American',s:{str:86,grp:74,wre:72,chi:76,car:86,iq:84,cha:72,mkt:72}},
+    {n:'Song Yadong',age:27,rec:{w:20,l:8},tier:'contender',nat:'Chinese',s:{str:82,grp:74,wre:72,chi:76,car:82,iq:76,cha:66,mkt:68}},
+    {n:'Aiemann Zahabi',age:31,rec:{w:13,l:3},tier:'contender',nat:'Canadian',s:{str:80,grp:72,wre:72,chi:78,car:80,iq:76,cha:60,mkt:60}},
+    {n:'Deiveson Figueiredo',age:37,rec:{w:24,l:5},tier:'contender',nat:'Brazilian',s:{str:82,grp:80,wre:74,chi:78,car:80,iq:78,cha:80,mkt:80}},
+    {n:'Mario Bautista',age:31,rec:{w:13,l:2},tier:'contender',nat:'American',s:{str:78,grp:76,wre:74,chi:76,car:82,iq:76,cha:64,mkt:64}},
+    {n:'David Martinez',age:29,rec:{w:13,l:1},tier:'contender',nat:'Spanish',s:{str:78,grp:76,wre:76,chi:78,car:82,iq:76,cha:60,mkt:60}},
+    {n:'Marlon Vera',age:31,rec:{w:22,l:9},tier:'contender',nat:'Ecuadorian',s:{str:82,grp:78,wre:74,chi:84,car:82,iq:80,cha:72,mkt:70}},
+    {n:'Payton Talbott',age:25,rec:{w:11,l:1},tier:'prospect',nat:'American',s:{str:82,grp:68,wre:70,chi:76,car:80,iq:72,cha:72,mkt:70}},
+    {n:'Raul Rosas Jr.',age:20,rec:{w:11,l:2},tier:'prospect',nat:'Mexican',s:{str:74,grp:82,wre:78,chi:72,car:78,iq:74,cha:72,mkt:72}},
+    {n:'Montel Jackson',age:30,rec:{w:13,l:3},tier:'contender',nat:'American',s:{str:78,grp:68,wre:70,chi:74,car:78,iq:70,cha:62,mkt:60}},
+    {n:'Farid Basharat',age:28,rec:{w:10,l:1},tier:'prospect',nat:'Afghan',s:{str:76,grp:68,wre:70,chi:72,car:78,iq:70,cha:58,mkt:58}},
+    {n:'Rani Yahya',age:40,rec:{w:28,l:11},tier:'contender',nat:'Brazilian',s:{str:68,grp:82,wre:72,chi:64,car:62,iq:70,cha:56,mkt:54}},
+    {n:'Pedro Munhoz',age:37,rec:{w:20,l:11},tier:'contender',nat:'Brazilian',s:{str:72,grp:72,wre:70,chi:66,car:62,iq:68,cha:56,mkt:54}},
+    {n:'Kyler Phillips',age:29,rec:{w:11,l:4},tier:'contender',nat:'American',s:{str:70,grp:70,wre:68,chi:66,car:66,iq:66,cha:56,mkt:54}},
+    {n:'Said Nurmagomedov',age:33,rec:{w:17,l:4},tier:'contender',nat:'Russian',s:{str:74,grp:66,wre:70,chi:64,car:66,iq:64,cha:52,mkt:50}},
+    {n:'Jonathan Martinez',age:31,rec:{w:18,l:6},tier:'contender',nat:'American',s:{str:72,grp:68,wre:66,chi:64,car:66,iq:64,cha:54,mkt:52}},
+    {n:'Miles Johns',age:30,rec:{w:15,l:3},tier:'contender',nat:'American',s:{str:72,grp:68,wre:70,chi:64,car:68,iq:64,cha:54,mkt:52}},
+    {n:'Chris Gutierrez',age:33,rec:{w:19,l:7},tier:'contender',nat:'American',s:{str:70,grp:70,wre:66,chi:64,car:62,iq:64,cha:52,mkt:50}},
+    {n:'Marcus McGhee',age:29,rec:{w:12,l:2},tier:'contender',nat:'American',s:{str:72,grp:68,wre:66,chi:62,car:68,iq:62,cha:50,mkt:48}},
+    {n:'Andre Ewell',age:35,rec:{w:18,l:10},tier:'contender',nat:'American',s:{str:70,grp:66,wre:62,chi:60,car:62,iq:62,cha:50,mkt:48}}
   ],
   fly:[
-    {n:'Joshua Van',age:25,rec:{w:10,l:1},tier:'champion',ch:true,nat:'Australian',s:{str:84,grp:80,wre:82,chi:80,car:86,iq:82,cha:70,mkt:72}},
-    {n:'Alexandre Pantoja',age:35,rec:{w:27,l:6},tier:'elite',nat:'Brazilian',s:{str:82,grp:88,wre:84,chi:84,car:88,iq:86,cha:72,mkt:74}},
-    {n:'Brandon Moreno',age:30,rec:{w:22,l:7},tier:'elite',nat:'Mexican',s:{str:80,grp:86,wre:78,chi:78,car:88,iq:84,cha:82,mkt:82}},
-    {n:'Amir Albazi',age:30,rec:{w:16,l:1},tier:'contender',nat:'Swedish',s:{str:80,grp:86,wre:80,chi:78,car:84,iq:82,cha:66,mkt:64}},
-    {n:'Manel Kape',age:30,rec:{w:18,l:6},tier:'contender',nat:'Angolan',s:{str:86,grp:74,wre:70,chi:74,car:82,iq:78,cha:70,mkt:68}},
-    {n:'Tatsuro Taira',age:25,rec:{w:16,l:0},tier:'contender',nat:'Japanese',s:{str:76,grp:84,wre:80,chi:76,car:84,iq:80,cha:60,mkt:64}},
-    {n:'David Dvorak',age:30,rec:{w:21,l:4},tier:'contender',nat:'Czech',s:{str:78,grp:78,wre:74,chi:76,car:82,iq:78,cha:60,mkt:58}},
-    {n:'Muhammad Mokaev',age:24,rec:{w:11,l:1},tier:'contender',nat:'British',s:{str:74,grp:82,wre:80,chi:74,car:84,iq:78,cha:62,mkt:64}},
-    {n:'Tim Elliott',age:36,rec:{w:18,l:13},tier:'contender',nat:'American',s:{str:76,grp:76,wre:72,chi:76,car:80,iq:76,cha:68,mkt:62}},
+    {n:'Joshua Van',age:25,rec:{w:11,l:1},tier:'champion',ch:true,nat:'Australian',s:{str:84,grp:82,wre:84,chi:82,car:88,iq:84,cha:72,mkt:74}},
+    {n:'Alexandre Pantoja',age:35,rec:{w:27,l:7},tier:'elite',nat:'Brazilian',s:{str:82,grp:90,wre:86,chi:84,car:90,iq:88,cha:72,mkt:76}},
+    {n:'Manel Kape',age:30,rec:{w:19,l:6},tier:'contender',nat:'Angolan',s:{str:86,grp:74,wre:70,chi:74,car:82,iq:78,cha:70,mkt:68}},
+    {n:'Tatsuro Taira',age:25,rec:{w:17,l:0},tier:'contender',nat:'Japanese',s:{str:76,grp:86,wre:82,chi:76,car:86,iq:82,cha:62,mkt:66}},
+    {n:'Brandon Royval',age:32,rec:{w:16,l:8},tier:'contender',nat:'American',s:{str:78,grp:82,wre:74,chi:74,car:82,iq:76,cha:68,mkt:66}},
+    {n:'Kyoji Horiguchi',age:33,rec:{w:30,l:5},tier:'contender',nat:'Japanese',s:{str:78,grp:80,wre:76,chi:78,car:84,iq:82,cha:68,mkt:68}},
+    {n:'Looner Kavanagh',age:26,rec:{w:14,l:2},tier:'contender',nat:'Kazakh',s:{str:78,grp:78,wre:76,chi:76,car:82,iq:74,cha:60,mkt:62}},
+    {n:'Amir Albazi',age:30,rec:{w:16,l:2},tier:'contender',nat:'Swedish',s:{str:80,grp:88,wre:82,chi:78,car:86,iq:84,cha:66,mkt:66}},
+    {n:'Asu Almabayev',age:28,rec:{w:14,l:2},tier:'contender',nat:'Kazakh',s:{str:78,grp:74,wre:76,chi:76,car:82,iq:74,cha:58,mkt:60}},
+    {n:'Brandon Moreno',age:31,rec:{w:22,l:8},tier:'contender',nat:'Mexican',s:{str:80,grp:86,wre:78,chi:78,car:88,iq:84,cha:82,mkt:84}},
+    {n:'Alex Perez',age:31,rec:{w:11,l:5},tier:'contender',nat:'American',s:{str:76,grp:80,wre:74,chi:74,car:78,iq:74,cha:64,mkt:62}},
+    {n:'Tim Elliott',age:36,rec:{w:18,l:14},tier:'contender',nat:'American',s:{str:76,grp:78,wre:72,chi:76,car:80,iq:76,cha:68,mkt:62}},
+    {n:'Steve Erceg',age:29,rec:{w:13,l:3},tier:'contender',nat:'Australian',s:{str:76,grp:76,wre:72,chi:74,car:78,iq:74,cha:60,mkt:60}},
+    {n:'Tagir Ulanbekov',age:30,rec:{w:13,l:2},tier:'contender',nat:'Russian',s:{str:74,grp:76,wre:76,chi:72,car:78,iq:72,cha:56,mkt:56}},
+    {n:'Bruno Silva',age:33,rec:{w:13,l:7},tier:'contender',nat:'Brazilian',s:{str:80,grp:68,wre:66,chi:74,car:74,iq:68,cha:62,mkt:60}},
+    {n:'Jeff Molina',age:27,rec:{w:12,l:3},tier:'prospect',nat:'American',s:{str:72,grp:70,wre:68,chi:64,car:68,iq:64,cha:56,mkt:54}},
+    {n:'Matheus Nicolau',age:32,rec:{w:19,l:5},tier:'contender',nat:'Brazilian',s:{str:72,grp:72,wre:66,chi:64,car:66,iq:66,cha:52,mkt:50}},
+    {n:'Cody Durden',age:30,rec:{w:14,l:5},tier:'contender',nat:'American',s:{str:72,grp:68,wre:64,chi:62,car:64,iq:62,cha:50,mkt:48}},
+    {n:'Victor Altamirano',age:30,rec:{w:15,l:5},tier:'contender',nat:'Mexican',s:{str:74,grp:66,wre:64,chi:62,car:66,iq:62,cha:52,mkt:50}},
+    {n:'Zhalgas Zhumagulov',age:31,rec:{w:15,l:6},tier:'contender',nat:'Kazakhstani',s:{str:70,grp:68,wre:66,chi:60,car:62,iq:62,cha:48,mkt:46}},,
+    {n:'Kleydson Rodrigues',age:26,rec:{w:12,l:3},tier:'prospect',nat:'Brazilian',s:{str:72,grp:68,wre:62,chi:62,car:68,iq:62,cha:50,mkt:48}},
+    {n:'Ode Osbourne',age:31,rec:{w:13,l:7},tier:'contender',nat:'Jamaican',s:{str:72,grp:64,wre:60,chi:62,car:62,iq:60,cha:52,mkt:50}},
+    {n:'CJ Vergara',age:29,rec:{w:10,l:4},tier:'contender',nat:'Filipino-American',s:{str:70,grp:66,wre:62,chi:60,car:64,iq:60,cha:48,mkt:46}}
   ],
-  straw:[
-    {n:'Zhang Weili',age:35,rec:{w:24,l:4},tier:'elite',nat:'Chinese',s:{str:86,grp:78,wre:78,chi:84,car:88,iq:88,cha:80,mkt:86}},
-    {n:'Rose Namajunas',age:31,rec:{w:12,l:7},tier:'elite',nat:'American',s:{str:82,grp:78,wre:74,chi:74,car:84,iq:84,cha:80,mkt:78}},
-    {n:'Yan Xiaonan',age:34,rec:{w:17,l:3},tier:'contender',nat:'Chinese',s:{str:80,grp:72,wre:72,chi:80,car:82,iq:78,cha:68,mkt:66}},
-    {n:'Carla Esparza',age:36,rec:{w:20,l:7},tier:'contender',nat:'American',s:{str:72,grp:78,wre:82,chi:78,car:82,iq:78,cha:64,mkt:62}},
-    {n:'Amanda Lemos',age:35,rec:{w:14,l:3},tier:'contender',nat:'Brazilian',s:{str:82,grp:72,wre:68,chi:78,car:78,iq:74,cha:66,mkt:64}},
-    {n:'Mackenzie Dern',age:32,rec:{w:16,l:5},tier:'champion',ch:true,nat:'American',s:{str:74,grp:92,wre:74,chi:76,car:80,iq:76,cha:74,mkt:76}},
-    {n:'Jéssica Andrade',age:32,rec:{w:24,l:10},tier:'contender',nat:'Brazilian',s:{str:80,grp:74,wre:74,chi:80,car:82,iq:76,cha:70,mkt:68}},
+  straw_f:[
+    {n:'Mackenzie Dern',age:32,rec:{w:16,l:5},tier:'champion',ch:true,nat:'American',s:{str:74,grp:94,wre:76,chi:76,car:80,iq:78,cha:76,mkt:78}},
+    {n:'Zhang Weili',age:35,rec:{w:24,l:5},tier:'elite',nat:'Chinese',s:{str:86,grp:80,wre:80,chi:84,car:88,iq:88,cha:80,mkt:86}},
+    {n:'Tatiana Suarez',age:33,rec:{w:10,l:0},tier:'elite',nat:'American',s:{str:80,grp:82,wre:88,chi:80,car:84,iq:82,cha:70,mkt:70}},
+    {n:'Virna Jandiroba',age:35,rec:{w:20,l:4},tier:'contender',nat:'Brazilian',s:{str:78,grp:84,wre:74,chi:78,car:82,iq:78,cha:64,mkt:64}},
+    {n:'Yan Xiaonan',age:34,rec:{w:18,l:3},tier:'contender',nat:'Chinese',s:{str:80,grp:72,wre:72,chi:80,car:84,iq:78,cha:68,mkt:68}},
+    {n:'Amanda Lemos',age:35,rec:{w:14,l:4},tier:'contender',nat:'Brazilian',s:{str:82,grp:72,wre:68,chi:78,car:78,iq:74,cha:66,mkt:64}},
+    {n:'Loopy Godinez',age:28,rec:{w:9,l:3},tier:'contender',nat:'Mexican',s:{str:76,grp:72,wre:70,chi:76,car:78,iq:74,cha:68,mkt:66}},
+    {n:'Tabatha Ricci',age:29,rec:{w:11,l:2},tier:'contender',nat:'Brazilian',s:{str:74,grp:78,wre:72,chi:74,car:78,iq:74,cha:62,mkt:62}},
+    {n:'Gillian Robertson',age:29,rec:{w:13,l:7},tier:'contender',nat:'Canadian',s:{str:70,grp:82,wre:76,chi:72,car:78,iq:74,cha:60,mkt:58}},
+    {n:'Jessica Andrade',age:33,rec:{w:24,l:11},tier:'contender',nat:'Brazilian',s:{str:82,grp:76,wre:76,chi:80,car:82,iq:76,cha:70,mkt:68}},
+    {n:'Amanda Ribas',age:32,rec:{w:12,l:5},tier:'contender',nat:'Brazilian',s:{str:76,grp:74,wre:70,chi:74,car:78,iq:74,cha:66,mkt:64}},
+    {n:'Rose Namajunas',age:32,rec:{w:12,l:8},tier:'contender',nat:'American',s:{str:82,grp:78,wre:74,chi:74,car:84,iq:84,cha:80,mkt:78}},
+    {n:'Angela Hill',age:38,rec:{w:16,l:13},tier:'contender',nat:'American',s:{str:76,grp:68,wre:66,chi:74,car:76,iq:74,cha:66,mkt:62}},
+    {n:'Karolina Kowalkiewicz',age:38,rec:{w:16,l:8},tier:'contender',nat:'Polish',s:{str:70,grp:68,wre:62,chi:64,car:60,iq:66,cha:60,mkt:58}},
+    {n:'Luana Pinheiro',age:30,rec:{w:12,l:4},tier:'contender',nat:'Brazilian',s:{str:68,grp:70,wre:64,chi:62,car:66,iq:64,cha:52,mkt:50}},
+    {n:'Piera Rodriguez',age:27,rec:{w:9,l:1},tier:'prospect',nat:'Venezuelan',s:{str:68,grp:64,wre:60,chi:58,car:66,iq:60,cha:48,mkt:46}},
+    {n:'Kanako Murata',age:30,rec:{w:10,l:3},tier:'contender',nat:'Japanese',s:{str:66,grp:68,wre:62,chi:60,car:64,iq:62,cha:48,mkt:46}},
+    {n:'Vanessa Demopoulos',age:35,rec:{w:11,l:6},tier:'contender',nat:'American',s:{str:66,grp:66,wre:60,chi:60,car:58,iq:62,cha:56,mkt:54}},
+    {n:'Iasmin Lucindo',age:31,rec:{w:17,l:6},tier:'contender',nat:'Brazilian',s:{str:68,grp:66,wre:62,chi:60,car:64,iq:62,cha:50,mkt:48}},
+    {n:'Karolina Kowalkiewicz',age:38,rec:{w:16,l:8},tier:'contender',nat:'Polish',s:{str:70,grp:68,wre:62,chi:64,car:60,iq:66,cha:60,mkt:58}},
+    {n:'Sam Hughes',age:29,rec:{w:9,l:4},tier:'contender',nat:'American',s:{str:66,grp:64,wre:60,chi:58,car:62,iq:60,cha:50,mkt:48}},
+    {n:'Mallory Martin',age:31,rec:{w:10,l:5},tier:'contender',nat:'American',s:{str:66,grp:64,wre:62,chi:58,car:60,iq:62,cha:48,mkt:46}}
   ],
   bantam_f:[
-    {n:'Kayla Harrison',age:34,rec:{w:17,l:1},tier:'champion',ch:true,nat:'American',s:{str:82,grp:92,wre:86,chi:84,car:90,iq:84,cha:82,mkt:86}},
-    {n:'Raquel Pennington',age:35,rec:{w:14,l:9},tier:'contender',nat:'American',s:{str:76,grp:72,wre:76,chi:84,car:80,iq:78,cha:70,mkt:70}},
-    {n:'Mayra Bueno Silva',age:31,rec:{w:11,l:2},tier:'elite',nat:'Brazilian',s:{str:80,grp:80,wre:72,chi:80,car:82,iq:78,cha:68,mkt:68}},
-    {n:'Julianna Peña',age:34,rec:{w:11,l:5},tier:'elite',nat:'American',s:{str:74,grp:78,wre:76,chi:80,car:80,iq:78,cha:78,mkt:76}},
-    {n:'Macy Chiasson',age:32,rec:{w:10,l:3},tier:'contender',nat:'American',s:{str:76,grp:70,wre:72,chi:76,car:78,iq:74,cha:66,mkt:66}},
-    {n:'Irene Aldana',age:35,rec:{w:14,l:8},tier:'contender',nat:'Mexican',s:{str:80,grp:70,wre:66,chi:76,car:76,iq:74,cha:68,mkt:66}},
-    {n:'Sara McMann',age:42,rec:{w:14,l:7},tier:'contender',nat:'American',s:{str:70,grp:72,wre:84,chi:78,car:74,iq:76,cha:62,mkt:60}},
+    {n:'Kayla Harrison',age:35,rec:{w:18,l:1},tier:'champion',ch:true,nat:'American',s:{str:84,grp:92,wre:88,chi:84,car:92,iq:86,cha:84,mkt:88}},
+    {n:'Julianna Pena',age:34,rec:{w:12,l:5},tier:'elite',nat:'American',s:{str:74,grp:80,wre:78,chi:82,car:80,iq:80,cha:80,mkt:78}},
+    {n:'Raquel Pennington',age:35,rec:{w:15,l:9},tier:'contender',nat:'American',s:{str:76,grp:72,wre:78,chi:84,car:80,iq:78,cha:70,mkt:70}},
+    {n:'Norma Dumont',age:33,rec:{w:9,l:3},tier:'contender',nat:'Brazilian',s:{str:78,grp:72,wre:70,chi:76,car:78,iq:74,cha:64,mkt:62}},
+    {n:'Ketlen Vieira',age:32,rec:{w:14,l:5},tier:'contender',nat:'Brazilian',s:{str:76,grp:76,wre:78,chi:78,car:82,iq:76,cha:62,mkt:62}},
+    {n:'Yana Santos',age:34,rec:{w:13,l:6},tier:'contender',nat:'Russian',s:{str:78,grp:74,wre:72,chi:76,car:78,iq:74,cha:64,mkt:62}},
+    {n:'Irene Aldana',age:35,rec:{w:14,l:9},tier:'contender',nat:'Mexican',s:{str:80,grp:70,wre:66,chi:76,car:76,iq:74,cha:68,mkt:66}},
+    {n:'Ailin Perez',age:30,rec:{w:12,l:2},tier:'contender',nat:'Argentine',s:{str:78,grp:70,wre:70,chi:74,car:78,iq:72,cha:62,mkt:62}},
+    {n:'Karol Rosa',age:34,rec:{w:16,l:8},tier:'contender',nat:'Brazilian',s:{str:76,grp:72,wre:68,chi:76,car:78,iq:72,cha:62,mkt:60}},
+    {n:'Macy Chiasson',age:32,rec:{w:10,l:4},tier:'contender',nat:'American',s:{str:76,grp:70,wre:72,chi:76,car:78,iq:74,cha:66,mkt:66}},
+    {n:'Aspen Ladd',age:29,rec:{w:12,l:5},tier:'contender',nat:'American',s:{str:74,grp:68,wre:70,chi:66,car:62,iq:64,cha:56,mkt:54}},
+    {n:'Aspen Ladd',age:29,rec:{w:12,l:5},tier:'contender',nat:'American',s:{str:74,grp:68,wre:70,chi:66,car:62,iq:64,cha:56,mkt:54}},
+    {n:'Tamires Vidal',age:31,rec:{w:15,l:8},tier:'contender',nat:'Brazilian',s:{str:66,grp:64,wre:58,chi:56,car:58,iq:60,cha:46,mkt:44}},
+    {n:'Julija Stoliarenko',age:32,rec:{w:13,l:8},tier:'contender',nat:'Ukrainian',s:{str:66,grp:68,wre:58,chi:54,car:54,iq:60,cha:44,mkt:42}},
+    {n:'Nora Cornolle',age:27,rec:{w:9,l:3},tier:'prospect',nat:'French',s:{str:66,grp:66,wre:60,chi:58,car:62,iq:60,cha:48,mkt:46}},
+    {n:'Elise Reed',age:27,rec:{w:9,l:2},tier:'prospect',nat:'American',s:{str:66,grp:64,wre:60,chi:58,car:64,iq:60,cha:48,mkt:46}},
+    {n:'Pam Soriano',age:28,rec:{w:8,l:2},tier:'prospect',nat:'Filipino-American',s:{str:64,grp:64,wre:58,chi:56,car:62,iq:58,cha:44,mkt:42}},
+    {n:'Chaney Jones',age:29,rec:{w:10,l:3},tier:'contender',nat:'American',s:{str:68,grp:62,wre:60,chi:56,car:62,iq:58,cha:50,mkt:48}},
+    {n:'Shanna Young',age:31,rec:{w:9,l:4},tier:'contender',nat:'American',s:{str:62,grp:60,wre:56,chi:54,car:56,iq:56,cha:42,mkt:40}}
   ],
   fly_f:[
-    {n:'Valentina Shevchenko',age:36,rec:{w:23,l:4},tier:'champion',ch:true,nat:'Kyrgyz',s:{str:86,grp:78,wre:78,chi:82,car:84,iq:90,cha:82,mkt:86}},
-    {n:'Alexa Grasso',age:30,rec:{w:15,l:4},tier:'elite',nat:'Mexican',s:{str:80,grp:80,wre:72,chi:78,car:80,iq:80,cha:76,mkt:78}},
-    {n:'Taila Santos',age:29,rec:{w:21,l:3},tier:'contender',nat:'Brazilian',s:{str:78,grp:76,wre:72,chi:78,car:80,iq:76,cha:66,mkt:66}},
-    {n:'Manon Fiorot',age:31,rec:{w:11,l:1},tier:'contender',nat:'French',s:{str:80,grp:72,wre:70,chi:76,car:80,iq:76,cha:68,mkt:68}},
-    {n:'Katlyn Cerminara',age:34,rec:{w:12,l:7},tier:'contender',nat:'American',s:{str:72,grp:70,wre:70,chi:74,car:76,iq:72,cha:62,mkt:60}},
+    {n:'Valentina Shevchenko',age:37,rec:{w:24,l:4},tier:'champion',ch:true,nat:'Kyrgyz',s:{str:88,grp:82,wre:80,chi:84,car:86,iq:92,cha:84,mkt:88}},
+    {n:'Natalia Silva',age:32,rec:{w:17,l:4},tier:'elite',nat:'Brazilian',s:{str:82,grp:80,wre:72,chi:78,car:82,iq:78,cha:66,mkt:66}},
+    {n:'Manon Fiorot',age:32,rec:{w:12,l:1},tier:'elite',nat:'French',s:{str:80,grp:74,wre:72,chi:76,car:82,iq:78,cha:68,mkt:70}},
+    {n:'Alexa Grasso',age:31,rec:{w:15,l:5},tier:'contender',nat:'Mexican',s:{str:80,grp:80,wre:72,chi:78,car:80,iq:80,cha:76,mkt:78}},
+    {n:'Erin Blanchfield',age:26,rec:{w:11,l:2},tier:'contender',nat:'American',s:{str:76,grp:84,wre:76,chi:74,car:80,iq:78,cha:66,mkt:66}},
+    {n:'Maycee Barber',age:26,rec:{w:14,l:4},tier:'contender',nat:'American',s:{str:80,grp:68,wre:68,chi:74,car:78,iq:72,cha:74,mkt:72}},
+    {n:'Rose Namajunas',age:32,rec:{w:12,l:8},tier:'contender',nat:'American',s:{str:82,grp:80,wre:76,chi:74,car:84,iq:86,cha:80,mkt:80}},
+    {n:'Jasmine Jasudavicius',age:31,rec:{w:11,l:3},tier:'contender',nat:'Canadian',s:{str:74,grp:74,wre:72,chi:74,car:78,iq:72,cha:60,mkt:60}},
+    {n:'Tracy Cortez',age:30,rec:{w:11,l:2},tier:'contender',nat:'American',s:{str:78,grp:70,wre:70,chi:74,car:78,iq:72,cha:66,mkt:64}},
+    {n:'Miranda Maverick',age:28,rec:{w:13,l:5},tier:'contender',nat:'American',s:{str:76,grp:76,wre:72,chi:72,car:78,iq:72,cha:62,mkt:62}},
+    {n:'Casey O Neill',age:29,rec:{w:9,l:3},tier:'contender',nat:'Scottish-Australian',s:{str:70,grp:70,wre:66,chi:62,car:64,iq:64,cha:56,mkt:54}},
+    {n:'Casey O Neill',age:29,rec:{w:9,l:3},tier:'contender',nat:'Scottish-Australian',s:{str:70,grp:70,wre:66,chi:62,car:64,iq:64,cha:56,mkt:54}},
+    {n:'Wang Cong',age:32,rec:{w:10,l:2},tier:'contender',nat:'Chinese',s:{str:68,grp:68,wre:64,chi:60,car:62,iq:62,cha:50,mkt:48}},
+    {n:'Maryna Moroz',age:34,rec:{w:12,l:7},tier:'contender',nat:'Ukrainian',s:{str:68,grp:66,wre:58,chi:58,car:56,iq:62,cha:50,mkt:48}},
+    {n:'Ariane Carnelossi',age:31,rec:{w:14,l:6},tier:'contender',nat:'Brazilian',s:{str:68,grp:66,wre:58,chi:56,car:58,iq:60,cha:48,mkt:46}},
+    {n:'Eduarda Moura',age:27,rec:{w:9,l:2},tier:'prospect',nat:'Brazilian',s:{str:68,grp:64,wre:60,chi:58,car:62,iq:60,cha:48,mkt:46}},
+    {n:'Gabriella Fernandes',age:27,rec:{w:8,l:2},tier:'prospect',nat:'Brazilian',s:{str:66,grp:64,wre:58,chi:56,car:62,iq:58,cha:46,mkt:44}},
+    {n:'Joanne Wood',age:36,rec:{w:17,l:9},tier:'contender',nat:'Scottish',s:{str:68,grp:68,wre:60,chi:58,car:58,iq:64,cha:52,mkt:50}},
   ],
 },
-one:{
-  heavy:[{n:'Anatoly Malykhin',age:34,rec:{w:14,l:0},tier:'champion',ch:true,nat:'Russian',s:{str:88,grp:76,wre:74,chi:88,car:80,iq:80,cha:72,mkt:74}},{n:'Arjan Bhullar',age:37,rec:{w:12,l:2},tier:'elite',nat:'Canadian',s:{str:74,grp:74,wre:86,chi:82,car:76,iq:76,cha:72,mkt:76}},{n:'Oumar Kane',age:32,rec:{w:14,l:2},tier:'contender',nat:'French',s:{str:84,grp:64,wre:62,chi:78,car:78,iq:74,cha:64,mkt:62}}],
-  light:[{n:'Christian Lee',age:25,rec:{w:18,l:3},tier:'champion',ch:true,nat:'American',s:{str:82,grp:84,wre:80,chi:82,car:88,iq:84,cha:78,mkt:80}},{n:'Ok Rae Yoon',age:31,rec:{w:16,l:4},tier:'elite',nat:'Korean',s:{str:80,grp:76,wre:72,chi:80,car:86,iq:80,cha:66,mkt:68}},{n:'Saygid Arslanaliev',age:30,rec:{w:12,l:3},tier:'contender',nat:'Russian',s:{str:84,grp:72,wre:70,chi:78,car:82,iq:78,cha:60,mkt:62}},{n:'Timofey Nastyukhin',age:34,rec:{w:11,l:4},tier:'contender',nat:'Russian',s:{str:82,grp:68,wre:66,chi:78,car:78,iq:74,cha:58,mkt:60}}],
-  welter:[{n:'Murad Ramazanov',age:29,rec:{w:11,l:0},tier:'champion',ch:true,nat:'Russian',s:{str:80,grp:84,wre:86,chi:82,car:84,iq:80,cha:58,mkt:60}},{n:'Zebaztian Kadestam',age:33,rec:{w:15,l:7},tier:'contender',nat:'Swedish',s:{str:78,grp:76,wre:68,chi:80,car:80,iq:76,cha:66,mkt:64}},{n:'James Nakashima',age:34,rec:{w:16,l:4},tier:'contender',nat:'American',s:{str:76,grp:74,wre:80,chi:78,car:80,iq:76,cha:60,mkt:60}}],
-  middle:[{n:'Reinier de Ridder',age:33,rec:{w:17,l:2},tier:'elite',nat:'Dutch',s:{str:76,grp:90,wre:82,chi:78,car:84,iq:84,cha:74,mkt:72}},{n:'Vitaly Bigdash',age:37,rec:{w:17,l:5},tier:'contender',nat:'Russian',s:{str:78,grp:76,wre:74,chi:82,car:78,iq:78,cha:62,mkt:60}},{n:'Aung La N Sang',age:39,rec:{w:29,l:12},tier:'contender',nat:'Myanmar',s:{str:78,grp:72,wre:70,chi:80,car:76,iq:76,cha:64,mkt:62}}],
-  fly:[{n:'Demetrious Johnson',age:37,rec:{w:30,l:4},tier:'elite',nat:'American',s:{str:84,grp:90,wre:90,chi:80,car:92,iq:96,cha:84,mkt:88}},{n:'Adriano Moraes',age:34,rec:{w:20,l:5},tier:'contender',nat:'Brazilian',s:{str:80,grp:86,wre:76,chi:78,car:84,iq:82,cha:70,mkt:70}},{n:'Yuya Wakamatsu',age:30,rec:{w:14,l:5},tier:'contender',nat:'Japanese',s:{str:80,grp:74,wre:68,chi:76,car:78,iq:72,cha:62,mkt:64}}],
-  straw_f:[{n:'Stamp Fairtex',age:27,rec:{w:9,l:4},tier:'champion',ch:true,nat:'Thai',s:{str:84,grp:76,wre:74,chi:80,car:84,iq:80,cha:82,mkt:84}},{n:'Seo Hee Ham',age:39,rec:{w:22,l:8},tier:'elite',nat:'Korean',s:{str:78,grp:74,wre:72,chi:78,car:80,iq:78,cha:66,mkt:66}},{n:'Xiong Jing Nan',age:37,rec:{w:17,l:4},tier:'contender',nat:'Chinese',s:{str:82,grp:74,wre:68,chi:78,car:78,iq:74,cha:68,mkt:68}}],
-},
-pfl:{
-  heavy:[{n:'Ante Delija',age:35,rec:{w:20,l:5},tier:'elite',nat:'Croatian',s:{str:80,grp:68,wre:66,chi:78,car:76,iq:76,cha:62,mkt:60}},{n:'Denis Goltsov',age:39,rec:{w:24,l:5},tier:'contender',nat:'Russian',s:{str:76,grp:70,wre:68,chi:80,car:72,iq:74,cha:56,mkt:54}}],
-  light:[{n:'Larissa Pacheco',age:31,rec:{w:21,l:5},tier:'elite',nat:'Brazilian',s:{str:80,grp:74,wre:68,chi:78,car:82,iq:76,cha:72,mkt:70}},{n:'Stevie Ray',age:34,rec:{w:19,l:10},tier:'contender',nat:'British',s:{str:76,grp:72,wre:64,chi:78,car:78,iq:74,cha:62,mkt:60}}],
-  welter:[{n:'Magomed Magomedkerimov',age:35,rec:{w:30,l:5},tier:'elite',nat:'Russian',s:{str:80,grp:82,wre:78,chi:82,car:80,iq:82,cha:58,mkt:58}},{n:'Ray Cooper III',age:30,rec:{w:22,l:7},tier:'contender',nat:'American',s:{str:82,grp:76,wre:74,chi:84,car:78,iq:76,cha:70,mkt:68}}],
-  middle:[{n:'Bruno Cappelozza',age:32,rec:{w:16,l:5},tier:'elite',nat:'Brazilian',s:{str:82,grp:68,wre:64,chi:76,car:78,iq:74,cha:68,mkt:64}},{n:'Impa Kasanganay',age:30,rec:{w:12,l:3},tier:'contender',nat:'American',s:{str:80,grp:70,wre:72,chi:78,car:80,iq:74,cha:66,mkt:64}}],
-},
-bellator:{
-  heavy:[{n:'Ryan Bader',age:41,rec:{w:30,l:8},tier:'elite',nat:'American',s:{str:78,grp:72,wre:80,chi:80,car:76,iq:80,cha:68,mkt:68}},{n:'Valentin Moldavsky',age:35,rec:{w:13,l:3},tier:'contender',nat:'Russian',s:{str:76,grp:68,wre:66,chi:80,car:74,iq:74,cha:56,mkt:54}}],
-  light:[{n:'Usman Nurmagomedov',age:27,rec:{w:18,l:0},tier:'elite',nat:'Russian',s:{str:76,grp:88,wre:92,chi:80,car:86,iq:84,cha:60,mkt:66}},{n:'Patricky Pitbull',age:36,rec:{w:25,l:12},tier:'contender',nat:'Brazilian',s:{str:80,grp:72,wre:66,chi:80,car:78,iq:76,cha:68,mkt:64}}],
-  welter:[{n:'Yaroslav Amosov',age:31,rec:{w:28,l:0},tier:'champion',ch:true,nat:'Ukrainian',s:{str:82,grp:84,wre:86,chi:82,car:88,iq:84,cha:62,mkt:66}},{n:'Jason Jackson',age:32,rec:{w:14,l:4},tier:'contender',nat:'Trinidadian',s:{str:80,grp:72,wre:74,chi:80,car:80,iq:76,cha:68,mkt:62}}],
-  middle:[{n:'Johnny Eblen',age:31,rec:{w:14,l:0},tier:'champion',ch:true,nat:'American',s:{str:78,grp:76,wre:82,chi:80,car:84,iq:80,cha:66,mkt:66}},{n:'Fabian Edwards',age:31,rec:{w:12,l:2},tier:'elite',nat:'British',s:{str:82,grp:72,wre:70,chi:76,car:80,iq:78,cha:72,mkt:70}},{n:'Austin Vanderford',age:33,rec:{w:12,l:1},tier:'contender',nat:'American',s:{str:76,grp:78,wre:76,chi:78,car:80,iq:76,cha:60,mkt:60}}],
-},
-  pfl:{
-    welter:[{n:'Rory MacDonald',age:35,rec:{w:23,l:9},tier:'elite',nat:'Canadian',s:{str:82,grp:78,wre:76,chi:84,car:80,iq:88,cha:74,mkt:72}},{n:'Magomed Umalatov',age:29,rec:{w:17,l:2},tier:'champion',ch:true,nat:'Russian',s:{str:84,grp:76,wre:72,chi:80,car:82,iq:82,cha:64,mkt:66}},{n:'Sadibou Sy',age:31,rec:{w:12,l:4},tier:'contender',nat:'Senegalese',s:{str:80,grp:68,wre:66,chi:78,car:80,iq:76,cha:62,mkt:60}},{n:'Brennan Ward',age:35,rec:{w:15,l:7},tier:'contender',nat:'American',s:{str:82,grp:72,wre:68,chi:76,car:78,iq:74,cha:72,mkt:70}}],
-    light:[{n:'Patricky Freire',age:37,rec:{w:24,l:11},tier:'elite',nat:'Brazilian',s:{str:84,grp:70,wre:66,chi:82,car:80,iq:74,cha:72,mkt:70}},{n:'Olivier Aubin-Mercier',age:35,rec:{w:16,l:6},tier:'contender',nat:'Canadian',s:{str:76,grp:80,wre:76,chi:80,car:82,iq:82,cha:68,mkt:66}},{n:'Raush Manfio',age:34,rec:{w:16,l:4},tier:'champion',ch:true,nat:'Brazilian',s:{str:80,grp:72,wre:70,chi:82,car:84,iq:76,cha:64,mkt:62}}],
-    middle:[{n:'Fabian Edwards',age:31,rec:{w:12,l:2},tier:'contender',nat:'British',s:{str:82,grp:70,wre:68,chi:80,car:82,iq:78,cha:72,mkt:70}},{n:'Antonio Carlos Jr',age:35,rec:{w:16,l:6},tier:'elite',nat:'Brazilian',s:{str:80,grp:78,wre:76,chi:80,car:80,iq:80,cha:68,mkt:64}},{n:'Renan Ferreira',age:31,rec:{w:13,l:2},tier:'champion',ch:true,nat:'Brazilian',s:{str:88,grp:72,wre:66,chi:84,car:80,iq:76,cha:66,mkt:64}}],
-    heavy:[{n:'Denis Goltsov',age:37,rec:{w:28,l:7},tier:'contender',nat:'Russian',s:{str:82,grp:70,wre:68,chi:78,car:74,iq:74,cha:58,mkt:56}},{n:'Ante Delija',age:34,rec:{w:22,l:5},tier:'contender',nat:'Croatian',s:{str:84,grp:72,wre:68,chi:80,car:78,iq:72,cha:60,mkt:58}}],
-    feather:[{n:'Lance Palmer',age:38,rec:{w:25,l:5},tier:'elite',nat:'American',s:{str:78,grp:76,wre:82,chi:82,car:84,iq:82,cha:66,mkt:64}}],
-  },
-  bellator:{
-    welter:[{n:'Jason Jackson',age:30,rec:{w:16,l:4},tier:'contender',nat:'Trinidadian',s:{str:82,grp:72,wre:68,chi:80,car:80,iq:76,cha:66,mkt:64}},{n:'Yaroslav Amosov',age:30,rec:{w:27,l:0},tier:'champion',ch:true,nat:'Ukrainian',s:{str:82,grp:78,wre:80,chi:82,car:88,iq:84,cha:66,mkt:68}},{n:'Michael Venom Page',age:36,rec:{w:20,l:2},tier:'elite',nat:'British',s:{str:86,grp:62,wre:62,chi:84,car:78,iq:84,cha:82,mkt:82}}],
-    middle:[{n:'Johnny Eblen',age:30,rec:{w:14,l:0},tier:'champion',ch:true,nat:'American',s:{str:80,grp:78,wre:82,chi:82,car:88,iq:84,cha:68,mkt:70}},{n:'Austin Vanderford',age:34,rec:{w:11,l:1},tier:'contender',nat:'American',s:{str:78,grp:80,wre:78,chi:80,car:84,iq:82,cha:64,mkt:62}},{n:'Gegard Mousasi',age:39,rec:{w:50,l:8},tier:'elite',nat:'Dutch',s:{str:84,grp:78,wre:72,chi:86,car:76,iq:90,cha:72,mkt:74}}],
-    light:[{n:'Patricio Pitbull',age:35,rec:{w:35,l:7},tier:'champion',ch:true,nat:'Brazilian',s:{str:84,grp:72,wre:68,chi:84,car:82,iq:82,cha:78,mkt:76}},{n:'Emmanuel Sanchez',age:34,rec:{w:20,l:7},tier:'contender',nat:'American',s:{str:76,grp:76,wre:76,chi:80,car:82,iq:80,cha:64,mkt:62}}],
-    heavy:[{n:'Ryan Bader',age:40,rec:{w:30,l:8},tier:'elite',nat:'American',s:{str:82,grp:78,wre:84,chi:82,car:76,iq:80,cha:74,mkt:76}},{n:'Valentin Moldavsky',age:33,rec:{w:12,l:3},tier:'contender',nat:'Russian',s:{str:86,grp:72,wre:70,chi:80,car:80,iq:76,cha:60,mkt:58}}],
-    feather:[{n:'Patricio Freire',age:35,rec:{w:35,l:7},tier:'champion',ch:true,nat:'Brazilian',s:{str:86,grp:72,wre:70,chi:84,car:82,iq:84,cha:78,mkt:76}}],
-    bantam:[{n:'Sergio Pettis',age:30,rec:{w:21,l:5},tier:'champion',ch:true,nat:'American',s:{str:78,grp:72,wre:70,chi:84,car:86,iq:82,cha:74,mkt:72}}],
-    fstraw:[{n:'Ilima-Lei Macfarlane',age:33,rec:{w:13,l:2},tier:'champion',ch:true,nat:'American',s:{str:74,grp:76,wre:76,chi:80,car:84,iq:82,cha:72,mkt:74}}],
-  },
-  rizin:{
-    heavy:[{n:'Jiří Procházka',age:31,rec:{w:13,l:4},tier:'elite',nat:'Czech',s:{str:90,grp:68,wre:64,chi:88,car:82,iq:80,cha:80,mkt:82}},{n:'Satoshi Ishii',age:37,rec:{w:16,l:10},tier:'contender',nat:'Japanese',s:{str:78,grp:74,wre:84,chi:78,car:72,iq:76,cha:68,mkt:72}},{n:'Guto Inocente',age:37,rec:{w:13,l:6},tier:'contender',nat:'Brazilian',s:{str:82,grp:66,wre:64,chi:80,car:74,iq:72,cha:62,mkt:60}}],
-    light:[{n:'Kleber Koike',age:34,rec:{w:19,l:4},tier:'champion',ch:true,nat:'Japanese',s:{str:80,grp:74,wre:72,chi:82,car:84,iq:80,cha:72,mkt:70}},{n:'Koji Takeda',age:28,rec:{w:11,l:1},tier:'contender',nat:'Japanese',s:{str:78,grp:76,wre:74,chi:80,car:84,iq:80,cha:64,mkt:66}},{n:'Roberto de Souza',age:34,rec:{w:18,l:3},tier:'elite',nat:'Brazilian',s:{str:80,grp:80,wre:70,chi:82,car:82,iq:80,cha:64,mkt:62}}],
-    welter:[{n:'Katsuhisa Fujita',age:29,rec:{w:10,l:2},tier:'contender',nat:'Japanese',s:{str:80,grp:72,wre:70,chi:78,car:80,iq:76,cha:62,mkt:60}},{n:'Muhammed Mokaev',age:24,rec:{w:11,l:0},tier:'champion',ch:true,nat:'Russian',s:{str:80,grp:80,wre:80,chi:80,car:88,iq:82,cha:64,mkt:68}}],
-    middle:[{n:'Takashi Sato',age:32,rec:{w:18,l:5},tier:'contender',nat:'Japanese',s:{str:80,grp:72,wre:68,chi:78,car:78,iq:74,cha:64,mkt:62}},{n:'Roberto Satoshi',age:30,rec:{w:10,l:1},tier:'contender',nat:'Brazilian',s:{str:78,grp:76,wre:70,chi:78,car:80,iq:76,cha:60,mkt:58}}],
-    feather:[{n:'Yusaku Kinoshita',age:27,rec:{w:10,l:1},tier:'contender',nat:'Japanese',s:{str:76,grp:74,wre:70,chi:80,car:82,iq:78,cha:62,mkt:60}},{n:'Yoshitaka Naito',age:37,rec:{w:40,l:9},tier:'elite',nat:'Japanese',s:{str:80,grp:74,wre:68,chi:82,car:80,iq:80,cha:68,mkt:72}}],
-    fbantam:[{n:'Kana Watanabe',age:27,rec:{w:14,l:2},tier:'champion',ch:true,nat:'Japanese',s:{str:74,grp:72,wre:72,chi:82,car:86,iq:80,cha:70,mkt:72}},{n:'Rin Nakai',age:32,rec:{w:29,l:1},tier:'elite',nat:'Japanese',s:{str:72,grp:70,wre:68,chi:80,car:82,iq:78,cha:70,mkt:74}}],
-  },
-  aca:{
-    middle:[{n:'Abubakar Nurmagomedov',age:31,rec:{w:17,l:3},tier:'champion',ch:true,nat:'Russian',s:{str:82,grp:82,wre:80,chi:84,car:84,iq:82,cha:62,mkt:64}},{n:'Rustam Khabilov',age:36,rec:{w:25,l:5},tier:'elite',nat:'Russian',s:{str:82,grp:76,wre:74,chi:80,car:78,iq:78,cha:62,mkt:60}},{n:'Raufeon Stots',age:31,rec:{w:20,l:2},tier:'contender',nat:'American',s:{str:80,grp:76,wre:74,chi:82,car:84,iq:80,cha:62,mkt:60}}],
-    welter:[{n:'Magomed Ankalaev',age:31,rec:{w:18,l:1},tier:'elite',nat:'Russian',s:{str:86,grp:76,wre:80,chi:86,car:82,iq:82,cha:62,mkt:64}},{n:'Saidyokub Kakhramonov',age:27,rec:{w:11,l:1},tier:'contender',nat:'Uzbek',s:{str:82,grp:72,wre:76,chi:80,car:84,iq:78,cha:58,mkt:56}}],
-    light:[{n:'Makhach Makhachev',age:26,rec:{w:11,l:0},tier:'champion',ch:true,nat:'Russian',s:{str:80,grp:84,wre:84,chi:80,car:88,iq:82,cha:58,mkt:60}},{n:'Akhmet Aliev',age:28,rec:{w:12,l:1},tier:'contender',nat:'Russian',s:{str:78,grp:78,wre:76,chi:78,car:82,iq:78,cha:56,mkt:54}}],
-    heavy:[{n:'Magomed Magomedov',age:30,rec:{w:18,l:2},tier:'champion',ch:true,nat:'Russian',s:{str:86,grp:74,wre:72,chi:82,car:80,iq:76,cha:60,mkt:58}},{n:'Vakha Sharipov',age:28,rec:{w:13,l:1},tier:'contender',nat:'Russian',s:{str:84,grp:70,wre:68,chi:80,car:78,iq:74,cha:58,mkt:56}}],
-    feather:[{n:'Khabib Makashev',age:27,rec:{w:11,l:0},tier:'champion',ch:true,nat:'Russian',s:{str:78,grp:82,wre:82,chi:78,car:86,iq:80,cha:56,mkt:58}}],
-  },
-  ksw:{
-    welter:[{n:'Roberto Soldic',age:30,rec:{w:22,l:5},tier:'champion',ch:true,nat:'Croatian',s:{str:88,grp:64,wre:62,chi:86,car:80,iq:74,cha:74,mkt:76}},{n:'Scott Askham',age:36,rec:{w:23,l:6},tier:'contender',nat:'British',s:{str:80,grp:72,wre:68,chi:80,car:80,iq:76,cha:68,mkt:66}},{n:'Artur Szpilka',age:37,rec:{w:24,l:8},tier:'contender',nat:'Polish',s:{str:84,grp:64,wre:60,chi:82,car:74,iq:70,cha:70,mkt:72}}],
-    middle:[{n:'Tomasz Narkun',age:34,rec:{w:19,l:4},tier:'champion',ch:true,nat:'Polish',s:{str:84,grp:72,wre:70,chi:82,car:82,iq:78,cha:68,mkt:70}},{n:'Mateusz Gamrot',age:33,rec:{w:23,l:2},tier:'elite',nat:'Polish',s:{str:80,grp:80,wre:80,chi:80,car:88,iq:82,cha:64,mkt:68}}],
-    heavy:[{n:'Mariusz Pudzianowski',age:47,rec:{w:17,l:7},tier:'elite',nat:'Polish',s:{str:90,grp:64,wre:64,chi:82,car:62,iq:68,cha:88,mkt:92}},{n:'Karol Bedorf',age:38,rec:{w:14,l:5},tier:'contender',nat:'Polish',s:{str:84,grp:68,wre:64,chi:80,car:74,iq:72,cha:64,mkt:64}}],
-    light:[{n:'Phil De Fries',age:41,rec:{w:24,l:5},tier:'contender',nat:'British',s:{str:78,grp:76,wre:74,chi:78,car:74,iq:80,cha:60,mkt:58}},{n:'Rafal Kijankiewicz',age:34,rec:{w:17,l:5},tier:'contender',nat:'Polish',s:{str:80,grp:72,wre:70,chi:78,car:78,iq:74,cha:60,mkt:60}}],
-    feather:[{n:'Salahdine Parnasse',age:28,rec:{w:25,l:1},tier:'champion',ch:true,nat:'French',s:{str:80,grp:78,wre:74,chi:82,car:86,iq:82,cha:68,mkt:70}}],
-  },
-  oktagon:{
-    middle:[{n:'David Kozma',age:28,rec:{w:12,l:2},tier:'champion',ch:true,nat:'Slovak',s:{str:80,grp:72,wre:68,chi:80,car:82,iq:76,cha:64,mkt:62}},{n:'Samuel Kristan',age:29,rec:{w:10,l:1},tier:'contender',nat:'Slovak',s:{str:78,grp:70,wre:66,chi:78,car:80,iq:74,cha:60,mkt:58}}],
-    welter:[{n:'Patrik Kincl',age:34,rec:{w:19,l:7},tier:'champion',ch:true,nat:'Czech',s:{str:82,grp:70,wre:68,chi:80,car:78,iq:76,cha:66,mkt:64}},{n:'Matej Peňáz',age:27,rec:{w:9,l:2},tier:'contender',nat:'Czech',s:{str:78,grp:68,wre:66,chi:76,car:78,iq:72,cha:60,mkt:58}}],
-    light:[{n:'Maciej Browne',age:30,rec:{w:10,l:2},tier:'champion',ch:true,nat:'Polish',s:{str:80,grp:72,wre:70,chi:78,car:82,iq:76,cha:62,mkt:60}}],
-    heavy:[{n:'Ondrej Salek',age:31,rec:{w:11,l:3},tier:'contender',nat:'Czech',s:{str:82,grp:68,wre:66,chi:78,car:76,iq:72,cha:60,mkt:58}}],
-  },
-  cagewarriors:{
-    welter:[{n:'Jack Grant',age:29,rec:{w:12,l:3},tier:'champion',ch:true,nat:'British',s:{str:80,grp:72,wre:70,chi:80,car:82,iq:76,cha:66,mkt:64}},{n:'Mason Jones',age:27,rec:{w:11,l:1},tier:'contender',nat:'Welsh',s:{str:78,grp:74,wre:72,chi:78,car:84,iq:78,cha:62,mkt:62}}],
-    light:[{n:'Jai Herbert',age:31,rec:{w:12,l:4},tier:'contender',nat:'British',s:{str:82,grp:68,wre:64,chi:80,car:78,iq:74,cha:68,mkt:66}},{n:'Chris Fishgold',age:32,rec:{w:22,l:5},tier:'contender',nat:'British',s:{str:80,grp:72,wre:66,chi:80,car:78,iq:76,cha:64,mkt:62}}],
-    feather:[{n:'Paddy Pimblett',age:29,rec:{w:22,l:3},tier:'elite',nat:'British',s:{str:80,grp:74,wre:70,chi:84,car:82,iq:76,cha:88,mkt:90}},{n:'Joey Dawson',age:26,rec:{w:8,l:1},tier:'contender',nat:'British',s:{str:76,grp:72,wre:68,chi:78,car:82,iq:76,cha:62,mkt:60}}],
-    middle:[{n:'Tom Breese',age:32,rec:{w:14,l:4},tier:'contender',nat:'British',s:{str:82,grp:70,wre:68,chi:80,car:78,iq:76,cha:66,mkt:64}}],
-    bantam:[{n:'Jack Shore',age:29,rec:{w:17,l:2},tier:'elite',nat:'Welsh',s:{str:76,grp:80,wre:78,chi:80,car:86,iq:82,cha:68,mkt:70}}],
-  },
-  bkfc:{
-    welter:[{n:'Arnold Adams',age:33,rec:{w:18,l:4},tier:'champion',ch:true,nat:'American',s:{str:86,grp:60,wre:58,chi:84,car:78,iq:72,cha:74,mkt:72}},{n:'Lorenzo Hunt',age:39,rec:{w:16,l:8},tier:'contender',nat:'American',s:{str:82,grp:58,wre:56,chi:80,car:72,iq:68,cha:70,mkt:68}}],
-    heavy:[{n:'Joey Beltran',age:41,rec:{w:22,l:14},tier:'contender',nat:'American',s:{str:82,grp:56,wre:54,chi:82,car:68,iq:66,cha:74,mkt:72}},{n:'Sam Shewmaker',age:32,rec:{w:14,l:2},tier:'champion',ch:true,nat:'American',s:{str:84,grp:60,wre:58,chi:82,car:78,iq:68,cha:68,mkt:66}}],
-    light:[{n:'Luis Palomino',age:39,rec:{w:38,l:12},tier:'elite',nat:'Peruvian',s:{str:82,grp:64,wre:60,chi:84,car:76,iq:74,cha:70,mkt:68}}],
-    middle:[{n:'Dat Nguyen',age:35,rec:{w:20,l:4},tier:'champion',ch:true,nat:'American',s:{str:84,grp:62,wre:60,chi:82,car:78,iq:72,cha:72,mkt:70}}],
-  },
-  eternal:{
-    welter:[{n:'Luke Jumeau',age:32,rec:{w:16,l:5},tier:'champion',ch:true,nat:'New Zealander',s:{str:80,grp:72,wre:70,chi:80,car:80,iq:76,cha:64,mkt:62}},{n:'Jack Matthews',age:27,rec:{w:8,l:1},tier:'contender',nat:'Australian',s:{str:78,grp:70,wre:68,chi:78,car:80,iq:74,cha:60,mkt:58}}],
-    light:[{n:'Kyle Driscoll',age:28,rec:{w:11,l:2},tier:'contender',nat:'Australian',s:{str:78,grp:72,wre:68,chi:78,car:80,iq:74,cha:60,mkt:58}},{n:'Nathan Cunningham',age:30,rec:{w:11,l:3},tier:'champion',ch:true,nat:'Australian',s:{str:80,grp:70,wre:68,chi:80,car:82,iq:76,cha:62,mkt:60}}],
-    heavy:[{n:'Justin Tafa',age:28,rec:{w:7,l:3},tier:'contender',nat:'Australian',s:{str:86,grp:64,wre:60,chi:82,car:76,iq:68,cha:66,mkt:64}},{n:'Tyson Pedro',age:33,rec:{w:9,l:5},tier:'contender',nat:'Australian',s:{str:82,grp:68,wre:66,chi:80,car:74,iq:72,cha:68,mkt:66}}],
-    middle:[{n:'Alex Volkanovski',age:35,rec:{w:26,l:3},tier:'elite',nat:'Australian',s:{str:84,grp:80,wre:80,chi:86,car:88,iq:90,cha:82,mkt:84}},{n:'Shane Young',age:31,rec:{w:14,l:6},tier:'contender',nat:'New Zealander',s:{str:80,grp:72,wre:68,chi:80,car:78,iq:76,cha:66,mkt:64}}],
-    feather:[{n:'Brad Riddell',age:32,rec:{w:12,l:4},tier:'contender',nat:'New Zealander',s:{str:80,grp:72,wre:70,chi:80,car:82,iq:78,cha:66,mkt:64}},{n:'Megan Anderson',age:32,rec:{w:12,l:6},tier:'contender',nat:'Australian',s:{str:80,grp:70,wre:68,chi:78,car:76,iq:74,cha:70,mkt:70}}],
-  },
-};
-
-const FA=[
-  {n:'Conor McGregor',age:36,rec:{w:22,l:6},tier:'elite',nat:'Irish',wc:'feather',s:{str:88,grp:72,wre:64,chi:72,car:72,iq:86,cha:98,mkt:98}},
-  {n:'Nate Diaz',age:39,rec:{w:21,l:13},tier:'elite',nat:'American',wc:'welter',s:{str:82,grp:82,wre:72,chi:90,car:88,iq:80,cha:96,mkt:96}},
-  {n:'Francis Ngannou',age:37,rec:{w:17,l:3},tier:'elite',nat:'Cameroonian',wc:'heavy',s:{str:96,grp:68,wre:72,chi:86,car:72,iq:74,cha:84,mkt:90}},
-  {n:'Michael Chandler',age:38,rec:{w:23,l:8},tier:'elite',nat:'American',wc:'light',s:{str:84,grp:74,wre:82,chi:84,car:88,iq:80,cha:82,mkt:86}},
-  {n:'Jorge Masvidal',age:39,rec:{w:35,l:16},tier:'contender',nat:'American',wc:'welter',s:{str:86,grp:72,wre:68,chi:84,car:78,iq:82,cha:88,mkt:86}},
-  {n:'Tony Ferguson',age:40,rec:{w:29,l:10},tier:'contender',nat:'American',wc:'light',s:{str:84,grp:82,wre:76,chi:78,car:86,iq:84,cha:84,mkt:82}},
-  {n:'Paddy Pimblett',age:29,rec:{w:21,l:3},tier:'contender',nat:'British',wc:'light',s:{str:80,grp:82,wre:72,chi:76,car:80,iq:76,cha:94,mkt:92}},
-  {n:'Amanda Nunes',age:36,rec:{w:22,l:5},tier:'elite',nat:'Brazilian',wc:'bantam_f',s:{str:90,grp:86,wre:76,chi:82,car:84,iq:86,cha:80,mkt:84}},
-  {n:'Gegard Mousasi',age:38,rec:{w:49,l:8},tier:'elite',nat:'Dutch',wc:'middle',s:{str:84,grp:82,wre:74,chi:84,car:78,iq:86,cha:68,mkt:68}},
-  {n:'Yoel Romero',age:47,rec:{w:15,l:6},tier:'prospect',nat:'Cuban',wc:'middle',s:{str:70,grp:68,wre:76,chi:82,car:54,iq:68,cha:74,mkt:72}},
-  {n:'Nick Diaz',age:40,rec:{w:26,l:10},tier:'contender',nat:'American',wc:'welter',s:{str:80,grp:84,wre:72,chi:88,car:88,iq:78,cha:90,mkt:88}},
-  {n:'Holly Holm',age:42,rec:{w:15,l:7},tier:'contender',nat:'American',wc:'bantam_f',s:{str:82,grp:68,wre:70,chi:78,car:82,iq:80,cha:76,mkt:78}},
-  {n:'Miesha Tate',age:37,rec:{w:19,l:8},tier:'contender',nat:'American',wc:'bantam_f',s:{str:72,grp:80,wre:82,chi:78,car:80,iq:76,cha:80,mkt:78}},
-  // Regional prospects & lower-card fighters
-  {n:'Cub Swanson',age:40,rec:{w:28,l:12},tier:'contender',nat:'American',wc:'feather',s:{str:82,grp:68,wre:66,chi:78,car:74,iq:76,cha:72,mkt:70}},
-  {n:'Alan Belcher',age:38,rec:{w:18,l:9},tier:'contender',nat:'American',wc:'middle',s:{str:76,grp:74,wre:70,chi:80,car:72,iq:74,cha:68,mkt:64}},
-  {n:'Alistair Overeem',age:44,rec:{w:47,l:20},tier:'contender',nat:'Dutch',wc:'heavy',s:{str:82,grp:74,wre:68,chi:70,car:62,iq:76,cha:74,mkt:72}},
-  {n:'Vitor Belfort',age:47,rec:{w:29,l:14},tier:'prospect',nat:'Brazilian',wc:'middle',s:{str:72,grp:68,wre:64,chi:72,car:56,iq:68,cha:74,mkt:72}},
-  {n:'Donald Cerrone',age:43,rec:{w:36,l:18},tier:'contender',nat:'American',wc:'welter',s:{str:78,grp:74,wre:66,chi:78,car:80,iq:76,mkt:78,cha:82}},
-  {n:'Thiago Santos',age:36,rec:{w:23,l:12},tier:'contender',nat:'Brazilian',wc:'lheavy',s:{str:86,grp:64,wre:60,chi:76,car:72,iq:72,cha:66,mkt:64}},
-  {n:'Edson Barboza',age:38,rec:{w:24,l:11},tier:'contender',nat:'Brazilian',wc:'feather',s:{str:86,grp:68,wre:62,chi:76,car:80,iq:76,cha:72,mkt:72}},
-  {n:'Kevin Holland',age:31,rec:{w:26,l:11},tier:'contender',nat:'American',wc:'welter',s:{str:80,grp:72,wre:68,chi:74,car:78,iq:72,cha:90,mkt:82}},
-  {n:'Johnny Walker',age:31,rec:{w:22,l:8},tier:'contender',nat:'Brazilian',wc:'lheavy',s:{str:84,grp:64,wre:62,chi:72,car:76,iq:68,cha:74,mkt:68}},
-  {n:'Michel Pereira',age:31,rec:{w:30,l:12},tier:'contender',nat:'Brazilian',wc:'welter',s:{str:78,grp:66,wre:64,chi:76,car:86,iq:70,cha:86,mkt:80}},
-  {n:'Kurban Makhachev',age:22,rec:{w:4,l:1},tier:'prospect',nat:'Kazakh',wc:'welter',s:{str:58,grp:66,wre:70,chi:68,car:72,iq:62,cha:50,mkt:48}},
-  // Regional fighters - low-tier prospects
-  {n:'Jake Matthews',age:30,rec:{w:17,l:8},tier:'contender',nat:'Australian',wc:'welter',s:{str:68,grp:70,wre:66,chi:74,car:76,iq:68,cha:62,mkt:58}},
-  {n:'Manny Bermudez',age:33,rec:{w:14,l:5},tier:'contender',nat:'American',wc:'bantam',s:{str:62,grp:78,wre:68,chi:72,car:78,iq:68,cha:58,mkt:54}},
-  {n:'Cole Smith',age:26,rec:{w:10,l:2},tier:'prospect',nat:'American',wc:'light',s:{str:60,grp:58,wre:64,chi:68,car:70,iq:60,cha:52,mkt:48}},
-  {n:'Zach Reese',age:24,rec:{w:8,l:0},tier:'prospect',nat:'American',wc:'heavy',s:{str:64,grp:54,wre:62,chi:66,car:68,iq:58,cha:50,mkt:46}},
-  {n:'Tyler Hill',age:25,rec:{w:9,l:1},tier:'prospect',nat:'American',wc:'middle',s:{str:58,grp:56,wre:60,chi:64,car:66,iq:58,cha:52,mkt:48}},
-  {n:'Brandon Davis',age:27,rec:{w:12,l:3},tier:'prospect',nat:'American',wc:'bantam',s:{str:56,grp:60,wre:58,chi:64,car:68,iq:58,cha:56,mkt:52}},
-  {n:'Kyle Driscoll',age:23,rec:{w:7,l:1},tier:'prospect',nat:'American',wc:'feather',s:{str:58,grp:54,wre:56,chi:62,car:70,iq:58,cha:54,mkt:48}},
-  {n:'Lupita Godinez',age:28,rec:{w:9,l:3},tier:'contender',nat:'Mexican',wc:'straw_f',s:{str:68,grp:64,wre:62,chi:72,car:74,iq:66,cha:66,mkt:62}},
-  {n:'Vanessa Demopoulos',age:33,rec:{w:10,l:5},tier:'contender',nat:'American',wc:'straw_f',s:{str:62,grp:68,wre:60,chi:70,car:72,iq:64,cha:72,mkt:66}},
-  {n:'Karine Silva',age:28,rec:{w:11,l:2},tier:'contender',nat:'Brazilian',wc:'fly_f',s:{str:66,grp:76,wre:64,chi:70,car:74,iq:66,cha:62,mkt:60}},
-  {n:'Cynthia Calvillo',age:35,rec:{w:10,l:6},tier:'contender',nat:'American',wc:'fly_f',s:{str:64,grp:72,wre:68,chi:72,car:74,iq:66,cha:70,mkt:66}},
-  {n:'JJ Aldrich',age:32,rec:{w:12,l:6},tier:'contender',nat:'American',wc:'fly_f',s:{str:62,grp:66,wre:62,chi:70,car:72,iq:64,cha:64,mkt:60}},
-  {n:'Norma Dumont',age:33,rec:{w:9,l:4},tier:'contender',nat:'Brazilian',wc:'feather_f',s:{str:68,grp:62,wre:66,chi:68,car:72,iq:66,cha:62,mkt:60}},
-
-  // More regional talent - Pacific & Asia
-  {n:'Marcos Breno',age:26,rec:{w:10,l:1},tier:'prospect',nat:'Brazilian',wc:'middle',s:{str:62,grp:68,wre:58,chi:66,car:70,iq:60,cha:58,mkt:50}},
-  {n:'Anton Turkalj',age:29,rec:{w:13,l:4},tier:'contender',nat:'Swedish',wc:'lheavy',s:{str:72,grp:64,wre:66,chi:72,car:74,iq:66,cha:60,mkt:54}},
-  {n:'Azamat Murzakanov',age:31,rec:{w:12,l:1},tier:'contender',nat:'Russian',wc:'lheavy',s:{str:80,grp:62,wre:66,chi:76,car:72,iq:64,cha:56,mkt:52}},
-  {n:'Nathaniel Wood',age:30,rec:{w:16,l:7},tier:'contender',nat:'British',wc:'feather',s:{str:70,grp:72,wre:62,chi:72,car:76,iq:68,cha:64,mkt:60}},
-  {n:'Danny Barlow',age:27,rec:{w:11,l:2},tier:'contender',nat:'British',wc:'welter',s:{str:66,grp:64,wre:62,chi:68,car:72,iq:64,cha:60,mkt:54}},
-  {n:'Jai Herbert',age:31,rec:{w:12,l:5},tier:'contender',nat:'British',wc:'light',s:{str:74,grp:62,wre:60,chi:72,car:74,iq:66,cha:64,mkt:60}},
-  {n:'Muhammad Mokaev',age:24,rec:{w:12,l:1},tier:'contender',nat:'British',wc:'fly',s:{str:66,grp:74,wre:72,chi:70,car:78,iq:70,cha:62,mkt:58}},
-  {n:'Oban Elliott',age:25,rec:{w:11,l:2},tier:'contender',nat:'British',wc:'welter',s:{str:64,grp:66,wre:64,chi:68,car:72,iq:64,cha:58,mkt:54}},
-  {n:'Chris Duncan',age:26,rec:{w:9,l:1},tier:'prospect',nat:'British',wc:'light',s:{str:60,grp:62,wre:60,chi:64,car:68,iq:62,cha:56,mkt:50}},
-  {n:'Mike Grundy',age:34,rec:{w:15,l:6},tier:'contender',nat:'British',wc:'feather',s:{str:64,grp:70,wre:68,chi:70,car:74,iq:68,cha:60,mkt:56}},
-  {n:'Chepe Mariscal',age:27,rec:{w:12,l:3},tier:'contender',nat:'Mexican',wc:'feather',s:{str:70,grp:62,wre:60,chi:70,car:74,iq:64,cha:66,mkt:60}},
-  {n:'Jordan Leavitt',age:29,rec:{w:12,l:5},tier:'contender',nat:'American',wc:'light',s:{str:64,grp:68,wre:66,chi:68,car:72,iq:66,cha:68,mkt:62}},
-  {n:'Ignacio Bahamondes',age:25,rec:{w:14,l:5},tier:'contender',nat:'Chilean',wc:'light',s:{str:70,grp:64,wre:60,chi:70,car:74,iq:64,cha:62,mkt:56}},
-  {n:'Ange Loosa',age:26,rec:{w:10,l:1},tier:'prospect',nat:'French',wc:'welter',s:{str:64,grp:60,wre:62,chi:66,car:70,iq:62,cha:58,mkt:52}},
-  {n:'Ilia Topuria Jr.',age:22,rec:{w:6,l:0},tier:'prospect',nat:'Georgian',wc:'bantam',s:{str:62,grp:60,wre:60,chi:64,car:70,iq:60,cha:56,mkt:50}},
-  {n:'Shara Magomedov',age:28,rec:{w:13,l:0},tier:'elite',nat:'Russian',wc:'middle',s:{str:90,grp:76,wre:72,chi:78,car:82,iq:76,cha:84,mkt:78}},
-  {n:'Denis Tiuliulin',age:27,rec:{w:12,l:1},tier:'contender',nat:'Russian',wc:'middle',s:{str:72,grp:64,wre:66,chi:70,car:74,iq:64,cha:56,mkt:50}},
-  {n:'Ikram Aliskerov',age:29,rec:{w:15,l:2},tier:'elite',nat:'Russian',wc:'middle',s:{str:82,grp:76,wre:74,chi:76,car:78,iq:72,cha:66,mkt:62}},
-  {n:'Nursulton Ruziboev',age:26,rec:{w:10,l:0},tier:'contender',nat:'Uzbek',wc:'lheavy',s:{str:78,grp:64,wre:66,chi:74,car:72,iq:64,cha:60,mkt:54}},
-  {n:'Manel Kape',age:29,rec:{w:18,l:7},tier:'contender',nat:'Angolan',wc:'fly',s:{str:80,grp:66,wre:60,chi:72,car:78,iq:70,cha:74,mkt:68}},
-  {n:'Victor Altamirano',age:27,rec:{w:11,l:5},tier:'contender',nat:'Mexican',wc:'fly',s:{str:66,grp:68,wre:62,chi:70,car:76,iq:66,cha:62,mkt:56}},
-  {n:'Kleydson Rodrigues',age:24,rec:{w:9,l:3},tier:'contender',nat:'Brazilian',wc:'fly',s:{str:70,grp:66,wre:60,chi:68,car:74,iq:64,cha:62,mkt:54}},
-  // Women's division depth
-  {n:'Yazmin Jauregui',age:26,rec:{w:10,l:1},tier:'contender',nat:'Mexican',wc:'straw_f',s:{str:66,grp:64,wre:62,chi:68,car:72,iq:64,cha:64,mkt:58}},
-  {n:'Virna Jandiroba',age:32,rec:{w:20,l:5},tier:'contender',nat:'Brazilian',wc:'straw_f',s:{str:64,grp:78,wre:64,chi:70,car:74,iq:70,cha:62,mkt:60}},
-  {n:'Amanda Ribas',age:29,rec:{w:12,l:4},tier:'contender',nat:'Brazilian',wc:'straw_f',s:{str:68,grp:72,wre:66,chi:70,car:74,iq:68,cha:68,mkt:64}},
-  {n:'Angela Hill',age:37,rec:{w:15,l:14},tier:'contender',nat:'American',wc:'straw_f',s:{str:66,grp:64,wre:60,chi:70,car:74,iq:70,cha:70,mkt:64}},
-  {n:'Maycee Barber',age:26,rec:{w:15,l:3},tier:'contender',nat:'American',wc:'fly_f',s:{str:72,grp:66,wre:64,chi:72,car:76,iq:68,cha:76,mkt:72}},
-  {n:'Alexa Grasso',age:31,rec:{w:16,l:4},tier:'elite',nat:'Mexican',wc:'fly_f',s:{str:76,grp:72,wre:68,chi:76,car:80,iq:78,cha:78,mkt:76}},
-  {n:'Natalia Silva',age:29,rec:{w:16,l:5},tier:'contender',nat:'Brazilian',wc:'fly_f',s:{str:70,grp:66,wre:62,chi:68,car:74,iq:66,cha:62,mkt:58}},
-  {n:'Andrea Lee',age:34,rec:{w:14,l:7},tier:'contender',nat:'American',wc:'fly_f',s:{str:68,grp:66,wre:64,chi:68,car:72,iq:66,cha:62,mkt:58}},
-  {n:'Luana Pinheiro',age:29,rec:{w:10,l:3},tier:'contender',nat:'Brazilian',wc:'straw_f',s:{str:64,grp:68,wre:62,chi:66,car:72,iq:66,cha:62,mkt:56}},
-];
-
-const PD={
-  ufc:{id:'ufc',name:'UFC',sn:'UFC',prestige:95,fanTrust:80,legit:92,media:95,pull:95,sponsor:90,cash:85e6,ovhd:12e6,col:'#c0392b',mr:{name:'Paramount+',mv:8e6,minEventsYr:42,minAvgEnt:62,penalty:2e6,desc:'$7.7B deal. 42+ events/year required. Avg entertainment must stay above 62 or face $2M penalty/year.'},diff:'Hard',dn:"You're market leader - fighter leverage is maximum, rivals poach your stars constantly, and every bad event makes headlines.",dc:'#c0392b'},
   one:{id:'one',name:'ONE Championship',sn:'ONE',prestige:78,fanTrust:76,legit:80,media:70,pull:75,sponsor:72,cash:35e6,ovhd:7e6,col:'#e67e22',mr:{name:'Amazon Prime',mv:3e6,minEventsYr:20,minAvgEnt:58,penalty:800000,desc:'Amazon deal. 20 events/year. Maintain avg ent above 58.'},diff:'Med-Hard',dn:'Asia-dominant, limited Western reach. Multi-discipline events are your edge. Growing global media is the challenge.',dc:'#e67e22'},
   pfl:{id:'pfl',name:'PFL',sn:'PFL',prestige:60,fanTrust:62,legit:65,media:58,pull:60,sponsor:60,cash:22e6,ovhd:4.5e6,col:'#2980b9',mr:{name:'ESPN',mv:1.8e6,minEventsYr:12,minAvgEnt:55,penalty:400000,desc:'ESPN deal. 12 events/year. Keep quality above threshold.'},diff:'Medium',dn:'Tournament format differentiates you. Lower prestige means earning legitimacy fight by fight.',dc:'#2980b9'},
   bellator:{id:'bellator',name:'Bellator MMA',sn:'BLTR',prestige:55,fanTrust:58,legit:60,media:52,pull:55,sponsor:55,cash:18e6,ovhd:3.8e6,col:'#8e44ad',mr:{name:'Showtime',mv:1.2e6,minEventsYr:10,minAvgEnt:52,penalty:300000,desc:'Showtime deal. 10 events/year minimum.'},diff:'Medium',dn:'Established roster but rebuilding post-ownership change. A media deal breakthrough transforms everything.',dc:'#8e44ad'},
@@ -497,6 +485,7 @@ const PD={
   bkfc:{id:'bkfc',name:'BKFC',sn:'BKFC',prestige:38,fanTrust:62,legit:35,media:36,pull:40,sponsor:38,cash:7e6,ovhd:1.5e6,col:'#e74c3c',mr:{name:'BKFC TV',mv:250000,minEventsYr:6,minAvgEnt:52,penalty:80000,desc:'Streaming-first. Raw entertainment over technique. Controversy is the business model.'},diff:'Med-Easy',dn:'Bare-knuckle is boxing without gloves. Brutal, controversial, addictively watchable. Social media virality is your media rights deal.',dc:'#e74c3c'},
   eternal:{id:'eternal',name:'Eternal MMA',sn:'ETN',prestige:32,fanTrust:54,legit:45,media:30,pull:32,sponsor:28,cash:5e6,ovhd:1.1e6,col:'#27ae60',mr:{name:'UFC Fight Pass (Pacific)',mv:180000,minEventsYr:5,minAvgEnt:40,penalty:50000,desc:'Pacific region streaming deal. Australia and New Zealand home promotion.'},diff:'Easy',dn:'Australia and New Zealand home for the next wave of Pacific talent. Low overhead, passionate crowds, world-class Pacific pipeline.',dc:'#27ae60'},
 };
+const PD={...R,ufc:{id:'ufc',name:'UFC',sn:'UFC',prestige:95,fanTrust:78,legit:95,media:92,pull:95,sponsor:92,cash:85e6,ovhd:12e6,col:'#c0392b',mr:{name:'Paramount+',mv:8e6,minEventsYr:42,minAvgEnt:62,penalty:2000000,desc:'Paramount+ deal. 42 events/year minimum. Keep avg entertainment above 62 or face $10M/yr penalty at contract renewal.'},diff:'Hard',dn:"You're market leader - fighter leverage is maximum, rivals poach your stars constantly, and every bad event makes headlines.",dc:'#c0392b'}}
 // -- SAVE / LOAD -------------------------------------------
 const SAVE_KEY='mmaempire2026_save';
 const SAVE_VER=3;
@@ -617,6 +606,7 @@ function buildRoster(pid){
   const out=[];
   const raw=R[pid]||{};
   Object.entries(raw).forEach(([wc,arr])=>{
+    if(!Array.isArray(arr))return;
     arr.forEach(f=>{const p=pf(f,pid);p.weightClass=wc;out.push(p);});
   });
   return out;
@@ -625,7 +615,9 @@ function buildRoster(pid){
 function sim(f1,f2){
   const s1=(f1.s.str+f1.s.grp+f1.s.wre+f1.s.chi+f1.s.car+f1.s.iq)/6;
   const s2=(f2.s.str+f2.s.grp+f2.s.wre+f2.s.chi+f2.s.car+f2.s.iq)/6;
-  const noise=(Math.random()-.5)*24;
+  const gap=Math.abs(s1-s2);
+  const noiseRange=Math.max(30,50-gap*0.5);
+  const noise=(Math.random()-.5)*noiseRange;
   const win=(s1+noise)>s2?f1:f2;
   const lose=win===f1?f2:f1;
   const rv=Math.random();
@@ -661,6 +653,53 @@ const EVENT_LOCATIONS=[
   {id:'canada',travelCost:20000,name:'Toronto, Canada',region:'north_america',country:'Canada',pop:1.0},
 ];
 
+const FA=[
+  {n:'Conor McGregor',age:36,rec:{w:22,l:6},tier:'elite',nat:'Irish',wc:'feather',s:{str:88,grp:72,wre:64,chi:72,car:72,iq:86,cha:98,mkt:98}},
+  {n:'Nate Diaz',age:39,rec:{w:21,l:13},tier:'elite',nat:'American',wc:'welter',s:{str:82,grp:82,wre:72,chi:90,car:88,iq:80,cha:96,mkt:96}},
+  {n:'Francis Ngannou',age:37,rec:{w:17,l:3},tier:'elite',nat:'Cameroonian',wc:'heavy',s:{str:96,grp:68,wre:72,chi:86,car:72,iq:74,cha:84,mkt:90}},
+  {n:'Jorge Masvidal',age:39,rec:{w:35,l:16},tier:'contender',nat:'American',wc:'welter',s:{str:86,grp:72,wre:68,chi:84,car:78,iq:82,cha:88,mkt:86}},
+  {n:'Tony Ferguson',age:40,rec:{w:29,l:10},tier:'contender',nat:'American',wc:'light',s:{str:84,grp:82,wre:76,chi:78,car:86,iq:84,cha:84,mkt:82}},
+  {n:'Amanda Nunes',age:36,rec:{w:22,l:5},tier:'elite',nat:'Brazilian',wc:'bantam_f',s:{str:90,grp:86,wre:76,chi:82,car:84,iq:86,cha:80,mkt:84}},
+  {n:'Gegard Mousasi',age:38,rec:{w:49,l:8},tier:'elite',nat:'Dutch',wc:'middle',s:{str:84,grp:82,wre:74,chi:84,car:78,iq:86,cha:68,mkt:68}},
+  {n:'Nick Diaz',age:40,rec:{w:26,l:10},tier:'contender',nat:'American',wc:'welter',s:{str:80,grp:84,wre:72,chi:88,car:88,iq:78,cha:90,mkt:88}},
+  {n:'Holly Holm',age:42,rec:{w:15,l:7},tier:'contender',nat:'American',wc:'bantam_f',s:{str:82,grp:68,wre:70,chi:78,car:82,iq:80,cha:76,mkt:78}},
+  {n:'Miesha Tate',age:37,rec:{w:19,l:8},tier:'contender',nat:'American',wc:'bantam_f',s:{str:72,grp:80,wre:82,chi:78,car:80,iq:76,cha:80,mkt:78}},
+  {n:'Cub Swanson',age:40,rec:{w:28,l:12},tier:'contender',nat:'American',wc:'feather',s:{str:82,grp:68,wre:66,chi:78,car:74,iq:76,cha:72,mkt:70}},
+  {n:'Thiago Santos',age:36,rec:{w:23,l:12},tier:'contender',nat:'Brazilian',wc:'lheavy',s:{str:86,grp:64,wre:60,chi:76,car:72,iq:72,cha:66,mkt:64}},
+  {n:'Michel Pereira',age:31,rec:{w:30,l:12},tier:'contender',nat:'Brazilian',wc:'welter',s:{str:78,grp:66,wre:64,chi:76,car:86,iq:70,cha:86,mkt:80}},
+  {n:'Manny Bermudez',age:33,rec:{w:14,l:5},tier:'contender',nat:'American',wc:'bantam',s:{str:62,grp:78,wre:68,chi:72,car:78,iq:68,cha:58,mkt:54}},
+  {n:'Cole Smith',age:26,rec:{w:10,l:2},tier:'prospect',nat:'American',wc:'light',s:{str:60,grp:58,wre:64,chi:68,car:70,iq:60,cha:52,mkt:48}},
+  {n:'Zach Reese',age:24,rec:{w:8,l:0},tier:'prospect',nat:'American',wc:'heavy',s:{str:64,grp:54,wre:62,chi:66,car:68,iq:58,cha:50,mkt:46}},
+  {n:'Tyler Hill',age:25,rec:{w:9,l:1},tier:'prospect',nat:'American',wc:'middle',s:{str:58,grp:56,wre:60,chi:64,car:66,iq:58,cha:52,mkt:48}},
+  {n:'Brandon Davis',age:27,rec:{w:12,l:3},tier:'prospect',nat:'American',wc:'bantam',s:{str:56,grp:60,wre:58,chi:64,car:68,iq:58,cha:56,mkt:52}},
+  {n:'Kyle Driscoll',age:23,rec:{w:7,l:1},tier:'prospect',nat:'American',wc:'feather',s:{str:58,grp:54,wre:56,chi:62,car:70,iq:58,cha:54,mkt:48}},
+  {n:'Lupita Godinez',age:28,rec:{w:9,l:3},tier:'contender',nat:'Mexican',wc:'straw_f',s:{str:68,grp:64,wre:62,chi:72,car:74,iq:66,cha:66,mkt:62}},
+  {n:'Cynthia Calvillo',age:35,rec:{w:10,l:6},tier:'contender',nat:'American',wc:'fly_f',s:{str:64,grp:72,wre:68,chi:72,car:74,iq:66,cha:70,mkt:66}},
+  {n:'JJ Aldrich',age:32,rec:{w:12,l:6},tier:'contender',nat:'American',wc:'fly_f',s:{str:62,grp:66,wre:62,chi:70,car:72,iq:64,cha:64,mkt:60}},
+  {n:'Marcos Breno',age:26,rec:{w:10,l:1},tier:'prospect',nat:'Brazilian',wc:'middle',s:{str:62,grp:68,wre:58,chi:66,car:70,iq:60,cha:58,mkt:50}},
+  {n:'Anton Turkalj',age:29,rec:{w:13,l:4},tier:'contender',nat:'Swedish',wc:'lheavy',s:{str:72,grp:64,wre:66,chi:72,car:74,iq:66,cha:60,mkt:54}},
+  {n:'Nathaniel Wood',age:30,rec:{w:16,l:7},tier:'contender',nat:'British',wc:'feather',s:{str:70,grp:72,wre:62,chi:72,car:76,iq:68,cha:64,mkt:60}},
+  {n:'Danny Barlow',age:27,rec:{w:11,l:2},tier:'contender',nat:'British',wc:'welter',s:{str:66,grp:64,wre:62,chi:68,car:72,iq:64,cha:60,mkt:54}},
+  {n:'Jai Herbert',age:31,rec:{w:12,l:5},tier:'contender',nat:'British',wc:'light',s:{str:74,grp:62,wre:60,chi:72,car:74,iq:66,cha:64,mkt:60}},
+  {n:'Muhammad Mokaev',age:24,rec:{w:12,l:1},tier:'contender',nat:'British',wc:'fly',s:{str:66,grp:74,wre:72,chi:70,car:78,iq:70,cha:62,mkt:58}},
+  {n:'Oban Elliott',age:25,rec:{w:11,l:2},tier:'contender',nat:'British',wc:'welter',s:{str:64,grp:66,wre:64,chi:68,car:72,iq:64,cha:58,mkt:54}},
+  {n:'Chris Duncan',age:26,rec:{w:9,l:1},tier:'prospect',nat:'British',wc:'light',s:{str:60,grp:62,wre:60,chi:64,car:68,iq:62,cha:56,mkt:50}},
+  {n:'Mike Grundy',age:34,rec:{w:15,l:6},tier:'contender',nat:'British',wc:'feather',s:{str:64,grp:70,wre:68,chi:70,car:74,iq:68,cha:60,mkt:56}},
+  {n:'Chepe Mariscal',age:27,rec:{w:12,l:3},tier:'contender',nat:'Mexican',wc:'feather',s:{str:70,grp:62,wre:60,chi:70,car:74,iq:64,cha:66,mkt:60}},
+  {n:'Jordan Leavitt',age:29,rec:{w:12,l:5},tier:'contender',nat:'American',wc:'light',s:{str:64,grp:68,wre:66,chi:68,car:72,iq:66,cha:68,mkt:62}},
+  {n:'Ignacio Bahamondes',age:25,rec:{w:14,l:5},tier:'contender',nat:'Chilean',wc:'light',s:{str:70,grp:64,wre:60,chi:70,car:74,iq:64,cha:62,mkt:56}},
+  {n:'Ange Loosa',age:26,rec:{w:10,l:1},tier:'prospect',nat:'French',wc:'welter',s:{str:64,grp:60,wre:62,chi:66,car:70,iq:62,cha:58,mkt:52}},
+  {n:'Shara Magomedov',age:28,rec:{w:13,l:0},tier:'elite',nat:'Russian',wc:'middle',s:{str:90,grp:76,wre:72,chi:78,car:82,iq:76,cha:84,mkt:78}},
+  {n:'Denis Tiuliulin',age:27,rec:{w:12,l:1},tier:'contender',nat:'Russian',wc:'middle',s:{str:72,grp:64,wre:66,chi:70,car:74,iq:64,cha:56,mkt:50}},
+  {n:'Ikram Aliskerov',age:29,rec:{w:15,l:2},tier:'elite',nat:'Russian',wc:'middle',s:{str:82,grp:76,wre:74,chi:76,car:78,iq:72,cha:66,mkt:62}},
+  {n:'Nursulton Ruziboev',age:26,rec:{w:10,l:0},tier:'contender',nat:'Uzbek',wc:'lheavy',s:{str:78,grp:64,wre:66,chi:74,car:72,iq:64,cha:60,mkt:54}},
+  {n:'Yazmin Jauregui',age:26,rec:{w:10,l:1},tier:'contender',nat:'Mexican',wc:'straw_f',s:{str:66,grp:64,wre:62,chi:68,car:72,iq:64,cha:64,mkt:58}},
+  {n:'Andrea Lee',age:34,rec:{w:14,l:7},tier:'contender',nat:'American',wc:'fly_f',s:{str:68,grp:66,wre:64,chi:68,car:72,iq:66,cha:62,mkt:58}},
+  {n:'Jailton Almeida',age:32,rec:{w:20,l:3},tier:'elite',nat:'Brazilian',wc:'heavy',s:{str:82,grp:88,wre:84,chi:74,car:80,iq:74,cha:62,mkt:62}},
+  {n:'Alex Morono',age:32,rec:{w:23,l:9},tier:'contender',nat:'American',wc:'welter',s:{str:78,grp:72,wre:68,chi:70,car:72,iq:68,cha:64,mkt:62}},
+  {n:'Jairzinho Rozenstruik',age:36,rec:{w:13,l:6},tier:'contender',nat:'Surinamese',wc:'heavy',s:{str:88,grp:68,wre:64,chi:72,car:68,iq:64,cha:60,mkt:58}},
+];
+
 function initGame(cid){
   const pd={...PD[cid]};
   const roster=buildRoster(cid);
@@ -686,12 +725,14 @@ function initGame(cid){
     scouts:[],
     scoutPool:[...PROSPECT_POOL],
     schedule:[],
-    sponsors:{
-      apparel:null,tv:null,energy:null,auto:null,betting:null,
-    },
-    sponsors:{
-      apparel:null,tv:null,energy:null,auto:null,betting:null,
-    },
+    sponsors:(()=>{
+      const base={apparel:null,tv:null,energy:null,auto:null,betting:null,healthcare:null};
+      if(cid==='ufc') return {...base,apparel:'venum',tv:'paramount_plus',energy:'monster',betting:'draftkings',healthcare:'hyperice'};
+      if(cid==='one') return {...base,apparel:'reebok',betting:'betmgm'};
+      if(cid==='pfl') return {...base,apparel:'hayabusa',energy:'celsius',betting:'betmgm'};
+      if(cid==='bellator') return {...base,apparel:'tapout',energy:'monster',betting:'draftkings'};
+      return base;
+    })(),
     activeScoutMissions:[],
     venueHistory:[],
   };
@@ -700,6 +741,16 @@ function initGame(cid){
 }
 
 // -- ADVANCE WEEK -----------------------------------------
+function showToast(msg, col){
+  const t = document.createElement('div');
+  t.textContent = msg;
+  t.style.cssText = 'position:fixed;top:20px;right:20px;z-index:99999;background:'+(col||'#27ae60')+';color:#fff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;box-shadow:0 4px 16px rgba(0,0,0,.25);transform:translateX(120%);transition:transform .25s ease;max-width:280px;pointer-events:none;';
+  document.body.appendChild(t);
+  requestAnimationFrame(()=>{ t.style.transform='translateX(0)'; });
+  setTimeout(()=>{ t.style.transform='translateX(120%)'; setTimeout(()=>t.remove(), 300); }, 2800);
+}
+
+
 function advWeek(){
   G.wk++;
   if(G.wk>4){G.wk=1;G.mo++;}
@@ -761,7 +812,7 @@ function advWeek(){
       if(f.hidden.inj>.6&&Math.random()<injMod){
         const weeks=ri(2,12);
         f.status='injured';f.injuryWeeksLeft=weeks;
-        G.log.push('⚠ '+f.name+' injured - out ~'+weeks+' weeks');
+        G.log.push('⚠ <fighter:'+f.name+'> injured - out ~'+weeks+' weeks');
       }
     }
   }
@@ -788,6 +839,22 @@ function advWeek(){
     }
   });
 
+  // Auto-run any events scheduled for this week
+  if(G.schedule&&G.schedule.length){
+    const due=G.schedule.filter(ev=>ev.schedYr===G.yr&&ev.schedMo===G.mo&&ev.schedWk===G.wk);
+    if(due.length>0){
+      const ev=due[0];
+      if(ev.fights&&ev.fights.length>=1){
+        runEvent(ev);
+        return;
+      } else {
+        UI.evB={...ev,scheduled:true,schedId:ev.id};
+        render();
+        return;
+      }
+    }
+  }
+
   // Process pending scout jobs
   processScoutJobs();
 
@@ -812,7 +879,7 @@ function signF(fid,fromScout=false){
     G.scouts.splice(idx,1);
     G.roster.push(f);
     G.fin.cash-=fee;
-    G.log.push('🔭 Signed prospect '+f.name+' | Cost: '+fs(fee));
+    G.log.push('🔭 Signed prospect <fighter:'+f.name+'> | Cost: '+fs(fee));
     UI.modal=null;render();return;
   }
   idx=G.fa.findIndex(f=>f.id===fid);
@@ -824,7 +891,7 @@ function signF(fid,fromScout=false){
   f.promo=G.promo.id;f.contract=makeContract(f.tier,f.s?.mkt,f.s?.cha);
   G.roster.push(f);
   G.fin.cash-=fee;
-  G.log.push('✅ Signed '+f.name+' | Fee: '+fs(fee)+' | '+ctLabel(f.contract));
+  G.log.push('✅ Signed <fighter:'+f.name+'> | Fee: '+fs(fee)+' | '+ctLabel(f.contract));
   UI.modal=null;render();
 }
 
@@ -833,8 +900,8 @@ function releaseF(fid){
   if(idx<0)return;
   const f=G.roster.splice(idx,1)[0];
   f.promo=null;f.contract=null;G.fa.push(f);
-  if(f.isChamp){G.promo.legit=Math.max(0,G.promo.legit-8);G.log.push('⚠ Released champ '+f.name+'! Legit -8');}
-  else G.log.push('Released '+f.name);
+  if(f.isChamp){G.promo.legit=Math.max(0,G.promo.legit-8);G.log.push('⚠ Released champ <fighter:'+f.name+'>! Legit -8');}
+  else G.log.push('Released <fighter:'+f.name+'>');
   UI.fDetail=null;render();
 }
 
@@ -862,12 +929,15 @@ function runEvent(ev){
     const showL=lose?.contract?.show||0;
     const fightPurse=showW+winW+showL;
     totalPurses+=fightPurse;
-    if(win){win.rec.w++;if(win.contract)win.contract.fightsLeft=Math.max(0,win.contract.fightsLeft-1);}
-    if(lose){lose.rec.l++;if(lose.contract)lose.contract.fightsLeft=Math.max(0,lose.contract.fightsLeft-1);}
+    if(win){win.rec.w++;if(win.contract)win.contract.fightsLeft=Math.max(0,win.contract.fightsLeft-1);win.lastFightWk=G.wk;win.lastFightMo=G.mo;win.lastFightYr=G.yr;}
+    if(lose){lose.rec.l++;if(lose.contract)lose.contract.fightsLeft=Math.max(0,lose.contract.fightsLeft-1);lose.lastFightWk=G.wk;lose.lastFightMo=G.mo;lose.lastFightYr=G.yr;
+      // KO/TKO medical suspension: ~13 weeks (90 days)
+      if(res.method==='KO/TKO'){lose.status='injured';lose.injuryWeeksLeft=13;G.log.push('🏥 <fighter:'+lose.name+'> on 90-day medical suspension after KO');}
+    }
     if(fi.title&&lose?.isChamp){
       lose.isChamp=false;lose.tier='elite';
       if(win){win.isChamp=true;win.tier='champion';
-        G.log.push('🏆 NEW CHAMP: '+win.name+' wins '+(ALL_WCN[fi.wc]||fi.wc)+' title by '+res.method+'!');
+        G.log.push('🏆 NEW CHAMP: <fighter:'+win.name+'> wins '+(ALL_WCN[fi.wc]||fi.wc)+' title by '+res.method+'!');
       }
     }
     // Track bonus candidates
@@ -923,6 +993,7 @@ function runEvent(ev){
   // Venue cost
   const venueCost=Math.round(venue.baseCost*(venue.rentMult||1));
 
+  const travelCost=evLoc?evLoc.travelCost||0:0;
   const totalRev=gateRev+tvRev+merchRev+sponsorRev;
   const profit=totalRev-venueCost-totalPurses-totalBonuses-travelCost;
 
@@ -944,7 +1015,7 @@ function runEvent(ev){
     tier:ev.tier,venue:venue.name,venueCap:venue.cap,fillRate,
     totalRev,gateRev,tvRev,merchRev,sponsorRev,venueCost,totalPurses,totalBonuses,profit,
     bonuses,bonusAmt,results,avgEnt,stars,wk:G.wk,mo:G.mo,yr:G.yr,
-    date:MON[G.mo-1]+' '+G.yr,fights:ev.fights.length};
+    date:MON[G.mo-1]+' '+G.yr,fights:results,numFights:ev.fights.length};
   G.events.push(rec);
   // Remove from schedule if this was a scheduled event
   if(ev.schedId)G.schedule=(G.schedule||[]).filter(s=>s.id!==ev.schedId);
@@ -1329,8 +1400,8 @@ function vRoster(){
     const champ=divF.find(f=>f.isChamp);
     const nonChamps=divF.filter(f=>!f.isChamp);
     // Show ALL non-champs, first 14 = ranked, rest = "rest"
-    const top14=nonChamps.slice(0,14);
-    const restDiv=nonChamps.slice(14);
+    const top14=nonChamps.slice(0,15);
+    const restDiv=nonChamps.slice(15);
 
     const divRow=(f,rank,isC)=>h('tr',{
       style:{cursor:'pointer',background:isC?'rgba(241,196,15,.07)':''},
@@ -1353,7 +1424,7 @@ function vRoster(){
 
     // LEFT table: champ + top 14
     const leftTable=h('div',{style:{flex:'1',minWidth:'320px'}},[
-      h('div',{style:{fontSize:'11px',fontWeight:'700',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.06em',marginBottom:'6px'}},'Rankings ('+(1+(top14.length))+')'),
+      h('div',{style:{fontSize:'11px',fontWeight:'700',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.06em',marginBottom:'6px'}},'Top 15 ('+(1+(top14.length))+')'),
       h('table',{cls:'rt',style:{width:'100%'}},[
         h('thead',{},[h('tr',{},[
           h('th',{},['#']),h('th',{},['Fighter']),
@@ -1368,7 +1439,7 @@ function vRoster(){
     ]);
 
     // RIGHT table: rest of roster
-    const rightTable=restDiv.length>0?h('div',{style:{width:'260px',flexShrink:'0'}},[
+    const rightTable=h('div',{style:{width:'260px',flexShrink:'0',display:restDiv.length>0?'block':'none'}},[
       h('div',{style:{fontSize:'11px',fontWeight:'700',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.06em',marginBottom:'6px'}},'Rest of Roster ('+restDiv.length+')'),
       h('table',{cls:'rt',style:{width:'100%'}},[
         h('thead',{},[h('tr',{},[
@@ -1380,22 +1451,22 @@ function vRoster(){
             style:{cursor:'pointer'},
             onClick:()=>{UI.fDetail=f.id;render();}
           },[
-            h('td',{style:{width:'28px',color:'var(--tx3)',fontSize:'11px',paddingRight:'4px'}},(i+15)+'.'),
+            h('td',{style:{width:'28px',color:'var(--tx3)',fontSize:'11px',paddingRight:'4px'}},(i+16)+'.'),
             h('td',{style:{fontSize:'12px',paddingRight:'4px'}},[f.name]),
             h('td',{},[h('span',{style:{fontWeight:'800',color:sc(ov(f)),fontSize:'12px'}},[ov(f)+''])]),
             h('td',{},[ttag(f.tier)]),
           ])),
         ]),
       ]),
-    ]):null;
+    ]);
 
     body=D('',[
       wcPicker,
-      D('card',[
+      h('div',{cls:'card',style:{overflowX:'auto'}},[
         D('ct',[ALL_WCN[UI.rWC]+' Division — '+divF.length+' fighters']),
         divF.length===0
           ?h('div',{style:{color:'var(--tx3)',padding:'20px',textAlign:'center'}},'No fighters in this division')
-          :h('div',{style:{display:'flex',gap:'20px',alignItems:'flex-start',width:'100%',boxSizing:'border-box'}},[
+          :h('div',{style:{display:'flex',gap:'20px',alignItems:'flex-start',minWidth:'560px'}},[
               leftTable,
               rightTable,
             ]),
@@ -1503,7 +1574,7 @@ function vFighterDetail(fid){
               if(G.fin.cash<cost){alert('Need '+fm(cost));return;}
               f.contract=makeContract(f.tier,f.s?.mkt,f.s?.cha);
               G.fin.cash-=cost;
-              G.log.push('🔄 Renewed '+f.name+' | '+ctLabel(f.contract));render();
+              G.log.push('🔄 Renewed <fighter:'+f.name+'> | '+ctLabel(f.contract));render();
             },'btn btn-g')]:[]),
             Btn('Release',()=>{if(confirm('Release '+f.name+'?'))releaseF(f.id);},'btn btn-s'),
           ]),
@@ -1557,7 +1628,7 @@ function vFighterDetail(fid){
 function vFA(){
   if(!UI.faFilter)UI.faFilter='all';
   if(!UI.faWC)UI.faWC='all';
-  if(!UI.faSort)UI.faSort={col:'ovr',dir:-1};
+  UI.faSort={col:UI.faSort?.col||'ovr',dir:UI.faSort?.col&&UI.faSort.col!=='ovr'?UI.faSort.dir:-1};
   let agents=[...G.fa];
   if(UI.faFilter!=='all')agents=agents.filter(f=>f.tier===UI.faFilter);
   if(UI.faWC!=='all')agents=agents.filter(f=>f.weightClass===UI.faWC);
@@ -1566,14 +1637,14 @@ function vFA(){
   agents.sort((a,b)=>{
     let av,bv;
     if(col==='ovr'){av=ov(a);bv=ov(b);}
-    else if(col==='name'){av=a.name;bv=b.name;return dir*(av<bv?-1:av>bv?1:0);}
+    else if(col==='name'){av=a.name;bv=b.name;return dir*(av>bv?-1:av<bv?1:0);}
     else if(col==='age'){av=a.age;bv=b.age;}
     else if(col==='rec'){av=a.rec.w/(a.rec.w+a.rec.l+.001);bv=b.rec.w/(b.rec.w+b.rec.l+.001);}
     else if(col==='show'){av=a.contract?.show||0;bv=b.contract?.show||0;}
     else if(col==='tier'){const to={champion:0,elite:1,contender:2,prospect:3};av=to[a.tier]??4;bv=to[b.tier]??4;}
     else if(col==='cha'){av=(a.s.cha+a.s.mkt)/2;bv=(b.s.cha+b.s.mkt)/2;}
     else{av=ov(a);bv=ov(b);}
-    return dir*(bv-av);
+    return dir*(av-bv);
   });
 
   const sortHdr=(label,key)=>{
@@ -1892,23 +1963,28 @@ function vEventBuilder(){
   // supercard: everything including title fights
   function autoFill(){
     const usedS=new Set(used);const newF=[];
+    // Helper: weeks since last fight (approx)
+    function wksSinceFight(f){
+      if(!f.lastFightYr)return 999;
+      const yrDiff=G.yr-f.lastFightYr, moDiff=(yrDiff*12)+(G.mo-f.lastFightMo);
+      return moDiff*4+(G.wk-f.lastFightWk);
+    }
     // Tier pools per event type
     const tierFilter={
       weekly:f=>f.tier==='prospect'||f.tier==='contender',
       fightnight:f=>f.tier==='prospect'||f.tier==='contender'||(f.tier==='elite'&&!f.isChamp),
-      premium:f=>true, // all tiers, but title fights capped
+      premium:f=>true,
       supercard:f=>true,
     }[ev.tier]||(f=>true);
-    // Max title fights per tier
     const maxTitleFights={weekly:0,fightnight:0,premium:2,supercard:3}[ev.tier]||0;
     let titleFightsAdded=0;
 
     WCO.concat(FWCO).forEach(wc=>{
       if(ev.fights.length+newF.length>=maxF)return;
-      const pool=G.roster.filter(f=>f.status==='active'&&f.weightClass===wc&&!usedS.has(f.id)&&tierFilter(f)).sort((a,b)=>ov(b)-ov(a));
+      // Exclude injured, already used, and recently fought (<6 weeks ago)
+      const pool=G.roster.filter(f=>f.status==='active'&&f.weightClass===wc&&!usedS.has(f.id)&&tierFilter(f)&&wksSinceFight(f)>=6).sort((a,b)=>ov(b)-ov(a));
       if(pool.length<2)return;
 
-      // Try to make a title fight if under cap; else use top 2 non-champs
       const champInPool=pool.find(f=>f.isChamp);
       let f1,f2,isTitle=false;
       if(champInPool&&titleFightsAdded<maxTitleFights){
@@ -2111,35 +2187,62 @@ function vEventBuilder(){
             ]);
           })(),
         ]),
-        // Schedule date picker (shown in scheduleMode)
-        ev.scheduleMode?h('div',{style:{background:'var(--bg3)',borderRadius:'8px',padding:'12px',marginBottom:'8px'}},[
-          h('div',{style:{fontWeight:'700',fontSize:'13px',marginBottom:'8px'}},'📅 Schedule Date'),
-          h('div',{style:{display:'flex',gap:'8px',alignItems:'center',flexWrap:'wrap'}},[
-            h('div',{style:{display:'flex',alignItems:'center',gap:'5px'}},[
-              h('span',{style:{fontSize:'12px',color:'var(--tx3)'}},'Week:'),
-              h('select',{style:{padding:'5px',background:'var(--bg2)',color:'var(--tx)',border:'1px solid var(--bd)',borderRadius:'5px'},
-                onChange:e2=>{ev.schedWk=parseInt(e2.target.value);}},[
-                ...[1,2,3,4].map(w=>h('option',{value:w,selected:(ev.schedWk||G.wk+1)===w},'Wk'+w)),
-              ]),
-            ]),
-            h('div',{style:{display:'flex',alignItems:'center',gap:'5px'}},[
-              h('span',{style:{fontSize:'12px',color:'var(--tx3)'}},'Month:'),
-              h('select',{style:{padding:'5px',background:'var(--bg2)',color:'var(--tx)',border:'1px solid var(--bd)',borderRadius:'5px'},
-                onChange:e2=>{ev.schedMo=parseInt(e2.target.value);}},[
-                ...MON.map((m,i)=>h('option',{value:i+1,selected:(ev.schedMo||G.mo)===i+1},m)),
-              ]),
-            ]),
-            h('div',{style:{display:'flex',alignItems:'center',gap:'5px'}},[
-              h('span',{style:{fontSize:'12px',color:'var(--tx3)'}},'Year:'),
-              h('select',{style:{padding:'5px',background:'var(--bg2)',color:'var(--tx)',border:'1px solid var(--bd)',borderRadius:'5px'},
-                onChange:e2=>{ev.schedYr=parseInt(e2.target.value);}},[
-                ...[G.yr,G.yr+1].map(y=>h('option',{value:y,selected:(ev.schedYr||G.yr)===y},y+'')),
-              ]),
-            ]),
-          ]),
-        ]):null,
-        ev.scheduleMode
-          ?Btn('📅 Add to Schedule'+(ev.fights.length<minF?' (need '+minF+' fights)':''),()=>{
+        // ── Visual Calendar Scheduler ───────────────────────────
+        (()=>{
+          // Initialise selection defaults only once (don't overwrite after user clicks)
+          if(!ev.schedWk){ev.schedWk=G.wk+1>4?1:G.wk+1;}
+          if(!ev.schedMo){ev.schedMo=G.wk+1>4?(G.mo+1>12?1:G.mo+1):G.mo;}
+          if(!ev.schedYr){ev.schedYr=G.wk+1>4&&G.mo===12?G.yr+1:G.yr;}
+          const selWk=ev.schedWk, selMo=ev.schedMo, selYr=ev.schedYr;
+
+          const months=[];
+          for(let mi=0;mi<3;mi++){
+            let mo=G.mo+mi,yr=G.yr;
+            if(mo>12){mo-=12;yr++;}
+            months.push({mo,yr});
+          }
+
+          const evMap={};
+          const addEv=(k,item)=>{(evMap[k]=evMap[k]||[]).push(item);};
+          (G.schedule||[]).forEach(e=>{addEv(`${e.schedYr||G.yr}-${e.schedMo||G.mo}-${e.schedWk||1}`,{name:e.name||'Event',tier:e.tier,past:false});});
+          G.events.forEach(e=>{if(e.yr&&e.mo&&e.wk)addEv(`${e.yr}-${e.mo}-${e.wk}`,{name:e.name||'Event',tier:e.tier,past:true});});
+
+          const TC={weekly:'#888',fightnight:'var(--blu)',premium:'#e6b800',supercard:'#e74c3c'};
+          const TI={weekly:'📅',fightnight:'🥊',premium:'⭐',supercard:'🔥'};
+
+          const calCols=months.map(({mo,yr})=>{
+            const isCurMo=mo===G.mo&&yr===G.yr;
+            return h('div',{style:{flex:'1',minWidth:'148px'}},[              h('div',{style:{textAlign:'center',fontWeight:'800',fontSize:'11px',textTransform:'uppercase',letterSpacing:'.06em',padding:'4px 0 8px',color:isCurMo?'var(--red)':'var(--tx2)'}},                MON[mo-1]+' '+yr+(isCurMo?' ◀':'')
+              ),              h('div',{style:{display:'flex',flexDirection:'column',gap:'5px'}},                [1,2,3,4].map(wk=>{
+                  const isPast=(yr<G.yr)||(yr===G.yr&&mo<G.mo)||(yr===G.yr&&mo===G.mo&&wk<G.wk);
+                  const isNow=yr===G.yr&&mo===G.mo&&wk===G.wk;
+                  const isSel=yr===selYr&&mo===selMo&&wk===selWk;
+                  const slotEvs=(evMap[`${yr}-${mo}-${wk}`]||[]);
+                  const hasConflict=slotEvs.some(e=>!e.past);
+                  return h('div',{
+                    style:{
+                      borderRadius:'8px',padding:'7px 9px',cursor:isPast?'not-allowed':'pointer',
+                      background:isSel?'var(--red)':isNow?'rgba(192,57,43,.1)':isPast?'var(--bg3)':'var(--bg2)',
+                      border:'2px solid '+(isSel?'var(--red)':isNow?'rgba(192,57,43,.5)':hasConflict?'rgba(230,184,0,.5)':'var(--bd)'),
+                      opacity:isPast?'0.45':'1',
+                      transition:'transform .1s,box-shadow .1s',
+                    },
+                    onClick:()=>{if(isPast)return;ev.schedWk=wk;ev.schedMo=mo;ev.schedYr=yr;render();},
+                    onMouseenter:function(){if(!isPast&&!isSel){this.style.transform='translateY(-1px)';this.style.boxShadow='0 3px 10px rgba(0,0,0,.15)';}},
+                    onMouseleave:function(){this.style.transform='';this.style.boxShadow='';},
+                  },[
+                    h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:slotEvs.length?'5px':'0'}},[                      h('span',{style:{fontSize:'11px',fontWeight:'700',color:isSel?'rgba(255,255,255,.8)':isNow?'var(--red)':'var(--tx3)'}},'Wk '+wk),                      isNow&&!isSel?h('span',{style:{fontSize:'9px',background:'rgba(192,57,43,.15)',color:'var(--red)',padding:'1px 5px',borderRadius:'4px',fontWeight:'800'}},'NOW'):null,                      isSel?h('span',{style:{fontSize:'9px',background:'rgba(255,255,255,.2)',color:'#fff',padding:'1px 5px',borderRadius:'4px',fontWeight:'800'}},'✓ PICK'):null,                      hasConflict&&!isSel?h('span',{style:{fontSize:'9px',color:'#e6b800',fontWeight:'700'}},'⚠ busy'):null,                    ]),                    slotEvs.length?h('div',{style:{display:'flex',flexDirection:'column',gap:'2px'}},                      slotEvs.map(se=>h('div',{style:{fontSize:'10px',fontWeight:'600',display:'flex',alignItems:'center',gap:'3px',                        color:isSel?'rgba(255,255,255,.85)':(se.past?'var(--tx3)':TC[se.tier]||'var(--tx2)'),                        whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}},[                        TI[se.tier]||'🥊',                        ' '+(se.name.length>13?se.name.slice(0,12)+'…':se.name),                        se.past?' ✓':'',                      ]))                    ):null,                  ]);
+                })
+              ),            ]);
+          });
+
+          const sMo=selMo, sWk=selWk, sYr=selYr;
+          const conflict=(evMap[`${sYr}-${sMo}-${sWk}`]||[]).filter(e=>!e.past);
+
+          return h('div',{style:{marginBottom:'10px'}},[            h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'10px'}},[              h('span',{style:{fontWeight:'800',fontSize:'13px'}},'📅 Pick a Date'),              h('span',{style:{fontSize:'11px',color:'var(--tx3)'}},'Tap any week to select'),            ]),            h('div',{style:{display:'flex',gap:'8px',overflowX:'auto',paddingBottom:'4px'}},calCols),            h('div',{style:{marginTop:'10px',padding:'9px 12px',borderRadius:'8px',display:'flex',alignItems:'center',gap:'10px',              background:conflict.length?'rgba(230,184,0,.08)':'rgba(39,174,96,.06)',              border:'1px solid '+(conflict.length?'rgba(230,184,0,.4)':'rgba(39,174,96,.25)'),            }},[              h('span',{style:{fontSize:'18px'}},conflict.length?'⚠️':'📌'),              h('div',{},[
+                h('div',{style:{fontWeight:'800',fontSize:'13px'}},'Week '+sWk+' · '+MON[sMo-1]+' '+sYr),                h('div',{style:{fontSize:'11px',color:'var(--tx3)',marginTop:'1px'}},                  conflict.length?conflict.length+' event'+(conflict.length>1?'s':'')+' already scheduled this week — double-booking':'Clear week — ready to schedule'),              ]),            ]),          ]);
+        })(),
+                Btn('📅 Add to Schedule'+(ev.fights.length<minF?' (need '+minF+' fights)':''),()=>{
               if(ev.fights.length<minF){alert('Need at least '+minF+' fights!');return;}
               G.schedule=G.schedule||[];
               const _sc=(G.schedule.filter(e=>e.tier===ev.tier).length)+(G.events.filter(e=>e.tier===ev.tier).length)+1;
@@ -2147,13 +2250,10 @@ function vEventBuilder(){
               const scheduled={...ev,id:Date.now(),scheduleMode:false,name:_an};
               G.schedule.push(scheduled);
               const _mo2=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-              G.log.push('📅 Scheduled: '+_an+' — Wk'+(ev.schedWk||G.wk+1)+' '+(_mo2[(ev.schedMo||G.mo)-1]||'')+' '+( ev.schedYr||G.yr));
+              G.log.push('📅 Scheduled: '+_an+' — Wk'+(ev.schedWk||G.wk+1)+' '+(_mo2[(ev.schedMo||G.mo)-1]||'')+' '+(ev.schedYr||G.yr));
               UI.evB=null;render();
-            },'btn btn-g btn-fw',!canRun)
-          :Btn('🥊 Run Event Now'+(ev.fights.length<minF?' (need '+minF+' fights)':''),()=>{
-              if(ev.fights.length<minF){alert('Need at least '+minF+' fights for a '+tLabel[ev.tier]+'!');return;}
-              runEvent(ev);
-            },'btn btn-r btn-fw',!canRun),
+              showToast('📅 '+_an+' scheduled!','#2980b9');
+            },'btn btn-g btn-fw',!canRun),
         Btn('← Cancel',()=>{UI.evB=null;render();},'btn btn-s btn-fw'),
       ]),
     ]),
@@ -2595,7 +2695,7 @@ function vModal(){
       h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:'14px'}},[
         h('div',{},[
           h('div',{style:{fontSize:'18px',fontWeight:'900',marginBottom:'3px'}},[(mIcon[e.tier]||'🥊')+' '+e.name]),
-          h('div',{style:{fontSize:'12px',color:'var(--tx3)'}},[e.tier+' · '+(e.locationId||'Unknown location')+' · '+e.fights.length+' fights']),
+          h('div',{style:{fontSize:'12px',color:'var(--tx3)'}},[e.tier+' · '+(e.locationId||'Unknown location')+' · '+(e.numFights||e.fights?.length||0)+' fights']),
         ]),
         h('div',{style:{textAlign:'right'}},[
           h('div',{style:{fontWeight:'900',fontSize:'18px',color:e.profit>=0?'var(--grn)':'var(--red)'}},[fm(e.profit)]),
@@ -2617,7 +2717,7 @@ function vModal(){
       // Fight results
       h('div',{style:{fontWeight:'700',fontSize:'12px',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.05em',marginBottom:'6px'}},'Fight Results'),
       h('div',{style:{display:'flex',flexDirection:'column',gap:'4px'}},[
-        ...(e.fights||[]).map((f,i)=>h('div',{style:{padding:'7px 10px',background:'var(--bg3)',borderRadius:'7px',display:'flex',alignItems:'center',gap:'8px'}},[
+        ...((e.fights&&Array.isArray(e.fights)?e.fights:(e.results||[]))).map((f,i)=>h('div',{style:{padding:'7px 10px',background:'var(--bg3)',borderRadius:'7px',display:'flex',alignItems:'center',gap:'8px'}},[
           h('span',{style:{fontSize:'11px',color:'var(--tx3)',width:'24px',flexShrink:'0'}},[(i===0?'Main':(i===1?'Co-M':(i+1)+'.'))]),
           h('span',{style:{fontWeight:'700',color:'var(--grn)',flex:'1'}},[f.wName||'—']),
           h('span',{style:{fontSize:'11px',color:'var(--tx3)',flex:'1'}},[f.method+' R'+f.round]),
@@ -3011,7 +3111,7 @@ const SPONSOR_CATS=[
     {id:'momentous',name:'Momentous',rev:200000,req:15},
   ]},
   {id:'tv',label:'Streaming',icon:'📺',options:[
-    {id:'espn_plus',name:'ESPN+',rev:500000,req:40},
+    {id:'paramount_plus',name:'Paramount+',rev:800000,req:50},
     {id:'dazn_sp',name:'DAZN',rev:700000,req:45},
     {id:'fubo',name:'FuboTV',rev:300000,req:25},
   ]},
@@ -3028,36 +3128,18 @@ function getSponsorIncome(){
   },0);
 }
 
-function applySponsors(prevSponsors){
-  if(!G.sponsors)return;
-  const cats=window.SPONSOR_CATS_REF||[];
-  // BMW prestige boost (one-time)
-  if(G.sponsors.auto==='bmw'&&(!prevSponsors||prevSponsors.auto!=='bmw')){
-    G.promo.prestige=Math.min(100,G.promo.prestige+3);
-    G.log.push('🚗 BMW deal secured — Prestige +3');
-  }
-  // Betting deals fan trust impact
-  const bettingRisks={draftkings:3,bet365:2,fanduel:1,betmgm:1};
-  const picked=G.sponsors.betting;
-  if(picked&&(!prevSponsors||prevSponsors.betting!==picked)){
-    const penalty=bettingRisks[picked]||1;
-    G.promo.fanTrust=Math.max(0,G.promo.fanTrust-penalty);
-    G.log.push('⚠ Betting deal signed — Fan Trust -'+penalty+' (public perception)');
-  }
-  G._monsterBonus=G.sponsors.energy==='monster';
-  G._hypericeActive=G.sponsors.healthcare==='hyperice';
-}
 
 function vSponsors(){
   if(!G.sponsors)G.sponsors={apparel:null,tv:null,energy:null,auto:null,betting:null,healthcare:null};
   const totalSponsorRev=getSponsorIncome();
   const activeCount=Object.values(G.sponsors).filter(Boolean).length;
+  const pr=G.promo.prestige;
 
   return D('page',[
     D('ptitle',['🤝 Sponsorships']),
-    D('psub',['Align your brand with partners. One partner per category. Income is added monthly.']),
+    D('psub',['Align your brand with partners. One deal per category. Income added monthly.']),
     h('div',{style:{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:'8px',marginBottom:'16px'}},[
-      D('kpi',[D('kpi-l',['Monthly Sponsor Income']),h('div',{style:{fontWeight:'900',fontSize:'18px',color:'var(--grn)'}},[fm(totalSponsorRev/12)])]),
+      D('kpi',[D('kpi-l',['Monthly Income']),h('div',{style:{fontWeight:'900',fontSize:'18px',color:'var(--grn)'}},[fm(totalSponsorRev/12)])]),
       D('kpi',[D('kpi-l',['Annual Value']),h('div',{style:{fontWeight:'900',fontSize:'18px',color:'var(--grn)'}},[fm(totalSponsorRev)])]),
       D('kpi',[D('kpi-l',['Active Deals']),h('div',{style:{fontWeight:'900',fontSize:'18px'}},[activeCount+'/'+SPONSOR_CATS.length])]),
     ]),
@@ -3066,41 +3148,46 @@ function vSponsors(){
       const pickedOpt=cat.options.find(o=>o.id===picked);
       return D('card',[
         h('div',{style:{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:'10px'}},[
-          D('ct',[cat.label]),
-          picked?h('div',{style:{fontSize:'12px',fontWeight:'700',color:'var(--grn)'}},['+'+fm(pickedOpt?.rev||0)+'/yr ✓']):
-                 h('div',{style:{fontSize:'12px',color:'var(--tx3)'}},'No deal active'),
+          h('div',{style:{display:'flex',alignItems:'center',gap:'8px'}},[
+            h('span',{style:{fontSize:'22px'}},[cat.icon]),
+            D('ct',[cat.label]),
+          ]),
+          picked
+            ?h('div',{style:{fontSize:'12px',fontWeight:'700',color:'var(--grn)'}},['+'+fm(pickedOpt?.rev||0)+'/yr ✓'])
+            :h('div',{style:{fontSize:'12px',color:'var(--tx3)'}},'No deal active'),
         ]),
         h('div',{style:{display:'grid',gridTemplateColumns:'repeat(2,1fr)',gap:'8px'}},[
           ...cat.options.map(opt=>{
             const isActive=picked===opt.id;
-            const canAfford=G.promo.prestige>=opt.presReq;
+            const canAfford=pr>=(opt.req||0);
             return h('div',{
               style:{
-                padding:'10px',border:'2px solid '+(isActive?'var(--grn)':'var(--bd)'),
-                borderRadius:'9px',background:isActive?'rgba(39,174,96,.06)':'var(--bg3)',
-                opacity:canAfford?'1':'0.5',
+                padding:'10px',
+                border:'2px solid '+(isActive?'var(--grn)':'var(--bd)'),
+                borderRadius:'9px',
+                background:isActive?'rgba(39,174,96,.08)':'var(--bg3)',
+                opacity:canAfford?'1':'0.45',
               }
             },[
-              h('div',{style:{display:'flex',alignItems:'center',gap:'8px',marginBottom:'4px'}},[
-                h('span',{style:{fontSize:'20px'}},[opt.logo]),
-                h('div',{},[
-                  h('div',{style:{fontWeight:'800',fontSize:'13px'}},[opt.name]),
-                  h('div',{style:{fontSize:'11px',color:'var(--grn)',fontWeight:'700'}},[fm(opt.rev)+'/yr']),
-                ]),
-                isActive?h('span',{style:{marginLeft:'auto',color:'var(--grn)',fontWeight:'900'}},'✓'):null,
+              h('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'4px'}},[
+                h('div',{style:{fontWeight:'800',fontSize:'13px'}},[opt.name]),
+                isActive?h('span',{style:{color:'var(--grn)',fontWeight:'900',fontSize:'14px'}},'✓'):null,
               ]),
-              h('div',{style:{fontSize:'11px',color:'var(--tx2)',marginBottom:'4px'}},[opt.desc]),
-              opt.bonus?h('div',{style:{fontSize:'11px',color:'var(--blu)',fontWeight:'700',marginBottom:'4px'}},['+'+opt.bonus]):null,
-              opt.risk?h('div',{style:{fontSize:'11px',color:'var(--red)',marginBottom:'4px'}},'⚠ '+opt.risk):null,
-              h('div',{style:{fontSize:'11px',color:'var(--tx3)',marginBottom:'6px'}},'Requires '+opt.presReq+' prestige (yours: '+G.promo.prestige+')'),
+              h('div',{style:{fontSize:'12px',color:'var(--grn)',fontWeight:'700',marginBottom:'4px'}},[fm(opt.rev)+'/yr']),
+              h('div',{style:{fontSize:'11px',color:'var(--tx3)',marginBottom:'6px'}},[(opt.req||0)>0?'Requires '+opt.req+' prestige':'No prestige req.']),
               isActive
-                ?Btn('✓ Active — Remove',()=>{G.sponsors[cat.id]=null;G.log.push('Dropped '+opt.name+' sponsorship');render();},'btn btn-s btn-sm')
-                :Btn(canAfford?'Sign Deal':'Need '+opt.presReq+' Prestige',()=>{
-                  if(!canAfford)return;
-                  if(picked)G.log.push('Switched '+cat.label+' sponsor to '+opt.name);
-                  else G.log.push('✍ Signed '+opt.name+' sponsorship deal (+'+fm(opt.rev)+'/yr)');
-                  const prev={...G.sponsors};G.sponsors[cat.id]=opt.id;applySponsors(prev);render();
-                },'btn btn-g btn-sm',!canAfford),
+                ?Btn('Drop Deal',()=>{
+                    G.log.push('Dropped '+opt.name+' sponsorship');
+                    G.sponsors[cat.id]=null;
+                    applySponsors();render();
+                  },'btn btn-s btn-sm')
+                :Btn(canAfford?'Sign Deal':'Need '+opt.req+' Prestige',()=>{
+                    if(!canAfford)return;
+                    if(picked)G.log.push('Switched '+cat.label+' sponsor to '+opt.name);
+                    else G.log.push('Signed '+opt.name+' sponsorship deal (+'+fm(opt.rev)+'/yr)');
+                    const prev={...G.sponsors};G.sponsors[cat.id]=opt.id;
+                    applySponsors();render();
+                  },'btn btn-g btn-sm'),
             ]);
           }),
         ]),
@@ -3109,10 +3196,28 @@ function vSponsors(){
   ]);
 }
 
+
 // -- SPONSORSHIPS -------------------------------------------
 
-
-
+function applySponsors(prevSponsors){
+  // BMW prestige boost (one-time)
+  if(G.sponsors?.auto==='bmw'&&(!prevSponsors||prevSponsors.auto!=='bmw')){
+    G.promo.prestige=Math.min(100,G.promo.prestige+3);
+    G.log.push('🚗 BMW deal secured — Prestige +3');
+  }
+  // Betting deals: fan trust impact
+  const bettingRisks={draftkings:3,bet365:2,fanduel:1,betmgm:1};
+  const picked=G.sponsors?.betting;
+  if(picked&&(!prevSponsors||prevSponsors.betting!==picked)){
+    const penalty=bettingRisks[picked]||1;
+    G.promo.fanTrust=Math.max(0,G.promo.fanTrust-penalty);
+    G.log.push('⚠ Betting deal signed — Fan Trust -'+penalty+' (public perception)');
+  }
+  // Monster: event revenue mult stored on G
+  G._monsterBonus=G.sponsors?.energy==='monster';
+  // Hyperice: injury rate reduction
+  G._hypericeActive=G.sponsors?.healthcare==='hyperice';
+}
 
 // -- NAV + MAIN --------------------------------------------
 const NAVS=[
@@ -3127,12 +3232,13 @@ const NAVS=[
   
 ];
 
+
 function vNav(){
   const{promo:p,fin:fn}=G;
   const open=UI.mobileNav===true;
   const goTo=id=>{UI.view=id;UI.fDetail=null;UI.evB=null;UI.mobileNav=false;render();};
   const drawer=h('div',{cls:'mob-drawer'+(open?' open':'')},[    h('div',{style:{padding:'8px 16px 4px'}},[      h('div',{style:{fontSize:'11px',color:'var(--tx3)',textTransform:'uppercase',letterSpacing:'.08em'}},'Promotion'),      h('div',{style:{fontWeight:'900',fontSize:'16px',marginTop:'2px'}},[p.name]),      h('div',{cls:'mob-cash'},[fm(fn.cash)]),      h('div',{style:{fontSize:'12px',color:'var(--tx3)',paddingLeft:'16px',marginTop:'-6px',paddingBottom:'8px'}},'Wk '+G.wk+' · '+MON[G.mo-1]+' '+G.yr),    ]),    h('div',{cls:'mob-div'}),    ...NAVS.map(n=>h('button',{cls:'mob-nb'+(UI.view===n.id?' on':''),onClick:()=>goTo(n.id)},[n.i,' ',n.l])),    h('div',{cls:'mob-div'}),    h('button',{cls:'mob-adv',onClick:()=>{advWeek();UI.mobileNav=false;}},'⏩ Advance Week'),    h('button',{cls:'mob-nb',style:{color:'var(--tx3)',marginTop:'4px'},onClick:()=>{UI.setOpen=!UI.setOpen;UI.mobileNav=false;render();}},'⚙  Settings'),  ]);
-  const nav=D('nav',[    h('button',{cls:'hambtn',onClick:()=>{UI.mobileNav=!open;render();}},open?'✕':'☰'),    h('div',{style:{display:'flex',alignItems:'center',gap:'6px',cursor:'pointer',flex:'1'},onClick:()=>goTo('dash')},[      h('div',{style:{background:'linear-gradient(135deg,#c0392b,#8e1c14)',borderRadius:'6px',padding:'4px 8px',display:'flex',alignItems:'center',gap:'4px'}},[        h('span',{style:{fontSize:'13px',fontWeight:'900',color:'#fff',letterSpacing:'-0.5px'}},[h('span',{style:{color:'#f39c12'}},'MMA'),' MOGUL']),      ]),      D('ntag',[p.sn+' · Wk'+G.wk+' · '+MON[G.mo-1]+' '+G.yr]),    ]),    D('nlinks',[...NAVS.map(n=>h('button',{cls:'nb'+(UI.view===n.id?' on':''),onClick:()=>{UI.view=n.id;UI.fDetail=null;UI.evB=null;render();}},[n.i+' '+n.l]))]),    D('nright',[      D('ncash'+(fn.cash<2e6?' lo':''),[fm(fn.cash)]),      h('button',{cls:'advbtn',onClick:advWeek},['⏩ Advance Week']),      h('button',{cls:'setbtn',onClick:()=>{UI.setOpen=!UI.setOpen;render();},title:'Settings'},['⚙']),    ]),  ]);
+  const nav=D('nav',[    h('button',{cls:'hambtn',onClick:()=>{UI.mobileNav=!open;render();}},open?'✕':'☰'),    h('div',{style:{display:'flex',alignItems:'center',gap:'6px',cursor:'pointer',flex:'1'},onClick:()=>goTo('dash')},[      h('div',{style:{background:'linear-gradient(135deg,#c0392b,#8e1c14)',borderRadius:'6px',padding:'4px 8px',display:'flex',alignItems:'center',gap:'4px'}},[        h('span',{style:{fontSize:'13px',fontWeight:'900',color:'#fff',letterSpacing:'-0.5px'}},[h('span',{style:{color:'#f39c12'}},'MMA'),' MOGUL']),      ]),      h('div',{style:{display:'flex',alignItems:'center',gap:'6px'}},[ h('div',{style:{fontSize:'12px',color:'var(--tx2)',fontWeight:'600'}},[p.sn]), h('div',{style:{background:'rgba(243,156,18,.18)',border:'1px solid rgba(243,156,18,.5)',borderRadius:'5px',padding:'2px 8px',fontSize:'12px',fontWeight:'900',color:'#f39c12',letterSpacing:'0.03em'}},['Wk'+G.wk+' · '+MON[G.mo-1]+' '+G.yr]), ]),    ]),    D('nlinks',[...NAVS.map(n=>h('button',{cls:'nb'+(UI.view===n.id?' on':''),onClick:()=>{UI.view=n.id;UI.fDetail=null;UI.evB=null;render();}},[n.i+' '+n.l]))]),    D('nright',[      D('ncash'+(fn.cash<2e6?' lo':''),[fm(fn.cash)]),      h('button',{cls:'advbtn',onClick:advWeek},['⏩ Advance Week']),      h('button',{cls:'setbtn',onClick:()=>{UI.setOpen=!UI.setOpen;render();},title:'Settings'},['⚙']),    ]),  ]);
   const wrap=document.createElement('div');
   wrap.appendChild(nav);
   wrap.appendChild(drawer);
